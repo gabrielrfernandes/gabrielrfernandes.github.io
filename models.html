@@ -1,0 +1,282 @@
+<!--
+*
+*  INSPINIA - Responsive Admin Theme
+*  version 2.7
+*
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>TAG.ME</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="wrapper">
+    <!-- Aqui começa a barra lateral -->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <!-- Aqui fica o logo -->
+                    <li class="nav-header">
+                        <div style="text-align:center" class="dropdown profile-element">
+                            <span>
+                                <img alt="image" class="img-square" src="img/logo.png" width="100%" height="100%"/>
+                            </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear" style="text-align:center"> 
+                                    <span class="block m-t-xs"> <strong class="font-bold">TAG.ME - Taxonomic Assignment of Genetic Markers for Ecology</strong>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+            
+                    <!-- Aqui termina o logo -->
+
+                    <!-- -->
+                    <!-- -->
+                    <!-- -->
+                    <!-- Aqui começa os links da barra lateral -->
+                    <!-- -->
+                    <!-- -->
+
+                    <li>
+                        <a href="index.html"><i class="fa fa-home fa-2x"></i> <span class="nav-label">Home</span></a>
+                    </li>
+                    <li class="active">
+                        <a href="models.html"><i class="fa fa-database fa-2x"></i> <span class="nav-label">Models</span></a>
+                    </li>
+                    <li>
+                        <a href="package.html"><i class="fa fa-file-code-o fa-2x"></i> <span class="nav-label">Package</span></a>
+                    </li>
+                    <li>
+                        <a href="tutorials.html"><i class="fa fa-graduation-cap fa-2x"></i> <span class="nav-label">Tutorials</span>   <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="mailbox.html">Inbox</a></li>
+                            <li><a href="mail_detail.html">Email view</a></li>
+                            <li><a href="mail_compose.html">Compose email</a></li>
+                            <li><a href="email_template.html">Email templates</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="contact.html"><i class="fa fa-envelope-o fa-2x"></i> <span class="nav-label">Contact</span></a>
+                    </li>            
+
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- -->
+        <!-- -->
+        <!-- Aqui termina a barra lateral -->
+        <!-- -->
+        <!-- -->
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            
+            <!-- -->
+            <!-- -->
+            <!-- Aqui é a barrinha que fecha as barras laterais -->
+            <!-- -->
+            <!-- -->
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                </nav>
+            </div>
+            <!-- -->
+            <!-- -->
+            <!-- Aqui termina a barra -->
+            <!-- -->
+            <!-- -->
+            
+            <!-- -->
+            <!-- -->
+            <!-- Aqui começa o texto -->
+            <!-- -->
+            <!-- -->
+            
+            <!-- Primeira linha -->
+            <div class="row  border-bottom white-bg dashboard-header">
+                
+                <div class="col-md-12">
+                    <h2>Models for 16s rRNA gene</h2>
+                    <p><br></p>
+                    <span>
+                        <img alt="image" class="img-square" src="img/amplicons.svg" width="100%" height="100%"/>
+                    </span>
+
+                </div>
+                
+            </div>
+            <!-- Fim da primeira linha -->
+            
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="wrapper wrapper-content">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h3>Request your models</h3>
+                                        <small>Sequence in FASTA format</small>
+                                        <div class="ibox-tools">
+                                            <a class="collapse-link">
+                                                <i class="fa fa-chevron-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <p>By now, the models request is available only for 16s rRNA gene.</p>
+                                        <form role="form" method="POST" action="http://formspree.io/tagme.helpme@gmail.com">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="email" placeholder="Enter email" class="form-control" id="email" name="email">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Primers</label>
+                                                <textarea placeholder="Primer Sequences" class="form-control" rows="3" id="primers" name="primers"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="btn btn-sm btn-primary" type="submit"><strong>Submit</strong></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="col-lg-8">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>Download Models</h5>
+                                        <div class="ibox-tools">
+                                            <span class="label label-warning-light pull-right">3 Models</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="ibox-content">
+
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Gene</th>
+                                                        <th>Region</th>
+                                                        <th>Forward</th>
+                                                        <th>Reverse</th>
+                                                        <th>Length</th>
+                                                        <th>Download</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>16s rRNA</td>
+                                                        <td>V4</td>
+                                                        <td>515F</td>
+                                                        <td>806R</td>
+                                                        <td>~290</td>
+                                                        <td align="center"><a href="http://mandi.minas.fiocruz.br/TAGME/models/515F-806R.tar.gz"><i class="fa fa-download"></i></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>16s rRNA</td>
+                                                        <td>V4-V5</td>
+                                                        <td>515F</td>
+                                                        <td>926R</td>
+                                                        <td>~410</td>
+                                                        <td align="center"><a href="http://mandi.minas.fiocruz.br/TAGME/models/515F-926R.tar.gz"><i class="fa fa-download"></i></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>16s rRNA</td>
+                                                        <td>V3-V4</td>
+                                                        <td>341F</td>
+                                                        <td>805R</td>
+                                                        <td>~465</td>
+                                                        <td align="center"><a href="http://mandi.minas.fiocruz.br/TAGME/models/341F-805R.tar.gz"><i class="fa fa-download"></i></a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div class="pull-right">
+                            10GB of <strong>250GB</strong> Free.
+                        </div>
+                        <div>
+                            <strong>Copyright</strong> Example Company &copy; 2014-2017
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>      
+        
+    </div>
+        
+    <!-- Mainly scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="js/plugins/dataTables/datatables.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+        });
+
+    </script>        
+
+
+</body>
+</html>

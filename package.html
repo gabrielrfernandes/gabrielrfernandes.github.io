@@ -1,0 +1,380 @@
+<!--
+*
+*  INSPINIA - Responsive Admin Theme
+*  version 2.7
+*
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>TAG.ME</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="wrapper">
+    <!-- Aqui começa a barra lateral -->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <!-- Aqui fica o logo -->
+                    <li class="nav-header">
+                        <div style="text-align:center" class="dropdown profile-element">
+                            <span>
+                                <img alt="image" class="img-square" src="img/logo.png" width="100%" height="100%"/>
+                            </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear" style="text-align:center"> 
+                                    <span class="block m-t-xs"> <strong class="font-bold">TAG.ME - Taxonomic Assignment of Genetic Markers for Ecology</strong>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+            
+                    <!-- Aqui termina o logo -->
+
+                    <!-- -->
+                    <!-- -->
+                    <!-- -->
+                    <!-- Aqui começa os links da barra lateral -->
+                    <!-- -->
+                    <!-- -->
+
+                    <li class="active">
+                        <a href="index.html"><i class="fa fa-home fa-2x"></i> <span class="nav-label">Home</span></a>
+                    </li>
+                    <li>
+                        <a href="models.html"><i class="fa fa-database fa-2x"></i> <span class="nav-label">Models</span></a>
+                    </li>
+                    <li>
+                        <a href="package.html"><i class="fa fa-file-code-o fa-2x"></i> <span class="nav-label">Package</span></a>
+                    </li>
+                    <li>
+                        <a href="tutorials.html"><i class="fa fa-graduation-cap fa-2x"></i> <span class="nav-label">Tutorials</span>   <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="mailbox.html">Inbox</a></li>
+                            <li><a href="mail_detail.html">Email view</a></li>
+                            <li><a href="mail_compose.html">Compose email</a></li>
+                            <li><a href="email_template.html">Email templates</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="contact.html"><i class="fa fa-envelope-o fa-2x"></i> <span class="nav-label">Contact</span></a>
+                    </li>            
+
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- -->
+        <!-- -->
+        <!-- Aqui termina a barra lateral -->
+        <!-- -->
+        <!-- -->
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            
+            <!-- -->
+            <!-- -->
+            <!-- Aqui é a barrinha que fecha as barras laterais -->
+            <!-- -->
+            <!-- -->
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                </nav>
+            </div>
+            <!-- -->
+            <!-- -->
+            <!-- Aqui termina a barra -->
+            <!-- -->
+            <!-- -->
+            
+            <!-- -->
+            <!-- -->
+            <!-- Aqui começa o texto -->
+            <!-- -->
+            <!-- -->
+            
+            <!-- Primeira linha -->
+            <div class="row  border-bottom white-bg dashboard-header">
+
+                <div class="col-md-8">
+                    <h2>TAG.ME</h2>
+                    <small>Taxonomic Assignment of Genetic Markers for Ecology</small>
+
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h3>Prepare files</h3>
+                            <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <h4>Database construction</h4>
+                            <span>
+                                <p>Users can build their own databases to train their models.<br> It is necessary one FASTA file containing the Marker Genes sequence and one Taxonomic description for each sequence.<br><small>* Filter your files to keep only sequences with precise taxonomic assignment</small></p>
+                                <p>In this example we used Silva SSU database.</p>
+                                
+                                <ul>
+                                    <li>Download the lastest Silva release.</li>
+                                    <li>Format the taxonomic information.</li>
+                                    <li>Select only prokaryotes sequences.</li>
+                                    <li>Output:
+                                        <ul>
+                                            <li>Fasta file with prokaryotic sequences.</li>
+                                            <li>Taxonomic mapping to each sequence.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <p>This step is performed by a script: <code>perl createDB.pl</code></p>
+                            </span>
+                        </div>
+                        
+                        <div class="ibox-content">
+                            <h4>Generate Amplicons</h4>
+                            <p><strong>Requires:</strong></p>
+                            <pre class="language-">Bioperl
+Bowtie
+Vsearch</pre>
+                            <ul>
+                                <li>Generate amplicon based on selected primers.</li>
+                                <li>Dereplicate amplicons to keep unique sequences.</li>
+                                <li>Calculate the Last Common Ancestor for each cluster of sequences.</li>
+                                <li>Calculate the Tetra Nucleotide Frequencies for sequences.</li>
+                                <li>Filter informative dereplicated sequences based on LCA signature. For each taxonomic level (Domain, Phylum, Class, Order, Family, Genus, Specie), Excludes sequences containing:
+                                    <ul>
+                                        <li>unculture</li>
+                                        <li>unclassified</li>
+                                        <li>Unknow</li>
+                                        <li>incertae_sedis</li>
+                                        <li>Candidatus</li>
+                                        <li>Other imprecise classification</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p>This step is performed by a script: <code>perl createModel.pl</code></p>
+                            <p>Usage:</p>
+                            <pre class="language-">perl createModel.pl -pr &lt;primers.fasta&gt; -fa &lt;16sDB.fasta&gt; [options]
+    Options:
+    -o: Output directory to create the models. [default: .]
+    -t: Number of threads [default: 1]
+    -min: Minimum length of amplicon [default: 200]
+    -max: Maximum length of amplicon [default: 600]
+    -mm: Mismatches allowed in PCR [default: 3]
+</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h3>CrossFold Validation</h3>
+                            <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <h4>Defining parameters and calculating scores</h4>
+
+                            <p>For each taxon, cumulative variable importance (from 70% to 100%, by 10%), and class limit size (from 80 percentile to 100 percentile, by 5), calculate Sensibility, Specificity:</p>
+                            <ul>
+                                <li>Generate a default model to calculate the relative importance of each feature</li>
+                                <li>List the classes
+                                    <ul>
+                                        <li>40% randomly removed to create the NEGATIVE group</li>
+                                        <li>60% remainder create the POSITIVE group</li>
+                                    </ul>
+                                </li>
+                                <li>From the POSTIVE group
+                                    <ul>
+                                        <li>Randomly select 60% of points to create the TRAIN dataset</li>
+                                        <li>40% remainder create the TEST dataset.</li>
+                                    </ul>
+                                </li>
+                                <li>Repeat the procedure 20 times.</li>
+                                <li>Save one TXT file with the calculated Sensibility, Specificity, PPV and NPV for each time.</li>
+                                <li>The metrics are measured for each cutoff value of score, from 0.1 to 10, by 0.1.</li>
+                                <li>Score formula: <span class="katex">Score = log2 ( <sup>P(&alpha;)</sup> / <sub>P(&beta;)</sub> ) &times; P(&alpha;)</span>, where:
+                                    <ul>
+                                        <li><span class="katex">&alpha;</span> = Best prediction probability</li>
+                                        <li><span class="katex">&beta;</span> = Second best prediction probability.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p>This step is performed by the script:</p>
+                            <pre class="language-bash"><span class="token keyword">for</span> <span class="token function">v</span> <span class="token keyword">in</span> 70 80 90<span class="token punctuation">;</span>
+   <span class="token keyword">do</span> Rscript ParallelCross_SaveEach.R -v <span class="token variable">$v</span><span class="token punctuation">;</span>
+<span class="token keyword">done</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span> p <span class="token keyword">in</span> 0.85 0.9 1<span class="token punctuation">;</span>
+  <span class="token keyword">do</span> Rscript ParallelCross_SaveEach.R -v 80 -p <span class="token variable">$p</span><span class="token punctuation">;</span>
+<span class="token keyword">done</span><span class="token punctuation">;</span>
+</pre>
+                            <p><strong>Requires:</strong></p>
+                            <pre class="language-r">R
+library<span class="token punctuation">(</span>optparse<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>randomForest<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>doMC<span class="token punctuation">)</span>
+</pre>
+                        </div>
+                        
+                        <div class="ibox-content">
+                            <h4>Calculate Thresholds</h4>
+                            <p>Calculate the best values of:</p>
+                            <ul>
+                                <li>Number of features, and</li>
+                                <li>Maximum number of points per class,<br>
+                                    to build the model for each taxon.</li>
+                            </ul>
+                            <p>The number of features is estimated by the cumulative sum of the relative importance of each feature until it reaches the cutoff value: 70, 80, 90 and 100%.</p>
+                            <p>The maximum number of points is estimated by the distribution of &quot;points per class&quot; and limited to a percentile cutoff: 80, 85, 90, 95 and 100 percentiles.</p>
+                            <p>For each taxon, cumulative variance and percentile to limit number of points, takes each of the 20 files in &quot;outfiles&quot; folder and calculates the Area Under the Curve (AUC).</p>
+                            <p>Keeps increasing the values until there is no improvement in AUC values (t-test &lt; 0.05).</p>
+                            <p>Run script: <code>Rscript GenerateThreshold.R</code></p>
+                        </div>
+                        
+                        <div class="ibox-content">
+                            <h4>Calculate Specificity per Score cutoff</h4>
+                            <p>Perform 20 fold Cross Validation Model Construction, similar to the previous CrossFold test using the threshold values calculated in previous step.</p>
+                            <p>Generate tables for each taxon containing the Specificity of prediction for each Ratio cutoff value from 0.1 to 10.</p>
+                            <p>The input files are the importance variable for each taxon and the threshold.txt calculated.</p>
+                            <p>The output are TXT files containing the cutoff values. This file will be used as input for the prediction step.</p>
+                            <p>Command line: <code>Rscript ParallelCross.R</code></p>
+                        </div>
+                    </div>
+                        
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h3>Create Models</h3>
+                            <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                            </div>
+                        </div>
+                        
+                        <div class="ibox-content">
+                            <h3>Create Models</h3>
+
+                            <p>Builds the model for each taxon, utilizing the thresholds previously calculated and the frequency tables. The output are RDS files that will be used to predict the taxonomy.</p>
+                            <p>Command line: <code>Rscript CreateModel.R</code></p>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="col-md-4" style="text-align:center">
+                    <h2>Build your own models</h2>
+                    <p>You can download the Perl and Rscripts <a href="link.tar.gz">here</a>.</p>
+                    <span>
+                        <img alt="image" class="img-square" src="img/workflow.png" width="100%" height="100%"/>
+                    </span>
+                    <p></p>
+                    <br>
+                    <h3>or...</h3>
+                    <br>
+                    <h2>Download prebuilt models</h2>
+                    <p>Download <a href="models.html">here</a> the models for the most used primers combination.</p>
+                    <br>
+                    <h3>or...</h3>
+                    <br>
+                    <h2>Request your models</h2>
+                    <p>Request <a href="contact.html">here</a> the models for the pair of primers used in your experiments.</p>
+                </div>
+                
+            </div>
+            <!-- Fim da primeira linha -->
+            
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="wrapper wrapper-content">
+                        
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div class="footer">
+                        <div class="pull-right">
+                            10GB of <strong>250GB</strong> Free.
+                        </div>
+                        <div>
+                            <strong>Copyright</strong> Example Company &copy; 2014-2017
+                        </div>
+                    </div>
+                    <!-- Fim fo Footer -->
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Flot -->
+    <script src="js/plugins/flot/jquery.flot.js"></script>
+    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="js/plugins/flot/jquery.flot.spline.js"></script>
+    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+
+    <!-- Peity -->
+    <script src="js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="js/demo/peity-demo.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- jQuery UI -->
+    <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- GITTER -->
+    <script src="js/plugins/gritter/jquery.gritter.min.js"></script>
+
+    <!-- Sparkline -->
+    <script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Sparkline demo data  -->
+    <script src="js/demo/sparkline-demo.js"></script>
+
+    <!-- ChartJS-->
+    <script src="js/plugins/chartJs/Chart.min.js"></script>
+
+    <!-- Toastr -->
+    <script src="js/plugins/toastr/toastr.min.js"></script>
+
+
+    
+</body>
+</html>
