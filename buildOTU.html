@@ -130,7 +130,7 @@
 <p>This tutorial describes how to produce OTUs and an abudance table from the raw sequenced reads.</p>
 <h2 class="mume-header" id="download-reads">Download reads</h2>
 
-<p>The raw data are those used in <a href="http://www.mothur.org/wiki/MiSeq_SOP">Mothur Miseq SOP</a>.</p>
+<p>The raw data are those used in <a href="http://www.mothur.org/wiki/MiSeq_SOP" target="_blank">Mothur Miseq SOP</a>.</p>
 <pre class="language-bash"><span class="token function">wget</span> http://www.mothur.org/w/images/d/d6/MiSeqSOPData.zip
 unzip MiSeqSOPData.zip
 </pre>
@@ -143,11 +143,11 @@ unzip MiSeqSOPData.zip
 </ul>
 <p>Install:</p>
 <ul>
-<li><code>vsearch</code> - <a href="https://github.com/torognes/vsearch">Github link</a> [10.7717/peerj.2584]</li>
-<li><code>biom</code> - <a href="http://biom-format.org">Installation instructions</a> [10.1186/2047-217X-1-7]</li>
-<li><code>trimmomatic</code> - <a href="http://www.usadellab.org/cms/?page=trimmomatic">Installation instructions</a> [10.1093/bioinformatics/btu170]</li>
-<li><code>flash</code> - <a href="https://github.com/dstreett/FLASH2">Github link</a> [10.1093/bioinformatics/btr507]</li>
-<li><code>bioperl</code> - <a href="http://bioperl.org/INSTALL.html">Installation instructions</a></li>
+<li><code>vsearch</code> - <a href="https://github.com/torognes/vsearch" target="_blank">Github link</a> [10.7717/peerj.2584]</li>
+<li><code>biom</code> - <a href="http://biom-format.org" target="_blank">Installation instructions</a> [10.1186/2047-217X-1-7]</li>
+<li><code>trimmomatic</code> - <a href="http://www.usadellab.org/cms/?page=trimmomatic" target="_blank">Installation instructions</a> [10.1093/bioinformatics/btu170]</li>
+<li><code>flash</code> - <a href="https://github.com/dstreett/FLASH2" target="_blank">Github link</a> [10.1093/bioinformatics/btr507]</li>
+<li><code>bioperl</code> - <a href="http://bioperl.org/INSTALL.html" target="_blank">Installation instructions</a></li>
 </ul>
 <pre class="language-bash"><span class="token function">ls</span> MiSeq_SOP/* <span class="token operator">|</span> <span class="token function">cut</span> -d <span class="token string">"/"</span> -f2 <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"_R1_"</span> <span class="token operator">></span> file.list
 VSEARCH<span class="token operator">=</span>/path/to/your/vsearch
