@@ -70,12 +70,11 @@
                         <a href="package.html"><i class="fa fa-file-code-o fa-2x"></i> <span class="nav-label">Package</span></a>
                     </li>
                     <li>
-                        <a href="tutorials.html"><i class="fa fa-graduation-cap fa-2x"></i> <span class="nav-label">Tutorials</span>   <span class="fa arrow"></span></a>
+                        <a href=""><i class="fa fa-graduation-cap fa-2x"></i> <span class="nav-label">Tutorials</span>   <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="mailbox.html">Inbox</a></li>
-                            <li><a href="mail_detail.html">Email view</a></li>
-                            <li><a href="mail_compose.html">Compose email</a></li>
-                            <li><a href="email_template.html">Email templates</a></li>
+                            <li><a href="fromASVfasta.html">Assign Taxonomy from FASTA file</a></li>
+                            <li><a href="fromseqtab.html">Assign Taxonomy from Dada2 Seqtab</a></li>
+                            <li><a href="buildOTU.html">Build OTUs and assign taxonomy</a></li>
                         </ul>
                     </li>
                     <li>
@@ -102,7 +101,7 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"> <strong>Collapse/Show side bar</strong></i> </a>
                     </div>
                 </nav>
             </div>
@@ -138,38 +137,8 @@
                 <div class="col-lg-12">
                     <div class="wrapper wrapper-content">
                         <div class="row">
-                            <div class="col-lg-4">
-                                <div class="ibox float-e-margins">
-                                    <div class="ibox-title">
-                                        <h3>Request your models</h3>
-                                        <small>Sequence in FASTA format</small>
-                                        <div class="ibox-tools">
-                                            <a class="collapse-link">
-                                                <i class="fa fa-chevron-up"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <p>By now, the models request is available only for 16s rRNA gene.</p>
-                                        <form role="form" method="POST" action="http://formspree.io/tagme.helpme@gmail.com">
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <input type="email" placeholder="Enter email" class="form-control" id="email" name="email">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Primers</label>
-                                                <textarea placeholder="Primer Sequences" class="form-control" rows="3" id="primers" name="primers"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <button class="btn btn-sm btn-primary" type="submit"><strong>Submit</strong></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
                             
-                            
-                            <div class="col-lg-8">
+                            <div class="col-lg-12">
                                 <div class="ibox float-e-margins">
                                     <div class="ibox-title">
                                         <h5>Download Models</h5>
@@ -187,7 +156,9 @@
                                                         <th>Gene</th>
                                                         <th>Region</th>
                                                         <th>Forward</th>
+                                                        <th>Forward seq</th>
                                                         <th>Reverse</th>
+                                                        <th>Reverse Seq</th>
                                                         <th>Length</th>
                                                         <th>Download</th>
                                                     </tr>
@@ -197,7 +168,9 @@
                                                         <td>16s rRNA</td>
                                                         <td>V4</td>
                                                         <td>515F</td>
+                                                        <td>GTGYCAGCMGCCGCGGTAA</td>
                                                         <td>806R</td>
+                                                        <td>GGACTACNVGGGTWTCTAAT</td>
                                                         <td>~290</td>
                                                         <td align="center"><a href="http://mandi.minas.fiocruz.br/TAGME/models/515F-806R.tar.gz"><i class="fa fa-download"></i></a></td>
                                                     </tr>
@@ -205,7 +178,9 @@
                                                         <td>16s rRNA</td>
                                                         <td>V4-V5</td>
                                                         <td>515F</td>
+                                                        <td>GTGYCAGCMGCCGCGGTAA</td>
                                                         <td>926R</td>
+                                                        <td>CCGYCAATTCMTTTRAGTTT</td>
                                                         <td>~410</td>
                                                         <td align="center"><a href="http://mandi.minas.fiocruz.br/TAGME/models/515F-926R.tar.gz"><i class="fa fa-download"></i></a></td>
                                                     </tr>
@@ -213,7 +188,9 @@
                                                         <td>16s rRNA</td>
                                                         <td>V3-V4</td>
                                                         <td>341F</td>
+                                                        <td>CCTACGGGNGGCWGCAG</td>
                                                         <td>805R</td>
+                                                        <td>GACTACHVGGGTATCTAATCC</td>
                                                         <td>~465</td>
                                                         <td align="center"><a href="http://mandi.minas.fiocruz.br/TAGME/models/341F-805R.tar.gz"><i class="fa fa-download"></i></a></td>
                                                     </tr>
@@ -225,12 +202,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="footer">
-                        <div class="pull-right">
-                            10GB of <strong>250GB</strong> Free.
-                        </div>
-                        <div>
-                            <strong>Copyright</strong> Example Company &copy; 2014-2017
+                    
+                    
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="wrapper wrapper-content">
+                            </div>
+                            <div class="footer">
+                                <div class="pull-right">
+                                    <img alt="image" class="img-square" src="img/Brazil.png" width="50%" height="50%"/>
+                                </div>
+                                <div>
+                                    <a href="http://minas.fiocruz.br" target="_blank"><img alt="image" class="img-square" src="img/fiocruz.png" width="11%" height="11%"/></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

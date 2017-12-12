@@ -1,0 +1,378 @@
+<!--
+*
+*  INSPINIA - Responsive Admin Theme
+*  version 2.7
+*
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>TAG.ME</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="wrapper">
+    <!-- Aqui começa a barra lateral -->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <!-- Aqui fica o logo -->
+                    <li class="nav-header">
+                        <div style="text-align:center" class="dropdown profile-element">
+                            <span>
+                                <img alt="image" class="img-square" src="img/logo.png" width="100%" height="100%"/>
+                            </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear" style="text-align:center"> 
+                                    <span class="block m-t-xs"> <strong class="font-bold">TAG.ME - Taxonomic Assignment of Genetic Markers for Ecology</strong>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+            
+                    <!-- Aqui termina o logo -->
+
+                    <!-- -->
+                    <!-- -->
+                    <!-- -->
+                    <!-- Aqui começa os links da barra lateral -->
+                    <!-- -->
+                    <!-- -->
+
+                    <li>
+                        <a href="index.html"><i class="fa fa-home fa-2x"></i> <span class="nav-label">Home</span></a>
+                    </li>
+                    <li>
+                        <a href="models.html"><i class="fa fa-database fa-2x"></i> <span class="nav-label">Models</span></a>
+                    </li>
+                    <li>
+                        <a href="package.html"><i class="fa fa-file-code-o fa-2x"></i> <span class="nav-label">Package</span></a>
+                    </li>
+                    <li class="active">
+                        <a href=""><i class="fa fa-graduation-cap fa-2x"></i> <span class="nav-label">Tutorials</span>   <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="fromASVfasta.html">Assign Taxonomy from FASTA file</a></li>
+                            <li><a href="fromseqtab.html">Assign Taxonomy from Dada2 Seqtab</a></li>
+                            <li><a href="buildOTU.html">Build OTUs and assign taxonomy</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="contact.html"><i class="fa fa-envelope-o fa-2x"></i> <span class="nav-label">Contact</span></a>
+                    </li>            
+
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- -->
+        <!-- -->
+        <!-- Aqui termina a barra lateral -->
+        <!-- -->
+        <!-- -->
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            
+            <!-- -->
+            <!-- -->
+            <!-- Aqui é a barrinha que fecha as barras laterais -->
+            <!-- -->
+            <!-- -->
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"> <strong>Collapse/Show side bar</strong></i> </a>
+                    </div>
+                </nav>
+            </div>
+            <!-- -->
+            <!-- -->
+            <!-- Aqui termina a barra -->
+            <!-- -->
+            <!-- -->
+            
+            <!-- -->
+            <!-- -->
+            <!-- Aqui começa o texto -->
+            <!-- -->
+            <!-- -->
+            
+            <!-- Primeira linha -->
+            <div class="row  border-bottom white-bg dashboard-header">
+                
+                <div class="col-md-12">
+                    <h2>Create OTUs from raw FASTQ</h2>
+                   
+                    
+                    <!-- Inicio tutorial -->
+<hr>
+
+<p>This tutorial describes how to produce OTUs and an abudance table from the raw sequenced reads.</p>
+<h2 class="mume-header" id="download-reads">Download reads</h2>
+
+<p>The raw data are those used in <a href="http://www.mothur.org/wiki/MiSeq_SOP">Mothur Miseq SOP</a>.</p>
+<pre class="language-bash"><span class="token function">wget</span> http://www.mothur.org/w/images/d/d6/MiSeqSOPData.zip
+unzip MiSeqSOPData.zip
+</pre>
+<h2 class="mume-header" id="set-environment">Set environment</h2>
+
+<p>To automate this tutorial we suggest to set an environment that includes:</p>
+<ul>
+<li>defining the list of files to be processed.</li>
+<li>create aliases to the necessary tools.</li>
+</ul>
+<p>Install:</p>
+<ul>
+<li><code>vsearch</code> - <a href="https://github.com/torognes/vsearch">Github link</a> [10.7717/peerj.2584]</li>
+<li><code>biom</code> - <a href="http://biom-format.org">Installation instructions</a> [10.1186/2047-217X-1-7]</li>
+<li><code>trimmomatic</code> - <a href="http://www.usadellab.org/cms/?page=trimmomatic">Installation instructions</a> [10.1093/bioinformatics/btu170]</li>
+<li><code>flash</code> - <a href="https://github.com/dstreett/FLASH2">Github link</a> [10.1093/bioinformatics/btr507]</li>
+<li><code>bioperl</code> - <a href="http://bioperl.org/INSTALL.html">Installation instructions</a></li>
+</ul>
+<pre class="language-bash"><span class="token function">ls</span> MiSeq_SOP/* <span class="token operator">|</span> <span class="token function">cut</span> -d <span class="token string">"/"</span> -f2 <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"_R1_"</span> <span class="token operator">></span> file.list
+VSEARCH<span class="token operator">=</span>/path/to/your/vsearch
+BIOM<span class="token operator">=</span>/path/to/your/biom
+</pre>
+<h2 class="mume-header" id="run-quality-trimming">Run quality trimming</h2>
+
+<p>Trim reads to remove low quality regions.<br>
+Create a perl script [auto_trim.pl] containing the code below.<br>
+Edit parameters in the script:</p>
+<ul>
+<li><code>-threads</code> - Number of CPUs to use.</li>
+<li><code>TRAILING:5</code> - Trim the 3' region until reaches the Phred score of 5.</li>
+<li><code>LEADING:5</code> - Trim the 5' region until reaches the Phred score of 5.</li>
+<li><code>SLIDINGWINDOW:4:15</code> - Slide a window of size 4. Inside the window the mean Phred quality must to be 15 or more. If not, trim the read at that point.</li>
+<li><code>MINLEN:130</code> - Drop trimmed reads smaller than 130 bases.</li>
+</ul>
+<pre class="language-perl"><span class="token comment" spellcheck="true">#!/usr/bin/perl</span>
+
+<span class="token keyword">use</span> strict<span class="token punctuation">;</span>
+<span class="token keyword">use</span> warnings<span class="token punctuation">;</span>
+
+system<span class="token punctuation">(</span><span class="token string">"mkdir trimmed"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+system<span class="token punctuation">(</span><span class="token string">"mkdir logs"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">my</span> <span class="token variable">$run</span> <span class="token operator">=</span> <span class="token variable">$ARGV</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+open LIST<span class="token punctuation">,</span> <span class="token variable">$ARGV</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">while</span><span class="token punctuation">(</span><span class="token filehandle symbol">&lt;LIST></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        chomp<span class="token punctuation">;</span>
+        <span class="token keyword">my</span> <span class="token variable">$base</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$_</span> <span class="token operator">=~</span> <span class="token regex">/(.*)_R1_/</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token variable">$base</span> <span class="token operator">=</span> <span class="token variable">$1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">my</span> <span class="token variable">$out</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$base</span> <span class="token operator">=~</span> <span class="token regex">/(.*)_S\d+/</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token variable">$out</span> <span class="token operator">=</span> <span class="token variable">$1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        system <span class="token string">"java -jar $run PE -threads 10 -phred33 MiSeq_SOP/$base\_R1_001.fastq MiSeq_SOP/$base\_R2_001.fastq trimmed/$out.paired.1.fastq trimmed/$out.single.1.fastq trimmed/$out.paired.2.fastq trimmed/$out.single.2.fastq TRAILING:5 LEADING:5 SLIDINGWINDOW:4:15 MINLEN:130 2> logs/$out.trim.log"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+close LIST<span class="token punctuation">;</span>
+</pre>
+<p>Save the script and run it. The parameters are:</p>
+<ul>
+<li>the file.list containg the files names (generated in &quot;Set environment&quot; section)</li>
+<li>the path to the trimmomatic jar file.</li>
+</ul>
+<pre class="language-bash">perl auto_trim.pl file.list /path/to/your/trimmomatic.jar
+</pre>
+<h2 class="mume-header" id="run-reads-merging">Run reads merging</h2>
+
+<p>Merge overlapping reads to create a contiguous sequence that represents the whole amplicon.<br>
+Create a script [auto_merge.pl], paste the code below and edit parameters.</p>
+<ul>
+<li><code>-m</code> - Minimum overlap length</li>
+<li><code>-M</code> - Maximum overlap length</li>
+<li><code>-x</code> - Mismatches rate in overlapping region</li>
+</ul>
+<pre class="language-perl"><span class="token comment" spellcheck="true">#!/usr/bin/perl</span>
+
+<span class="token keyword">use</span> strict<span class="token punctuation">;</span>
+<span class="token keyword">use</span> warnings<span class="token punctuation">;</span>
+
+system<span class="token punctuation">(</span><span class="token string">"mkdir merged"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">my</span> <span class="token variable">$run</span> <span class="token operator">=</span> <span class="token variable">$ARGV</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+open LIST<span class="token punctuation">,</span> <span class="token variable">$ARGV</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">while</span><span class="token punctuation">(</span><span class="token filehandle symbol">&lt;LIST></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        chomp<span class="token punctuation">;</span>
+        <span class="token keyword">my</span> <span class="token variable">$base</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$_</span> <span class="token operator">=~</span> <span class="token regex">/(.*)_R1_/</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token variable">$base</span> <span class="token operator">=</span> <span class="token variable">$1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">my</span> <span class="token variable">$out</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$base</span> <span class="token operator">=~</span> <span class="token regex">/(.*)_S\d+/</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token variable">$out</span> <span class="token operator">=</span> <span class="token variable">$1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        system <span class="token string">"$run -t 40 -m 20 -M 150 -x 0.15 trimmed/$out.paired.1.fastq trimmed/$out.paired.2.fastq -o merged/$out > logs/$out.flash.log"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre>
+<p>Run the script as the same way as in previous step.</p>
+<pre class="language-bash">perl auto_merge.pl file.list /path/to/your/flash
+<span class="token function">grep</span> <span class="token string">"Combined pairs:"</span> logs/* <span class="token operator">|</span> <span class="token function">cut</span> -d <span class="token string">":"</span> -f1,3 <span class="token operator">|</span> <span class="token function">sed</span> -e <span class="token string">'s/logs\///g'</span>
+</pre>
+<h2 class="mume-header" id="generate-formatted-fasta">Generate formatted FASTA</h2>
+
+<p>The script below converts the FASTQ files to one FASTA file, and formats the header to convert the mapping to OTU table in future steps.<br>
+Create a script [generate_fasta.pl], and paste the code below.</p>
+<pre class="language-perl"><span class="token comment" spellcheck="true">#!/usr/bin/perl</span>
+
+<span class="token keyword">use</span> strict<span class="token punctuation">;</span>
+<span class="token keyword">use</span> warnings<span class="token punctuation">;</span>
+<span class="token keyword">use</span> Bio<span class="token punctuation">:</span><span class="token punctuation">:</span>SeqIO<span class="token punctuation">;</span>
+
+open OUTFASTA<span class="token punctuation">,</span> <span class="token string">">all_seqs.fasta"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token filehandle symbol">&lt;></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        chomp<span class="token punctuation">;</span>
+        <span class="token keyword">my</span> <span class="token variable">$base</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$_</span> <span class="token operator">=~</span> <span class="token regex">/(.*)_R1_/</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token variable">$base</span> <span class="token operator">=</span> <span class="token variable">$1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">my</span> <span class="token variable">$out</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$base</span> <span class="token operator">=~</span> <span class="token regex">/(.*)_S\d+/</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token variable">$out</span> <span class="token operator">=</span> <span class="token variable">$1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+	<span class="token keyword">my</span> <span class="token variable">$seqio_obj</span> <span class="token operator">=</span> Bio<span class="token punctuation">:</span><span class="token punctuation">:</span>SeqIO<span class="token operator">-></span>new<span class="token punctuation">(</span><span class="token operator">-</span>file <span class="token operator">=></span> <span class="token string">"merged/$out.extendedFrags.fastq"</span><span class="token punctuation">,</span>
+                             <span class="token operator">-</span>format <span class="token operator">=></span> <span class="token string">"fastq"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">my</span> <span class="token variable">$count</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token keyword">my</span> <span class="token variable">$seq_obj</span> <span class="token operator">=</span> <span class="token variable">$seqio_obj</span><span class="token operator">-></span>next_seq <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">my</span> <span class="token variable">$seq</span> <span class="token operator">=</span>  <span class="token variable">$seq_obj</span><span class="token operator">-></span>seq<span class="token punctuation">;</span>
+        	<span class="token keyword">print</span> OUTFASTA <span class="token string">">$out\_$count;barcodelabel=$out\n"</span><span class="token operator">.</span><span class="token variable">$seq</span><span class="token operator">.</span><span class="token string">"\n"</span><span class="token punctuation">;</span>
+		<span class="token variable">$count</span><span class="token operator">++</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+close OUTFASTA<span class="token punctuation">;</span>
+</pre>
+<p>Run the command to generate the <code>all_seqs.fasta</code> file.</p>
+<pre class="language-bash">perl generate_fasta.pl file.list
+</pre>
+<h2 class="mume-header" id="dereplicate">Dereplicate</h2>
+
+<p>Select unique sequences that are represented at least by 2 reads.</p>
+<pre class="language-bash"><span class="token variable">$VSEARCH</span> --derep_fulllength all_seqs.fasta --minuniquesize 2 --output derep.fasta
+</pre>
+<h2 class="mume-header" id="create-otus">Create OTUs</h2>
+
+<p>At this point, there are two alternatives:</p>
+<ul>
+<li>Map the reads to the unique dereplicated sequences. It can be considered as a 97% identity mapping to 100% OTU clusters.</li>
+<li>Create OTU clusters from dereplicated sequences. And map all reads to the OTU sequences to quantify them.</li>
+</ul>
+<h3 class="mume-header" id="map-to-dereplicated-sequences">Map to dereplicated sequences</h3>
+
+<pre class="language-bash"><span class="token variable">$VSEARCH</span> --usearch_global all_seqs.fasta --db derep.fasta --id 0.97 --uc map.uc --relabel_sha1 --relabel_keep
+</pre>
+<h3 class="mume-header" id="create-97-otu-clusters">Create 97% OTU clusters</h3>
+
+<pre class="language-bash"><span class="token variable">$VSEARCH</span>  --cluster_fast derep.fasta --id 0.97 --centroids otu97.fasta
+<span class="token variable">$VSEARCH</span> --usearch_global all_seqs.fasta --db otu97.fasta --id 0.97 --uc map.uc --relabel_sha1 --relabel_keep
+</pre>
+<h2 class="mume-header" id="create-biom-and-otu-count-table">Create BIOM and OTU Count Table</h2>
+
+<p>Convert the UC mapping file to a BIOM file, and then to a Table Separated Values OTU file.</p>
+<pre class="language-bash"><span class="token variable">$BIOM</span> from-uc -i map.uc -o otu_table.biom
+<span class="token variable">$BIOM</span> convert -i otu_table.biom -o otu_table.txt --to-tsv
+</pre>
+<hr>
+                    
+                    <!-- Fim tutorial -->
+                </div>
+                
+            </div>
+            <!-- Fim da primeira linha -->
+            
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="wrapper wrapper-content">
+                        
+                    </div>
+                    <div class="footer">
+                        <div class="pull-right">
+                            <img alt="image" class="img-square" src="img/Brazil.png" width="50%" height="50%"/>
+                        </div>
+                        <div>
+                            <a href="http://minas.fiocruz.br" target="_blank"><img alt="image" class="img-square" src="img/fiocruz.png" width="11%" height="11%"/></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>      
+        
+    </div>
+        
+    <!-- Mainly scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="js/plugins/dataTables/datatables.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+        });
+
+    </script>        
+
+
+</body>
+</html>
