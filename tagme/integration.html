@@ -1,0 +1,326 @@
+<!--
+*
+*  INSPINIA - Responsive Admin Theme
+*  version 2.7
+*
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112504752-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-112504752-1');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>TAG.ME</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="wrapper">
+    <!-- Aqui começa a barra lateral -->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <!-- Aqui fica o logo -->
+                    <li class="nav-header">
+                        <div style="text-align:center" class="dropdown profile-element">
+                            <span>
+                                <img alt="image" class="img-square" src="img/logo.png" width="100%" height="100%"/>
+                            </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear" style="text-align:center">
+                                    <span class="block m-t-xs"> <strong class="font-bold">TAG.ME - Taxonomic Assignment of Genetic Markers for Ecology</strong>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Aqui termina o logo -->
+
+                    <!-- -->
+                    <!-- -->
+                    <!-- -->
+                    <!-- Aqui começa os links da barra lateral -->
+                    <!-- -->
+                    <!-- -->
+
+                    <li>
+                        <a href="index.html"><i class="fa fa-home fa-2x"></i> <span class="nav-label">Home</span></a>
+                    </li>
+                    <li>
+                        <a href="models.html"><i class="fa fa-database fa-2x"></i> <span class="nav-label">Models</span></a>
+                    </li>
+                    <li>
+                        <a href="package.html"><i class="fa fa-file-code-o fa-2x"></i> <span class="nav-label">Package</span></a>
+                    </li>
+                    <li class="active">
+                        <a href=""><i class="fa fa-graduation-cap fa-2x"></i> <span class="nav-label">Tutorials</span>   <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="fromASVfasta.html">Assign Taxonomy from FASTA file</a></li>
+                            <li><a href="fromseqtab.html">Assign Taxonomy from DADA2 Seqtab</a></li>
+                            <li><a href="buildOTU.html">Build OTUs and assign taxonomy</a></li>
+                            <li><a href="integration.html">Integrate DADA2, TAG.ME and Phyloseq</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="contact.html"><i class="fa fa-envelope-o fa-2x"></i> <span class="nav-label">Contact</span></a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+        <!-- -->
+        <!-- -->
+        <!-- Aqui termina a barra lateral -->
+        <!-- -->
+        <!-- -->
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+
+            <!-- -->
+            <!-- -->
+            <!-- Aqui é a barrinha que fecha as barras laterais -->
+            <!-- -->
+            <!-- -->
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"> <strong>Collapse/Show side bar</strong></i> </a>
+                    </div>
+                </nav>
+            </div>
+            <!-- -->
+            <!-- -->
+            <!-- Aqui termina a barra -->
+            <!-- -->
+            <!-- -->
+
+            <!-- -->
+            <!-- -->
+            <!-- Aqui começa o texto -->
+            <!-- -->
+            <!-- -->
+
+            <!-- Primeira linha -->
+            <div class="row  border-bottom white-bg dashboard-header">
+
+                <div class="col-md-12">
+                    <h2>Integrate DADA2, TAG.ME and Phyloseq</h2>
+                    <p><br></p>
+
+                    <!-- Inicio tutorial -->
+                    <hr>
+<h3 class="mume-header" id="data-description-1">Data description</h3>
+
+<p>The data used for this tutorial are the output of the <a target="_blank" href="https://benjjneb.github.io/dada2/tutorial.html">DADA2 Tutorial</a>. The raw data are those used in <a href="http://www.mothur.org/wiki/MiSeq_SOP">Mothur Miseq SOP</a>, and the pipeline produces a <code>seqtab.nochim</code> table that will be used in this tutorial. The aim is to show how to integrade DADA2, TAG.ME and Phyloseq. Phyloseq is an R package to explore and analyze microbiomes. More information about how to use and install Phyloseq can be found in the web page: <a target="_blank" href="https://joey711.github.io/phyloseq/">https://joey711.github.io/phyloseq/</a></p>
+<p>The examples file consists of:</p>
+<ul>
+<li><code>ASVs.fasta</code> - Unique sequences produced by DADA2 pipeline</li>
+<li><code>otu_table.txt</code> - OTU table generated from BIOM file. This kind of file can be produced by pipelines such as Qiime or Vsearch.</li>
+<li><code>seqtab.nochim.R</code> - The R variable containing the final table of DADA2 pipeline.</li>
+</ul>
+<h4 class="mume-header" id="download-files-1">Download files</h4>
+
+<ul>
+<li>Download example files:
+<ul>
+<li><a href="http://mandi.minas.fiocruz.br/TAGME/examples/examples.tar.gz">Link</a>, or</li>
+<li>Command line:</li>
+</ul>
+</li>
+</ul>
+<pre class="language-bash"><span class="token function">wget</span> http://mandi.minas.fiocruz.br/TAGME/examples/examples.tar.gz
+</pre>
+<ul>
+<li>Download models for the primers used in the article: 515F and 806R
+<ul>
+<li><a href="http://mandi.minas.fiocruz.br/TAGME/models/515F-806R.tar.gz">Link</a>, or</li>
+<li>Command line:</li>
+</ul>
+</li>
+</ul>
+<pre class="language-bash"><span class="token function">wget</span> http://mandi.minas.fiocruz.br/TAGME/models/515F-806R.tar.gz
+</pre>
+<ul>
+<li>Uncompress files:</li>
+</ul>
+<pre class="language-bash"><span class="token function">tar</span> -zvxf examples.tar.gz
+<span class="token function">tar</span> -zvxf 515F-806R.tar.gz
+</pre>
+<hr>
+<h4 class="mume-header" id="r-environment-1">R environment</h4>
+
+<p>The next steps are performed into R environment, that includes Rstudio.</p>
+<ul>
+<li>Load library</li>
+</ul>
+<pre class="language-bash"><span class="token function">library(dada2)
+<span class="token function"></span>library(phyloseq)
+</pre>
+<h5 class="mume-header" id="taxonomic-classification-1">Taxonomic classification</h5>
+
+<ul>
+<li>Run taxonomic prediction with parameters:
+<ul>
+<li><code>seqtab = seqtab.nochim</code>, is the FASTA file containing the ASVs, OTUs or Unique sequences to be classified.</li>
+<li><code>db = &quot;515F-806R/&quot;</code>, is the directory containing the downloaded RDS and TXT files.</li>
+<li><code>specificity = 0.8</code>, is the DEFAULT value that uses the Score cutoff corresponding to 80% specificity</li>
+<li><code>batch = 50000</code>, is the DEFAULT value limiting the number of assigned sequences per batch. Lower values consume less memory.</li>
+</ul>
+</li>
+</ul>
+<pre class="language-R"><span class="token operator">></span> library<span class="token punctuation">(</span>tagme<span class="token punctuation">)</span>
+<span class="token operator">></span> load<span class="token punctuation">(</span><span class="token string">"examples/seqtab.nochim.R"</span><span class="token punctuation">)</span>
+<span class="token operator">></span> taxonomy <span class="token operator">=</span> tagmeFromDADA2<span class="token punctuation">(</span>seqtab <span class="token operator">=</span> seqtab.nochim<span class="token punctuation">,</span> db <span class="token operator">=</span> <span class="token string">"515F-806R/"</span><span class="token punctuation">)</span>
+Loading required package<span class="token operator">:</span> randomForest
+randomForest <span class="token number">4.6</span><span class="token operator">-</span><span class="token number">12</span>
+Type rfNews<span class="token punctuation">(</span><span class="token punctuation">)</span> to see new features<span class="token operator">/</span>changes<span class="token operator">/</span>bug fixes.
+Loading required package<span class="token operator">:</span> seqinr
+Starting Species<span class="token ellipsis">...</span> <span class="token number">29</span>  assigned
+
+Starting Genus<span class="token ellipsis">...</span> <span class="token number">139</span>  assigned
+
+Starting Family<span class="token ellipsis">...</span> <span class="token number">201</span>  assigned
+
+Starting Order<span class="token ellipsis">...</span> <span class="token number">224</span>  assigned
+
+Starting Class<span class="token ellipsis">...</span> <span class="token number">227</span>  assigned
+
+Starting Phylum<span class="token ellipsis">...</span> <span class="token number">228</span>  assigned
+
+Starting Domain<span class="token ellipsis">...</span> <span class="token number">232</span>  assigned
+
+Printing Unassigned<span class="token ellipsis">...</span>
+</pre><p>The taxonomic classification contains information about each rank: Domain, Phylum, Class, Order, Family, Genus, and Species.</p>
+<pre data-role="codeBlock" data-info="R" class="language-r">seqID <span class="token operator">|</span>Taxonomy                                                                                                                             <span class="token operator">|</span> Best<span class="token operator">|</span> Second<span class="token operator">|</span>     Ratio<span class="token operator">|</span>
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">|</span><span class="token operator">:</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">:</span><span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">:</span><span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">:</span><span class="token operator">|</span>
+sq5   <span class="token operator">|</span>k__Bacteria<span class="token punctuation">;</span>p__Bacteroidetes<span class="token punctuation">;</span>c__Bacteroidia<span class="token punctuation">;</span>o__Bacteroidales<span class="token punctuation">;</span>f__Bacteroidaceae<span class="token punctuation">;</span>g__Bacteroides<span class="token punctuation">;</span>s__Bacteroides acidifaciens            <span class="token operator">|</span> <span class="token number">0.65</span><span class="token operator">|</span>   <span class="token number">0.11</span><span class="token operator">|</span>  <span class="token number">1.665909</span><span class="token operator">|</span>
+sq21  <span class="token operator">|</span>k__Bacteria<span class="token punctuation">;</span>p__Firmicutes<span class="token punctuation">;</span>c__Bacilli<span class="token punctuation">;</span>o__Lactobacillales<span class="token punctuation">;</span>f__Lactobacillaceae<span class="token punctuation">;</span>g__Lactobacillus<span class="token punctuation">;</span>s__Lactobacillus reuteri                <span class="token operator">|</span> <span class="token number">0.97</span><span class="token operator">|</span>   <span class="token number">0.03</span><span class="token operator">|</span>  <span class="token number">4.864502</span><span class="token operator">|</span>
+sq27  <span class="token operator">|</span>k__Bacteria<span class="token punctuation">;</span>p__Firmicutes<span class="token punctuation">;</span>c__Clostridia<span class="token punctuation">;</span>o__Clostridiales<span class="token punctuation">;</span>f__Ruminococcaceae<span class="token punctuation">;</span>g__Oscillibacter<span class="token punctuation">;</span>s__Clostridium leptum                   <span class="token operator">|</span> <span class="token number">0.47</span><span class="token operator">|</span>   <span class="token number">0.03</span><span class="token operator">|</span>  <span class="token number">1.865724</span><span class="token operator">|</span>
+sq34  <span class="token operator">|</span>k__Bacteria<span class="token punctuation">;</span>p__Firmicutes<span class="token punctuation">;</span>c__Bacilli<span class="token punctuation">;</span>o__Bacillales<span class="token punctuation">;</span>f__Staphylococcaceae<span class="token punctuation">;</span>g__Staphylococcus<span class="token punctuation">;</span>s__Staphylococcus aureus                   <span class="token operator">|</span> <span class="token number">0.91</span><span class="token operator">|</span>   <span class="token number">0.05</span><span class="token operator">|</span>  <span class="token number">3.809139</span><span class="token operator">|</span>
+sq44  <span class="token operator">|</span>k__Bacteria<span class="token punctuation">;</span>p__Proteobacteria<span class="token punctuation">;</span>c__Gammaproteobacteria<span class="token punctuation">;</span>o__Pseudomonadales<span class="token punctuation">;</span>f__Moraxellaceae<span class="token punctuation">;</span>g__Acinetobacter<span class="token punctuation">;</span>s__Acinetobacter baumannii <span class="token operator">|</span> <span class="token number">1.00</span><span class="token operator">|</span>   <span class="token number">0.00</span><span class="token operator">|</span> <span class="token number">10.000000</span><span class="token operator">|</span>
+sq47  <span class="token operator">|</span>k__Bacteria<span class="token punctuation">;</span>p__Firmicutes<span class="token punctuation">;</span>c__Bacilli<span class="token punctuation">;</span>o__Bacillales<span class="token punctuation">;</span>f__Bacillaceae<span class="token punctuation">;</span>g__Bacillus<span class="token punctuation">;</span>s__Bacillus cereus                                     <span class="token operator">|</span> <span class="token number">0.86</span><span class="token operator">|</span>   <span class="token number">0.08</span><span class="token operator">|</span>  <span class="token number">2.946588</span><span class="token operator">|</span>
+</pre><h5 class="mume-header" id="split-and-load-into-phyloseq">Split and load into Phyloseq</h5>
+
+<p><a href="http://TAG.ME">TAG.ME</a> contains one function to split each rank and create an input for <strong>phyloseq</strong> functions.</p>
+<pre data-role="codeBlock" data-info="R" class="language-r">taxa <span class="token operator">=</span> split_taxa<span class="token punctuation">(</span>taxonomy<span class="token punctuation">)</span>
+
+<span class="token operator">|</span>Domain   <span class="token operator">|</span>Phylum             <span class="token operator">|</span>Class               <span class="token operator">|</span>Order             <span class="token operator">|</span>Family            <span class="token operator">|</span>Genus          <span class="token operator">|</span>Specie                  <span class="token operator">|</span>
+<span class="token operator">|</span><span class="token operator">:</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">|</span><span class="token operator">:</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">|</span><span class="token operator">:</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">|</span><span class="token operator">:</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">|</span><span class="token operator">:</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">|</span><span class="token operator">:</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">|</span><span class="token operator">:</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">|</span>
+<span class="token operator">|</span>Bacteria <span class="token operator">|</span>Firmicutes         <span class="token operator">|</span>Bacilli             <span class="token operator">|</span>Lactobacillales   <span class="token operator">|</span>Lactobacillaceae  <span class="token operator">|</span>Lactobacillus  <span class="token operator">|</span>Lactobacillus reuteri   <span class="token operator">|</span>
+<span class="token operator">|</span>Bacteria <span class="token operator">|</span>Firmicutes         <span class="token operator">|</span>Clostridia          <span class="token operator">|</span>Clostridiales     <span class="token operator">|</span>Ruminococcaceae   <span class="token operator">|</span>Oscillibacter  <span class="token operator">|</span>Clostridium leptum      <span class="token operator">|</span>
+<span class="token operator">|</span>Bacteria <span class="token operator">|</span>Firmicutes         <span class="token operator">|</span>Bacilli             <span class="token operator">|</span>Bacillales        <span class="token operator">|</span>Staphylococcaceae <span class="token operator">|</span>Staphylococcus <span class="token operator">|</span>Staphylococcus aureus   <span class="token operator">|</span>
+<span class="token operator">|</span>Bacteria <span class="token operator">|</span>Proteobacteria     <span class="token operator">|</span>Gammaproteobacteria <span class="token operator">|</span>Pseudomonadales   <span class="token operator">|</span>Moraxellaceae     <span class="token operator">|</span>Acinetobacter  <span class="token operator">|</span>Acinetobacter baumannii <span class="token operator">|</span>
+<span class="token operator">|</span>Bacteria <span class="token operator">|</span>Firmicutes         <span class="token operator">|</span>Bacilli             <span class="token operator">|</span>Bacillales        <span class="token operator">|</span>Bacillaceae       <span class="token operator">|</span>Bacillus       <span class="token operator">|</span>Bacillus cereus         <span class="token operator">|</span>
+<span class="token operator">|</span>Bacteria <span class="token operator">|</span>Epsilonbacteraeota <span class="token operator">|</span>Campylobacteria     <span class="token operator">|</span>Campylobacterales <span class="token operator">|</span>Helicobacteraceae <span class="token operator">|</span>Helicobacter   <span class="token operator">|</span>Helicobacter pylori     <span class="token operator">|</span>
+</pre><p>This structure fits to the Phyloseq function <code>tax_table()</code> and can be explored by its column names.</p>
+<pre data-role="codeBlock" data-info="R" class="language-r">library<span class="token punctuation">(</span>phyloseq<span class="token punctuation">)</span>
+
+phylobj <span class="token operator">&lt;-</span> phyloseq<span class="token punctuation">(</span>otu_table<span class="token punctuation">(</span>seqtab.nochim<span class="token punctuation">,</span> taxa_are_rows<span class="token operator">=</span><span class="token boolean">FALSE</span><span class="token punctuation">)</span><span class="token punctuation">,</span> tax_table<span class="token punctuation">(</span>taxa<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">#Create a relative abundance table</span>
+phylo.relative <span class="token operator">&lt;-</span> transform_sample_counts<span class="token punctuation">(</span>phylobj<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>otu<span class="token punctuation">)</span> otu<span class="token operator">/</span>sum<span class="token punctuation">(</span>otu<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</pre><p>You can now use Phyloseq to explore the different levels of your taxonomic assignment.</p>
+<pre data-role="codeBlock" data-info="R" class="language-r">plot_bar<span class="token punctuation">(</span>phylo.relative<span class="token punctuation">,</span> fill<span class="token operator">=</span><span class="token string">&quot;Phylum&quot;</span><span class="token punctuation">)</span>
+</pre><p><img src="img/phylo_phylum.png" alt="Phyloseq_Phylum"></p>
+<pre data-role="codeBlock" data-info="R" class="language-r">top20 <span class="token operator">&lt;-</span> names<span class="token punctuation">(</span>sort<span class="token punctuation">(</span>taxa_sums<span class="token punctuation">(</span>phylo.relative<span class="token punctuation">)</span><span class="token punctuation">,</span> decreasing<span class="token operator">=</span><span class="token boolean">TRUE</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token operator">:</span><span class="token number">20</span><span class="token punctuation">]</span>
+ps.top20 <span class="token operator">&lt;-</span> prune_taxa<span class="token punctuation">(</span>top20<span class="token punctuation">,</span> phylo.relative<span class="token punctuation">)</span>
+plot_bar<span class="token punctuation">(</span>ps.top20<span class="token punctuation">,</span> fill<span class="token operator">=</span><span class="token string">&quot;Genus&quot;</span><span class="token punctuation">)</span>
+</pre><p><img src="img/phylo_genus.png" alt="Phyloseq_Genus"></p>
+</pre>
+<hr>
+
+                    <!-- Fim tutorial -->
+                </div>
+
+            </div>
+            <!-- Fim da primeira linha -->
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="wrapper wrapper-content">
+
+                    </div>
+                    <div class="footer">
+                        <div class="pull-right">
+                            <img alt="image" class="img-square" src="img/Brazil.png" width="50%" height="50%"/>
+                        </div>
+                        <div>
+                            <a href="http://minas.fiocruz.br" target="_blank"><img alt="image" class="img-square" src="img/fiocruz.png" width="11%" height="11%"/></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="js/plugins/dataTables/datatables.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+        });
+
+    </script>
+
+
+</body>
+</html>

@@ -83,8 +83,9 @@
                         <a href=""><i class="fa fa-graduation-cap fa-2x"></i> <span class="nav-label">Tutorials</span>   <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="fromASVfasta.html">Assign Taxonomy from FASTA file</a></li>
-                            <li><a href="fromseqtab.html">Assign Taxonomy from Dada2 Seqtab</a></li>
+                            <li><a href="fromseqtab.html">Assign Taxonomy from DADA2 Seqtab</a></li>
                             <li><a href="buildOTU.html">Build OTUs and assign taxonomy</a></li>
+<li><a href="integration.html">Integrate DADA2, TAG.ME and Phyloseq</a></li>
                         </ul>
                     </li>
                     <li>
@@ -131,19 +132,19 @@
             <div class="row  border-bottom white-bg dashboard-header">
 
                 <div class="col-md-12">
-                    <h2>TAGME from Dada2 Seqtab</h2>
+                    <h2>TAGME from DADA2 Seqtab</h2>
                     <p><br></p>
 
                     <!-- Inicio tutorial -->
                     <hr>
 <h3 class="mume-header" id="data-description-1">Data description</h3>
 
-<p>The data used for this tutorial are the output of the <a href="https://benjjneb.github.io/dada2/tutorial.html">Dada2 Tutorial</a>. The raw data are those used in <a href="http://www.mothur.org/wiki/MiSeq_SOP">Mothur Miseq SOP</a>, and the pipeline produces a <code>seqtab.nochim</code> table that will be used in this tutorial.</p>
+<p>The data used for this tutorial are the output of the <a href="https://benjjneb.github.io/dada2/tutorial.html">DADA2 Tutorial</a>. The raw data are those used in <a href="http://www.mothur.org/wiki/MiSeq_SOP">Mothur Miseq SOP</a>, and the pipeline produces a <code>seqtab.nochim</code> table that will be used in this tutorial.</p>
 <p>The examples file consists of:</p>
 <ul>
-<li><code>ASVs.fasta</code> - Unique sequences produced by Dada2 pipeline</li>
+<li><code>ASVs.fasta</code> - Unique sequences produced by DADA2 pipeline</li>
 <li><code>otu_table.txt</code> - OTU table generated from BIOM file. This kind of file can be produced by pipelines such as Qiime or Vsearch.</li>
-<li><code>seqtab.nochim.R</code> - The R variable containing the final table of Dada2 pipeline.</li>
+<li><code>seqtab.nochim.R</code> - The R variable containing the final table of DADA2 pipeline.</li>
 </ul>
 <h4 class="mume-header" id="download-files-1">Download files</h4>
 
@@ -194,7 +195,7 @@
 </ul>
 <pre class="language-R"><span class="token operator">></span> library<span class="token punctuation">(</span>tagme<span class="token punctuation">)</span>
 <span class="token operator">></span> load<span class="token punctuation">(</span><span class="token string">"examples/seqtab.nochim.R"</span><span class="token punctuation">)</span>
-<span class="token operator">></span> taxonomy <span class="token operator">=</span> tagmeFromDada2<span class="token punctuation">(</span>seqtab <span class="token operator">=</span> seqtab.nochim<span class="token punctuation">,</span> db <span class="token operator">=</span> <span class="token string">"515F-806R/"</span><span class="token punctuation">)</span>
+<span class="token operator">></span> taxonomy <span class="token operator">=</span> tagmeFromDADA2<span class="token punctuation">(</span>seqtab <span class="token operator">=</span> seqtab.nochim<span class="token punctuation">,</span> db <span class="token operator">=</span> <span class="token string">"515F-806R/"</span><span class="token punctuation">)</span>
 Loading required package<span class="token operator">:</span> randomForest
 randomForest <span class="token number">4.6</span><span class="token operator">-</span><span class="token number">12</span>
 Type rfNews<span class="token punctuation">(</span><span class="token punctuation">)</span> to see new features<span class="token operator">/</span>changes<span class="token operator">/</span>bug fixes.
