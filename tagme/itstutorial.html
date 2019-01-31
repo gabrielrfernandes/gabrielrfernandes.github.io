@@ -1,0 +1,338 @@
+<!--
+*
+*  INSPINIA - Responsive Admin Theme
+*  version 2.7
+*
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112504752-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-112504752-1');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>TAG.ME</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="wrapper">
+    <!-- Aqui começa a barra lateral -->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <!-- Aqui fica o logo -->
+                    <li class="nav-header">
+                        <div style="text-align:center" class="dropdown profile-element">
+                            <span>
+                                <img alt="image" class="img-square" src="img/logo.png" width="100%" height="100%"/>
+                            </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear" style="text-align:center">
+                                    <span class="block m-t-xs"> <strong class="font-bold">TAG.ME - Taxonomic Assignment of Genetic Markers for Ecology</strong>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Aqui termina o logo -->
+
+                    <!-- -->
+                    <!-- -->
+                    <!-- -->
+                    <!-- Aqui começa os links da barra lateral -->
+                    <!-- -->
+                    <!-- -->
+
+                    <li>
+                        <a href="index.html"><i class="fa fa-home fa-2x"></i> <span class="nav-label">Home</span></a>
+                    </li>
+                    <li>
+                        <a href="models.html"><i class="fa fa-database fa-2x"></i> <span class="nav-label">Models</span></a>
+                    </li>
+                    <li>
+                        <a href="package.html"><i class="fa fa-file-code-o fa-2x"></i> <span class="nav-label">Package</span></a>
+                    </li>
+                    <li class="active">
+                        <a href=""><i class="fa fa-graduation-cap fa-2x"></i> <span class="nav-label">Tutorials</span>   <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="fromASVfasta.html">Assign Taxonomy from FASTA file</a></li>
+                            <li><a href="fromseqtab.html">Assign Taxonomy from DADA2 Seqtab</a></li>
+                            <li><a href="buildOTU.html">Build OTUs and assign taxonomy</a></li>
+                            <li><a href="itstutorial.html">ITS analysis and Classification</a></li>
+                            <li><a href="integration.html">Integrate DADA2, TAG.ME and Phyloseq</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="contact.html"><i class="fa fa-envelope-o fa-2x"></i> <span class="nav-label">Contact</span></a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+        <!-- -->
+        <!-- -->
+        <!-- Aqui termina a barra lateral -->
+        <!-- -->
+        <!-- -->
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+
+            <!-- -->
+            <!-- -->
+            <!-- Aqui é a barrinha que fecha as barras laterais -->
+            <!-- -->
+            <!-- -->
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"> <strong>Collapse/Show side bar</strong></i> </a>
+                    </div>
+                </nav>
+            </div>
+            <!-- -->
+            <!-- -->
+            <!-- Aqui termina a barra -->
+            <!-- -->
+            <!-- -->
+
+            <!-- -->
+            <!-- -->
+            <!-- Aqui começa o texto -->
+            <!-- -->
+            <!-- -->
+
+            <!-- Primeira linha -->
+            <div class="row  border-bottom white-bg dashboard-header">
+
+                <div class="col-md-12">
+                    <h2>ITS analysis and Classification</h2>
+                    <p><br></p>
+
+                    <!-- Inicio tutorial -->
+                    <hr>
+                    <p>This tutorial describes how to produce zOTUs and an abundance table from the raw sequenced reads generated for ITS2 region.</p>
+                    <h2 class="mume-header" id="download-reads">Download reads</h2>
+
+                    <p>The raw data are used in in <a target="_blank" href="https://github.com/ZeweiSong/FAST/wiki/Fungal-ITS2-Pipeline-Using-Both-Reads">FAST pipeline</a>.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">wget</span> https://github.com/ZeweiSong/FAST_example/archive/v1.2.tar.gz
+<span class="token function">tar</span> xf v1.2.tar.gz
+</pre>
+
+<h2 class="mume-header" id="set-environment">Set environment</h2>
+
+                    <p>To automate this tutorial we suggest to set an environment that includes:</p>
+                    <ul>
+                    <li>defining the list of files to be processed.</li>
+                    <li>create aliases to the necessary tools.</li>
+                    </ul>
+                    <p>Install:</p>
+                    <ul>
+                    <li><code>vsearch</code> - <a target="_blank" href="https://github.com/torognes/vsearch">Github link</a> [10.7717/peerj.2584]</li>
+                    <li><code>trimmomatic</code> - <a target="_blank" href="http://www.usadellab.org/cms/?page=trimmomatic">Installation instructions</a> [10.1093/bioinformatics/btu170]</li>
+                    <li><code>ITSx</code> - <a target="_blank" href="http://microbiology.se/software/itsx/">Installation instructions</a> [10.1111/2041-210X.12073]</li>
+                    <li><code>HMMER</code> - <a target="_blank" href="http://hmmer.org">Installation instructions</a> [10.1093/nar/gkt263]</li>
+                    <li><code>ITS2 TAG.ME model</code> - <a target="_blank" href="https://gabrielrfernandes.github.io/tagme/models.html">Download models</a></li>
+                    </ul>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">find</span> FAST_example-1.2/ITS2/ -name <span class="token string">&quot;*.fastq&quot;</span> -exec <span class="token function">mv</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token keyword">.</span> \<span class="token punctuation">;</span>
+<span class="token function">ls</span> *_R1.fastq <span class="token operator">|</span> <span class="token function">cut</span> -d <span class="token string">&quot;_&quot;</span> -f1 <span class="token operator">&gt;</span> list
+VSEARCH<span class="token operator">=</span>/path/to/your/vsearch
+TRIMMOMATIC<span class="token operator">=</span>/path/to/your/trimmomatic.jar
+ITSX<span class="token operator">=</span>/path/to/your/ITSx
+</pre>
+                    <p>PS: Your hmmer directory must me exported in your PATH variable.</p>
+                    <h2 class="mume-header" id="run-quality-trimming">Run quality trimming</h2>
+
+                    <p>Trim reads to remove low quality regions.<br>
+                    Edit parameters in the script:</p>
+                    <ul>
+                    <li><code>-threads</code> - Number of CPUs to use.</li>
+                    <li><code>TRAILING:3</code> - Trim the 3&apos; region until reaches the Phred score of 3.</li>
+                    <li><code>LEADING:3</code> - Trim the 5&apos; region until reaches the Phred score of 3.</li>
+                    <li><code>SLIDINGWINDOW:4:20</code> - Slide a window of size 4. Inside the window the mean Phred quality must to be 20 or more. If not, trim the read at that point.</li>
+                    <li><code>MINLEN:50</code> - Drop trimmed reads smaller than 50 bases.</li>
+                    <li><code>ILLUMINACLIP</code> - Find and clip Illumina adapters. The FASTA files containing some adapters sequences are found in a directory in your Trimmomatic folder.</li>
+                    </ul>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token keyword">for</span> <span class="token function">file</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">`</span><span class="token function">cat</span> list<span class="token variable">`</span></span><span class="token punctuation">;</span> <span class="token keyword">do</span> java -jar <span class="token variable">$TRIMMOMATIC</span> PE -threads 10 -phred33 <span class="token variable">$file</span>\_R1.fastq <span class="token variable">$file</span>\_R2.fastq <span class="token variable">$file</span>\_R1.paired.fastq.gz <span class="token variable">$file</span>\_R1.unpaired.fastq.gz <span class="token variable">$file</span>\_R2.paired.fastq.gz <span class="token variable">$file</span>\_R2.unpaired.fastq.gz ILLUMINACLIP:/Users/gabriel/Downloads/Trimmomatic-0.38/adapters/adapters.fasta:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:50<span class="token punctuation">;</span> <span class="token keyword">done</span>
+</pre>
+                    <h2 class="mume-header" id="vsearch-pipeline">Vsearch pipeline</h2>
+
+                    <h3 class="mume-header" id="merge-reads">Merge reads</h3>
+
+                    <p>Merge overlapping reads to create a contiguous sequence that represents the whole amplicon.<br>
+                    <code>--fastq_mergepairs</code>: Call the merging function using FASTQ files, and the first argument is the forward read.<br>
+                    <code>--reverse</code>: Argument to declare the reverse FASTQ file.<br>
+                    <code>--fastaout</code>: Output file name in FASTA format.<br>
+                    <code>--relabel</code>: Format the FASTA headers with the declared label. This is important to generate the zOTU table with multiple samples.</p>
+                    <p>After the merging, will concatenate all FASTA files into one <code>merged.fasta</code>.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token keyword">for</span> <span class="token function">file</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">`</span><span class="token function">cat</span> list<span class="token variable">`</span></span><span class="token punctuation">;</span> <span class="token keyword">do</span> <span class="token variable">$VSEARCH</span> --fastq_mergepairs <span class="token variable">$file</span>\_R1.paired.fastq.gz --reverse <span class="token variable">$file</span>\_R2.paired.fastq.gz --fastaout <span class="token variable">$file</span>\_merged.fasta --relabel <span class="token variable">$file</span>\:<span class="token punctuation">;</span> <span class="token keyword">done</span>
+
+<span class="token function">cat</span> *_merged.fasta <span class="token operator">&gt;</span> merged.fasta
+</pre>
+
+                    <h3 class="mume-header" id="dereplicate">Dereplicate</h3>
+
+                    <p>Select unique sequences.<br>
+                    <code>--derep_fulllength</code>: Call the dereplication function that will select one unique sequence to represent all the identical sequences (100% identity and 100% coverage).<br>
+                    <code>--sizeout</code>: Add the number of identical sequences to the FASTA header.<br>
+                    <code>--output</code>: Output file name in FASTA format.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token variable">$VSEARCH</span> --derep_fulllength merged.fasta --sizeout --output derep.fasta
+</pre>
+                    <h3 class="mume-header" id="denoise">Denoise</h3>
+
+                    <p>Perform  denoising  according to the UNOISE version 3 algorithm  by  Robert  Edgar.<br>
+                    <code>--cluster_unoise</code>: Call the denoising function on the input FASTA file.<br>
+                    <code>--consout</code>: Output consensus FASTA file.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token variable">$VSEARCH</span> --cluster_unoise derep.fasta --consout denoise.fasta
+</pre>
+                    <h3 class="mume-header" id="remove-chimeras">Remove chimeras</h3>
+                    <p>Detect chimeras present in the FASTA file.<br>
+                    <code>--uchime3_denovo</code>: Call the function on the input FASTA file.<br>
+                    <code>--nonchimeras</code>: Output FASTA file containing the non-chimeric sequences.<br>
+                    <code>--label</code>: Relabel the FASTA headers with the prefix <code>zOTU</code>.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token variable">$VSEARCH</span>  --uchime3_denovo denoise.fasta --nonchimeras uchim.fasta --label zOTU
+</pre>
+
+                    <h3 class="mume-header" id="create-a-zotu-count-table">Create a zOTU Count Table</h3>
+
+                    <p>Map all sequences to the zOTU database to count them, and save the counts in a Table Separated Values zOTU file.<br>
+                    <code>--usearch_global</code>: Call the function to map the <code>merged.fasta</code> file in the database.<br>
+                    <code>--db</code>: Define the <code>uchim.fasta</code> file as the reference database.<br>
+                    <code>--id</code>: Set 97% identity as threshold for mapping.<br>
+                    <code>--otutabout</code>: Output TSV file.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token variable">$VSEARCH</span> --usearch_global merged.fasta -db uchim.fasta --id 0.97 --otutabout zotu_table.txt
+</pre>
+                    <h2 class="mume-header" id="extract-its-regions">Extract ITS regions</h2>
+
+                    <p>Use ITSx tool to extract the ITS regions from the zOTU sequences.<br>
+                    <code>-i</code>: Input FASTA file containing the zOTU sequences.<br>
+                    <code>-o</code>: Prefix to name the output files.<br>
+                    <code>-p</code>: Directory containing the HMM profiles to search. This directory can be found inside your ITSx folder.<br>
+                    <code>-t</code>: Restrict the search to Fungi models.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token variable">$ITSX</span> -i uchim.fasta -o zOTU -p /path/to/ITSfolder/ITSx_db/HMMs/ -t F
+</pre>
+
+                    <h2 class="mume-header" id="tagme">TAG.ME</h2>
+
+                    <p>Perfom the taxanomic classification using TAG.ME in R.</p>
+<pre data-role="codeBlock" data-info="r" class="language-r">library<span class="token punctuation">(</span>tagme<span class="token punctuation">)</span>
+
+taxonomy <span class="token operator">=</span> tagmeFromFasta<span class="token punctuation">(</span>file <span class="token operator">=</span> <span class="token string">&quot;zOTU.ITS2.fasta&quot;</span><span class="token punctuation">,</span> db <span class="token operator">=</span> <span class="token string">&quot;/path/to/your/TAG.ME/ITS2/&quot;</span><span class="token punctuation">)</span>
+
+Loading required package<span class="token operator">:</span> randomForest
+randomForest <span class="token number">4.6</span><span class="token operator">-</span><span class="token number">14</span>
+Type rfNews<span class="token punctuation">(</span><span class="token punctuation">)</span> to see new features<span class="token operator">/</span>changes<span class="token operator">/</span>bug fixes.
+Loading required package<span class="token operator">:</span> seqinr
+
+Starting Species<span class="token ellipsis">...</span> <span class="token number">51</span>  assigned
+
+Starting Genus<span class="token ellipsis">...</span> <span class="token number">101</span>  assigned
+
+Starting Family<span class="token ellipsis">...</span> <span class="token number">213</span>  assigned
+
+Starting Order<span class="token ellipsis">...</span> <span class="token number">290</span>  assigned
+
+Starting Class<span class="token ellipsis">...</span> <span class="token number">344</span>  assigned
+
+Starting Phylum<span class="token ellipsis">...</span> <span class="token number">374</span>  assigned
+
+Starting Domain<span class="token ellipsis">...</span> <span class="token number">571</span>  assigned
+
+Printing Unassigned<span class="token ellipsis">...</span>
+</pre>
+<hr>
+
+                    <!-- Fim tutorial -->
+                </div>
+
+            </div>
+            <!-- Fim da primeira linha -->
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="wrapper wrapper-content">
+
+                    </div>
+                    <div class="footer">
+                        <div class="pull-right">
+                            <img alt="image" class="img-square" src="img/Brazil.png" width="50%" height="50%"/>
+                        </div>
+                        <div>
+                            <a href="http://minas.fiocruz.br" target="_blank"><img alt="image" class="img-square" src="img/fiocruz.png" width="11%" height="11%"/></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="js/plugins/dataTables/datatables.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+        });
+
+    </script>
+
+
+</body>
+</html>
