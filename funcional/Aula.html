@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Aula Bioinform&aacute;tica</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <ul>
+<li><a href="#aula-bioinform%C3%A1tica">Aula Bioinformática</a>
+<ul>
+<li><a href="#origem-dos-dados">Origem dos dados</a></li>
+<li><a href="#conhecendo-o-conte%C3%BAdo-da-pasta">Conhecendo o conteúdo da pasta</a></li>
+<li><a href="#controle-de-qualidade-das-sequ%C3%AAncias">Controle de qualidade das sequências</a></li>
+<li><a href="#montagem-do-genoma">Montagem do genoma</a></li>
+<li><a href="#avaliando-a-qualidade-da-montagem">Avaliando a qualidade da montagem</a></li>
+<li><a href="#predi%C3%A7%C3%A3o-de-genes">Predição de Genes</a></li>
+<li><a href="#classifica%C3%A7%C3%A3o-funcional-dos-genes">Classificação funcional dos genes</a></li>
+<li><a href="#visualiza%C3%A7%C3%A3o-em-vias-metab%C3%B3licas">Visualização em vias metabólicas</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="aula-bioinformática">Aula Bioinformática</h1>
+<blockquote>
+<p><strong>Objetivo:</strong> Montagem e anotação funcional de um genoma bacteriano.</p>
+</blockquote>
+<hr>
+<h2 id="origem-dos-dados">Origem dos dados</h2>
+<p>Os dados utilizados são provenientes de um sequenciamento feito na plataforma Illumina. Uma biblioteca de DNA foi utilizada para duas diferentes abordagens de sequenciamento, porém com a mesma profundidade esperada de 60x.</p>
+<ul>
+<li>1 milhão de pares de leituras de 150bp: <code>lib1</code></li>
+<li>500 mil pares de leituras de 300bp. <code>lib2</code></li>
+</ul>
+<h2 id="conhecendo-o-conteúdo-da-pasta">Conhecendo o conteúdo da pasta</h2>
+<ul>
+<li>Uma vez dentro do servidor, pode ver a sua pasta atual e seu conteúdo com os comandos:</li>
+</ul>
+<pre><code class="language-bash"><span class="hljs-built_in">pwd</span> <span class="hljs-comment">#path of working directory</span>
+
+<span class="hljs-built_in">ls</span> <span class="hljs-comment">#lista o conteudo da pasta</span>
+</code></pre>
+<ul>
+<li>Entre na pasta de trabalho e veja seu conteúdo:</li>
+</ul>
+<pre><code class="language-bash"><span class="hljs-built_in">mkdir</span> Aula_Funcional
+<span class="hljs-built_in">cd</span> Aula_Funcional
+<span class="hljs-built_in">ls</span>
+</code></pre>
+<ul>
+<li>Vamos criar os diretórios onde armazenaremos os resultados</li>
+</ul>
+<pre><code class="language-bash"><span class="hljs-built_in">mkdir</span> 0.Logs 1.Trim 2.Assembly 3.Genes 4.Function
+<span class="hljs-built_in">ls</span>
+
+conda activate assembly
+</code></pre>
+<hr>
+<h2 id="controle-de-qualidade-das-sequências">Controle de qualidade das sequências</h2>
+<p>O sequenciamento Illumina tem uma taxa de erro de substituição de bases de cerca de 1%. À medida em que a sequência vai sendo sintetizada essa taxa de erro pode aumentar. Por isso, é importante retirarmos as regiões com baixa qualidade de bases.</p>
+<p>A ferramenta Trimmomatic é uma das muitas utilizadas para esse fim. Nela, podemos definir a qualidade média das bases em uma janela deslizante, além da remoção de adaptadores e exclusão de sequências muito curtas.
+O comando utilizado é:</p>
+<pre><code class="language-bash">trimmomatic PE -threads 4 /databases/big/input/lib1_150bp_R1.fq.gz /databases/big/input/lib1_150bp_R2.fq.gz 1.Trim/lib1.Paired_R1.fastq.gz 1.Trim/lib1.Unpaired_R1.fastq.gz 1.Trim/lib1.Paired_R2.fastq.gz 1.Trim/lib1.Unpaired_R2.fastq.gz ILLUMINACLIP:/databases/big/ref/adapters.fasta:2:30:10:2:keepBothReads LEADING:5 TRAILING:5 SLIDINGWINDOW:4:20 MINLEN:50 2&gt; 0.Logs/lib1.trimmomatic.log
+</code></pre>
+<p>A linha de comando recebe parâmetros que chamamos de <em><em>flags</em></em>. Seccionando as linhas de comando, vemos a função de cada parâmetro.</p>
+<pre><code class="language-bash">trimmomatic <span class="hljs-comment">#inicia o programa</span>
+PE <span class="hljs-comment">#informa que o sequenciamento é paired-end</span>
+-threads 4 <span class="hljs-comment">#conta que vai usar 4 processadores</span>
+/databases/big/input/lib1_150bp_R1.fq.gz /databases/big/input/lib1_150bp_R2.fq.gz <span class="hljs-comment">#indicas os arquivos que contem as sequências forward e reversas a serem corrigidas</span>
+1.Trim/lib1.Paired_R1.fastq.gz <span class="hljs-comment">#Indica onde vai escrever as sequências Forward (R1) cujos pares sobreviveram</span>
+1.Trim/lib1.Unpaired_R1.fastq.gz <span class="hljs-comment">#Sequências forward cujos pares reversos não passaram no critério de qualidade</span>
+1.Trim/lib1.Paired_R2.fastq.gz 1.Trim/lib1.Unpaired_R2.fastq.gz <span class="hljs-comment">#Os mesmos que os anteriores, só que com as sequências reversas: R2</span>
+ILLUMINACLIP:/databases/big/ref/adapters.fasta:2:30:10:2:keepBothReads <span class="hljs-comment">#Cita o nome do arquivo que contém a sequência dos adaptadores : número de mismatches aceitos : tamanho mínimo de um palíndromo (em caso de pares de reads) : tamanho mínimo do alinhamento simples : tamanho mínimo da sequência do adaptador identifica.</span>
+LEADING:5 TRAILING:5 <span class="hljs-comment">#Valores mínimos de qualidade para começar a análise no início (LEADING) e no final da sequência (TRAILING)</span>
+SLIDINGWINDOW:4:20 <span class="hljs-comment">#Tamanho da janela de bases : Qualidade média dentro da janela</span>
+MINLEN:50 <span class="hljs-comment">#Tamanho mínimo da sequência restante para que não seja descartada</span>
+2&gt; 0.Logs/lib1.trimmomatic.log <span class="hljs-comment">#Escreve o relatório da análise no arquivo mencionado</span>
+</code></pre>
+<p>Assim, dentro da pasta <code>1.Trim</code> teremos os arquivos limpos. E no <code>0.Logs</code> podemos ver o relatório.</p>
+<pre><code class="language-bash"><span class="hljs-built_in">cat</span> 0.Logs/lib1.trimmomatic.log
+</code></pre>
+<h2 id="montagem-do-genoma">Montagem do genoma</h2>
+<p>Para a montagem do genoma, utilizaremos apenas as sequências cujos pares &quot;sobreviveram&quot; ao controle de qualidade. Assim, teremos dois arquivos de entrada: as sequências forward e as reverse.
+Dentre os vários programas para a montagem de um genoma, vamos utilizar o Spades.</p>
+<pre><code class="language-bash">spades.py --isolate -o 2.Assembly/lib1 -1 1.Trim/lib1.Paired_R1.fastq.gz -2 1.Trim/lib1.Paired_R2.fastq.gz -t 4 -m 16
+</code></pre>
+<p>Esse comando contém os seguintes parâmetros:</p>
+<pre><code class="language-bash">spades.py <span class="hljs-comment">#Roda o programa</span>
+--isolate <span class="hljs-comment">#Diz que o genoma é de um isolado. Ou seja, espera-se que todas as sequências tenham vindo de um mesmo organismo</span>
+-o 2.Assembly/lib1 <span class="hljs-comment">#Diretório onde escreverá os resultados</span>
+-1 1.Trim/lib1.Paired_R1.fastq.gz <span class="hljs-comment">#Arquivo forward</span>
+-2 1.Trim/lib1.Paired_R2.fastq.gz <span class="hljs-comment">#Arquivo reverse</span>
+-t 4 <span class="hljs-comment">#Número de processadores</span>
+-m 16 <span class="hljs-comment">#Máximo de memória</span>
+</code></pre>
+<hr>
+<h2 id="avaliando-a-qualidade-da-montagem">Avaliando a qualidade da montagem</h2>
+<p>Existem métrica que informam sobre o quão completa está a montagem do seu genoma. Uma das ferramentas é o Quast, que fornece métricas como:</p>
+<ul>
+<li>tamanho do genoma montado</li>
+<li>número de contigs úteis</li>
+<li>conteúdo GC</li>
+<li>N50 e L50</li>
+</ul>
+<p>Para rodar, podemos usar o comando com os seguintes parâmtros:</p>
+<pre><code class="language-bash">quast -o 2.Assembly/lib1/quast/ -m 1000 -t 4 -1 1.Trim/lib1.Paired_R1.fastq.gz -2 1.Trim/lib1.Paired_R2.fastq.gz 2.Assembly/lib1/scaffolds.fasta
+</code></pre>
+<p>Os parâmetros são:</p>
+<pre><code class="language-bash">quast <span class="hljs-comment">#Chama o programa</span>
+-o 2.Assembly/lib1/quast/ <span class="hljs-comment">#Diz onde vão escrever os resultados</span>
+-m 1000 <span class="hljs-comment">#Tamano mínimo de um contig</span>
+-t 4 <span class="hljs-comment">#Número de processadores</span>
+-1 1.Trim/lib1.Paired_R1.fastq.gz <span class="hljs-comment">#[OPCIONAL] Sequências forward utilizadas na montagem</span>
+-2 1.Trim/lib1.Paired_R2.fastq.gz <span class="hljs-comment">#[OPCIONAL] Sequências reverse utilizadas na montagem</span>
+2.Assembly/lib1/scaffolds.fasta <span class="hljs-comment">#Arquivo com sua montagem</span>
+</code></pre>
+<p>Observando o conteúdo do arquivo, vemos as métricas da montagem</p>
+<pre><code class="language-bash"><span class="hljs-built_in">cat</span> 2.Assembly/lib1/quast/report.txt
+</code></pre>
+<pre><code class="language-bash">Assembly                    scaffolds
+<span class="hljs-comment"># contigs (&gt;= 0 bp)         212      </span>
+<span class="hljs-comment"># contigs (&gt;= 1000 bp)      81       </span>
+<span class="hljs-comment"># contigs (&gt;= 5000 bp)      62       </span>
+<span class="hljs-comment"># contigs (&gt;= 10000 bp)     56       </span>
+<span class="hljs-comment"># contigs (&gt;= 25000 bp)     46       </span>
+<span class="hljs-comment"># contigs (&gt;= 50000 bp)     29       </span>
+Total length (&gt;= 0 bp)      4502140  
+Total length (&gt;= 1000 bp)   4473025  
+Total length (&gt;= 5000 bp)   4431666  
+Total length (&gt;= 10000 bp)  4386681  
+Total length (&gt;= 25000 bp)  4227455  
+Total length (&gt;= 50000 bp)  3592230  
+<span class="hljs-comment"># contigs                   81       </span>
+Largest contig              329901   
+Total length                4473025  
+GC (%)                      50.79    
+N50                         115885   
+N90                         34661    
+auN                         148131.5 
+L50                         12       
+L90                         40       
+<span class="hljs-comment"># total reads               1998966  </span>
+<span class="hljs-comment"># left                      999483   </span>
+<span class="hljs-comment"># right                     999483   </span>
+Mapped (%)                  99.28    
+Properly paired (%)         98.67    
+Avg. coverage depth         66       
+Coverage &gt;= 1x (%)          100.0    
+<span class="hljs-comment"># N&#x27;s per 100 kbp           4.47 </span>
+</code></pre>
+<h2 id="predição-de-genes">Predição de Genes</h2>
+<p>A predição de genes vai procurar por janelas abertas de leitura (ORF) e aprender sobre o uso de codons dentro dessa janela para predizer os genes possivelmente codificantes.</p>
+<p>Dentre as diversas ferramentas, usaremos a ferramenta <em><em>prodigal</em></em></p>
+<pre><code class="language-bash">prodigal -a 3.Genes/lib1.aa -d 3.Genes/lib1.nt -f gff -i 2.Assembly/lib1/scaffolds.fasta -o 3.Genes/lib1.gff
+</code></pre>
+<p>O comando contém as seguintes <em>flags</em></p>
+<pre><code class="language-bash">prodigal <span class="hljs-comment">#Chama o programa</span>
+-a 3.Genes/lib1.aa <span class="hljs-comment">#Escreve um arquivo contendo as sequências de aminoácidos</span>
+-d 3.Genes/lib1.nt <span class="hljs-comment">#Escreve um arquivo contendo os nucleotídeos</span>
+-f gff <span class="hljs-comment">#Determina o formato GFF para a anotação</span>
+-i 2.Assembly/lib1/scaffolds.fasta <span class="hljs-comment">#Conta qual o arquivo contém o genoma para a predição</span>
+-o 3.Genes/lib1.gff <span class="hljs-comment">#Escreve um arquivo contendo a anotação</span>
+</code></pre>
+<p>Podemos observar as primeiras linha do arquivo:</p>
+<pre><code class="language-bash"><span class="hljs-built_in">head</span> 3.Genes/lib1.aa 
+</code></pre>
+<p>No cabeçalho temos algumas informações:
+<code>&gt;NODE_1_length_329901_cov_29.783351_1 # 19 # 486 # 1 # ID=1_1;partial=00;start_type=ATG;rbs_motif=AGGA;rbs_spacer=5-10bp;gc_cont=0.538</code>.</p>
+<p>A informação <code>partial=00</code> informa se o gene foi predito completamente - Metionina no início e codon de parada ao final. <code>partial=10</code> indica que não havia Metionina no início, mas havia codon de parada. <code>partial=01</code> indica que o codon de parada não estava presente. E <code>partial=11</code> indica que não havia metionina e nem codon de parada, porém o preditor encontrou uma sequência de possível codons que condiziam com <em>codon usage</em> do organismo.</p>
+<p>Podemos contar quantos genes codificantes de proteínas foram preditos:</p>
+<pre><code class="language-bash">grep <span class="hljs-string">&quot;&gt;&quot;</span> -c 3.Genes/lib1.aa 
+</code></pre>
+<p>O que esse comando faz?</p>
+<pre><code class="language-bash">grep <span class="hljs-comment">#Chama o programa que faz buscas</span>
+<span class="hljs-string">&quot;&gt;&quot;</span> <span class="hljs-comment">#Aponta o que ele precisa buscar</span>
+-c <span class="hljs-comment">#Retorna a contagem de linhas que tinham aquele item da busca ao invés de retornar a linha inteira</span>
+3.Genes/lib1.aa <span class="hljs-comment">#Arquivo em que a busca será feita</span>
+</code></pre>
+<p>Podemos usar o <em>grep</em>  para contar quantos genes estavam completos:</p>
+<pre><code class="language-bash">grep <span class="hljs-string">&quot;&gt;&quot;</span> 3.Genes/lib1.aa | <span class="hljs-built_in">cut</span> -d <span class="hljs-string">&quot;#&quot;</span> -f5 | <span class="hljs-built_in">cut</span> -d <span class="hljs-string">&quot;;&quot;</span> -f2 | <span class="hljs-built_in">sort</span> | <span class="hljs-built_in">uniq</span> -c
+</code></pre>
+<p>Explicando...</p>
+<pre><code class="language-bash">grep <span class="hljs-comment">#Chama o programa que faz as buscas</span>
+<span class="hljs-string">&quot;&gt;&quot;</span> <span class="hljs-comment">#Aponta o que ele precisa buscar</span>
+3.Genes/lib1.aa <span class="hljs-comment">#Arquivo em que será feita a busca</span>
+| <span class="hljs-comment">#Conecta o resultado do comando anterior ao próximo comando</span>
+<span class="hljs-built_in">cut</span> <span class="hljs-comment">#Corta o arquivo em colunas</span>
+-d <span class="hljs-string">&quot;#&quot;</span> <span class="hljs-comment">#Determina que o caracter delimitador de colunas é o #</span>
+-f5 <span class="hljs-comment">#Mostra a coluna 5</span>
+| <span class="hljs-comment">#Conecta o resultado do comando anterior ao próximo comando</span>
+<span class="hljs-built_in">cut</span> -d <span class="hljs-string">&quot;;&quot;</span> -f2 | <span class="hljs-comment">#Corta usando o ; como delimitador e mostra a segunda coluna</span>
+<span class="hljs-built_in">sort</span> | <span class="hljs-comment">#Ordena em ordem alfabética</span>
+<span class="hljs-built_in">uniq</span> -c <span class="hljs-comment">#Conta quanta vezes cada item único apareceu</span>
+</code></pre>
+<h2 id="classificação-funcional-dos-genes">Classificação funcional dos genes</h2>
+<p>Como vimos, temos milhares de possíveis genes, e não sabemos suas funções.
+Uma das formas de identificar as funções é através de alinhamentos locais com bancos de dados secundários que contenham alguma informação funcional.
+Para tal tarefa, o BLAST é a ferramenta mais popular. Usaremos o <em>diamond</em> que faz um alinhamento local, assim como o BLAST, porém de maneira muito mais rápida.</p>
+<p>Utilizaremos o UniProt como banco de dados para as buscas. A primeira etapa é transformar as sequências do UniProt em um formato que o <em>diamond</em> possa ler.</p>
+<pre><code class="language-bash">diamond makedb --threads 4 --<span class="hljs-keyword">in</span> /databases/big/ref/uniprotkb_proteome_UP000000625_2024_08_29.fasta.gz --db ecoli
+</code></pre>
+<p>As <em>flags</em> significam:</p>
+<pre><code class="language-bash">diamond <span class="hljs-comment">#Chama o programa</span>
+makedb <span class="hljs-comment">#Conta qual a tarefa que ele vai fazer</span>
+--threads 4 <span class="hljs-comment">#Número de processadores</span>
+--<span class="hljs-keyword">in</span> /databases/big/ref/uniprotkb_proteome_UP000000625_2024_08_29.fasta.gz <span class="hljs-comment">#Onde está o arquivo do UniProt com as sequências</span>
+--db ecoli <span class="hljs-comment">#Nome que quer dar ao seu banco de dados</span>
+</code></pre>
+<p>Após formatarmos o banco de dados, podemos chamar o alinhamento. Temos um banco de dados de sequências de aminoácidos (UniProt), e arquivo de entrada de aminoácidos ou nucleotídeos. Poderiam então escolher entre duas opções:</p>
+<ul>
+<li><em><em>blastp</em></em>: que compara minhas sequências de proteínas a um banco de proteínas</li>
+<li><em><em>blastx</em></em>: que traduz minhas sequências de nucleotídeos nas 6 janelas de leitura para compará-las ao banco de prteínas</li>
+</ul>
+<p>Para otimizar o tempo - dado que temos as sequências de aminoácidos - rodaremos o <em><em>blastp</em></em>:</p>
+<pre><code class="language-bash">diamond blastp -d ecoli.dmnd -q 3.Genes/lib1.aa -o 4.Function/lib1.diamond -e 1e-20 -k 1 -p 4 --outfmt 6
+</code></pre>
+<p>As <em>flags</em> são:</p>
+<pre><code class="language-bash">diamond <span class="hljs-comment">#Chama o programa</span>
+blastp <span class="hljs-comment">#Diz a opção de alinhamento</span>
+-d ecoli.dmnd <span class="hljs-comment">#Aponta o banco de dados</span>
+-q 3.Genes/lib1.aa <span class="hljs-comment">#Aponta o arquivo de entrada </span>
+-o 4.Function/lib1.diamond <span class="hljs-comment">#Define o nome do arquivo de saída</span>
+-e 1e-20 <span class="hljs-comment">#Estabelece um mínimo de e-value</span>
+-k 1 <span class="hljs-comment">#Pede para mostrar só o melhor resultado para cada um dos meus genes</span>
+-p 4 <span class="hljs-comment">#Usa 4 processadores</span>
+--outfmt 6 <span class="hljs-comment">#Mostra o resultado em um formato tabular com 12 colunas</span>
+</code></pre>
+<p>Podemos ver como é o resultado:</p>
+<pre><code class="language-bash"><span class="hljs-built_in">head</span> 4.Function/lib1.diamond
+
+<span class="hljs-comment">#Descrição das colunas</span>
+ <span class="hljs-comment"># 1.  qseqid      query or source (gene) sequence id</span>
+ <span class="hljs-comment"># 2.  sseqid      subject or target (reference genome) sequence id</span>
+ <span class="hljs-comment"># 3.  pident      percentage of identical positions</span>
+ <span class="hljs-comment"># 4.  length      alignment length (sequence overlap)</span>
+ <span class="hljs-comment"># 5.  mismatch    number of mismatches</span>
+ <span class="hljs-comment"># 6.  gapopen     number of gap openings</span>
+ <span class="hljs-comment"># 7.  qstart      start of alignment in query</span>
+ <span class="hljs-comment"># 8.  qend        end of alignment in query</span>
+ <span class="hljs-comment"># 9.  sstart      start of alignment in subject</span>
+ <span class="hljs-comment">#10.  send        end of alignment in subject</span>
+ <span class="hljs-comment">#11.  evalue      expect value</span>
+ <span class="hljs-comment">#12.  bitscore    bit score</span>
+</code></pre>
+<p>Vemos que a segunda coluna contém o nome da proteína que melhor descreve nosso gene no banco de dados.
+Agora queremos adicionar informação funcional à ela.
+Vamos adicionar a informação do KEGG, e saber qual KO e via metabólica nosso gene pertence.</p>
+<p>Para isso vamos executar uma sério de comandos.</p>
+<pre><code class="language-bash"><span class="hljs-comment">#Entrar na pasta que contém os resultados</span>
+<span class="hljs-built_in">cd</span> 4.Function
+
+<span class="hljs-comment">#Pega o nome de cada proteína que teve hit</span>
+awk -F<span class="hljs-string">&#x27;|&#x27;</span> <span class="hljs-string">&#x27;{print $2}&#x27;</span> lib1.diamond &gt; protein_ids.txt
+<span class="hljs-built_in">head</span> protein_ids.txt
+
+<span class="hljs-comment">#Adicionar o nome dessa proteína do UniProte à nossa tabela do resultado do Diamond</span>
+<span class="hljs-built_in">paste</span> lib1.diamond protein_ids.txt &gt; diamond_with_protein_ids.txt
+
+<span class="hljs-comment"># Colocar em ordem alfabética as colunas que contem as informações que vamos precisar.</span>
+<span class="hljs-comment">## A coluna que contém o nome das proteínas é a 13.</span>
+<span class="hljs-built_in">sort</span> -k13 diamond_with_protein_ids.txt &gt; sorted_diamond.txt
+<span class="hljs-comment">## A coluna que contém os nomes das mesmas proteínas no arquivo de conversão, é a 1</span>
+<span class="hljs-built_in">sort</span> -k1 /databases/big/ref/Uniprot2KEGG.eco.txt &gt; sorted_Uniprot2KEGG.txt
+<span class="hljs-comment">## Juntamos as duas tabelas, levando em consideração o ponto de junção como sendo a 13 coluna do resultado do Diamond, com a 1 coluna da tabela de conversão.</span>
+<span class="hljs-built_in">join</span> -t$<span class="hljs-string">&#x27;\t&#x27;</span> -1 13 -2 1 sorted_diamond.txt sorted_Uniprot2KEGG.txt &gt; diamond_with_KEGG.txt
+
+<span class="hljs-comment"># Colocar em ordem alfabética as colunas que contem as informações que vamos precisar.</span>
+<span class="hljs-comment">## A coluna que contém o nome da entrada no KEGG é a 14.</span>
+<span class="hljs-built_in">sort</span> -k14 diamond_with_KEGG.txt &gt; sorted_diamond_with_KEGG.txt
+<span class="hljs-comment">## A coluna que contém os nomes das mesmas proteínas no arquivo de conversão, é a 1</span>
+<span class="hljs-built_in">sort</span> -k1 /databases/big/ref/KEGG2KO.eco.txt &gt; sorted_KEGG2KO.txt
+<span class="hljs-comment">## Juntamos as duas tabelas, levando em consideração o ponto de junção como sendo a 14 coluna do resultado do Diamond, com a 1 coluna da tabela de conversão.</span>
+<span class="hljs-built_in">join</span> -t$<span class="hljs-string">&#x27;\t&#x27;</span> -1 14 -2 1 sorted_diamond_with_KEGG.txt sorted_KEGG2KO.txt &gt; diamond_with_KO.txt
+
+<span class="hljs-comment"># Temos uma tabela com 15 colunas, sendo que a última delas é o identificador do KEGG Orthology</span>
+<span class="hljs-comment">## Podemos ver qual é o KO mais representado</span>
+<span class="hljs-built_in">cat</span> diamond_with_KO.txt | <span class="hljs-built_in">cut</span> -f15 | <span class="hljs-built_in">sort</span> | <span class="hljs-built_in">uniq</span> -c | <span class="hljs-built_in">sort</span> -k1 -nr | <span class="hljs-built_in">head</span>
+<span class="hljs-comment">## Podemos gerar uma lista para visualizar no mapa metabólico</span>
+<span class="hljs-built_in">cat</span> diamond_with_KO.txt | <span class="hljs-built_in">cut</span> -f15 | <span class="hljs-built_in">sort</span> -u | sed -e <span class="hljs-string">&#x27;s/ko://g&#x27;</span> &gt; KO_list.txt
+</code></pre>
+<h2 id="visualização-em-vias-metabólicas">Visualização em vias metabólicas</h2>
+<p>A partir da lista de KOs, é possível ver suas funções no site do <a href="https://www.genome.jp/kegg/">KEGG</a><base target="_blank"> ou criar uma via metabólica interativa com o <a href="https://pathways.embl.de/ipath3.cgi">iPath3</a><base target="_blank">.</p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
