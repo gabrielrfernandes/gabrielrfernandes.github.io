@@ -1,0 +1,3588 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Montagem e anota&ccedil;&atilde;o funcional</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+/* From extension bierner.markdown-preview-github-styles */
+html,
+body,
+.github-markdown-body {
+    padding: 0 !important;
+    max-width: auto !important;
+}
+
+.github-markdown-body {
+    background-color: var(--color-canvas-default);
+    color: var(--color-fg-default);
+}
+
+.github-markdown-body {
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    margin: 0 auto;
+    width: 100% !important;
+}
+
+.github-markdown-content {
+    padding: 32px !important;
+    max-width: 980px;
+    min-width: 200px;
+    margin: 0 auto;
+}
+
+
+.vscode-body.scrollBeyondLastLine {
+    margin-bottom: 0;
+}
+.vscode-body.scrollBeyondLastLine .github-markdown-body {
+    padding-bottom: calc(100vh + 10px) !important;
+}
+
+.github-markdown-body blockquote {
+    background-color: initial;
+}
+
+.github-markdown-body pre {
+    color: initial;
+    border: none;
+}
+
+.github-markdown-body code {
+    color: inherit;
+}
+
+.github-markdown-body pre code {
+    color: initial;
+}
+
+.github-markdown-body code > div {
+    background: none
+}
+
+.github-markdown-body.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.github-markdown-body p,
+.github-markdown-body blockquote,
+.github-markdown-body ul,
+.github-markdown-body ol,
+.github-markdown-body dl,
+.github-markdown-body table,
+.github-markdown-body pre {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+    border-left: 3px solid var(--color-fg-default);
+}
+.github-markdown-body {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  margin: 0;
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-default);
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  scroll-behavior: auto !important;
+}
+
+.github-markdown-body .octicon {
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: text-bottom;
+}
+
+.github-markdown-body h1:hover .anchor .octicon-link:before,
+.github-markdown-body h2:hover .anchor .octicon-link:before,
+.github-markdown-body h3:hover .anchor .octicon-link:before,
+.github-markdown-body h4:hover .anchor .octicon-link:before,
+.github-markdown-body h5:hover .anchor .octicon-link:before,
+.github-markdown-body h6:hover .anchor .octicon-link:before {
+  width: 16px;
+  height: 16px;
+  content: ' ';
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+  mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+}
+
+.github-markdown-body details,
+.github-markdown-body figcaption,
+.github-markdown-body figure {
+  display: block;
+}
+
+.github-markdown-body summary {
+  display: list-item;
+}
+
+.github-markdown-body [hidden] {
+  display: none !important;
+}
+
+.github-markdown-body a {
+  background-color: transparent;
+  color: var(--fgColor-accent);
+  text-decoration: none;
+}
+
+.github-markdown-body abbr[title] {
+  border-bottom: none;
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+}
+
+.github-markdown-body b,
+.github-markdown-body strong {
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.github-markdown-body dfn {
+  font-style: italic;
+}
+
+.github-markdown-body h1 {
+  margin: .67em 0;
+  font-weight: var(--base-text-weight-semibold, 600);
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid var(--borderColor-muted);
+}
+
+.github-markdown-body mark {
+  background-color: var(--bgColor-attention-muted);
+  color: var(--fgColor-default);
+}
+
+.github-markdown-body small {
+  font-size: 90%;
+}
+
+.github-markdown-body sub,
+.github-markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.github-markdown-body sub {
+  bottom: -0.25em;
+}
+
+.github-markdown-body sup {
+  top: -0.5em;
+}
+
+.github-markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+  background-color: var(--bgColor-default);
+}
+
+.github-markdown-body code,
+.github-markdown-body kbd,
+.github-markdown-body pre,
+.github-markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.github-markdown-body figure {
+  margin: 1em var(--base-size-40);
+}
+
+.github-markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  background: transparent;
+  border-bottom: 1px solid var(--borderColor-muted);
+  height: .25em;
+  padding: 0;
+  margin: var(--base-size-24) 0;
+  background-color: var(--borderColor-default);
+  border: 0;
+}
+
+.github-markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.github-markdown-body [type=button],
+.github-markdown-body [type=reset],
+.github-markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.github-markdown-body [type=checkbox],
+.github-markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.github-markdown-body [type=number]::-webkit-inner-spin-button,
+.github-markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.github-markdown-body [type=search]::-webkit-search-cancel-button,
+.github-markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.github-markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.github-markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.github-markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.github-markdown-body ::placeholder {
+  color: var(--fgColor-muted);
+  opacity: 1;
+}
+
+.github-markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.github-markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.github-markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.github-markdown-body td,
+.github-markdown-body th {
+  padding: 0;
+}
+
+.github-markdown-body details summary {
+  cursor: pointer;
+}
+
+.github-markdown-body a:focus,
+.github-markdown-body [role=button]:focus,
+.github-markdown-body input[type=radio]:focus,
+.github-markdown-body input[type=checkbox]:focus {
+  outline: 2px solid var(--focus-outlineColor);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.github-markdown-body a:focus:not(:focus-visible),
+.github-markdown-body [role=button]:focus:not(:focus-visible),
+.github-markdown-body input[type=radio]:focus:not(:focus-visible),
+.github-markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.github-markdown-body a:focus-visible,
+.github-markdown-body [role=button]:focus-visible,
+.github-markdown-body input[type=radio]:focus-visible,
+.github-markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid var(--focus-outlineColor);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.github-markdown-body a:not([class]):focus,
+.github-markdown-body a:not([class]):focus-visible,
+.github-markdown-body input[type=radio]:focus,
+.github-markdown-body input[type=radio]:focus-visible,
+.github-markdown-body input[type=checkbox]:focus,
+.github-markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.github-markdown-body kbd {
+  display: inline-block;
+  padding: var(--base-size-4);
+  font: 11px var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  line-height: 10px;
+  color: var(--fgColor-default);
+  vertical-align: middle;
+  background-color: var(--bgColor-muted);
+  border: solid 1px var(--borderColor-neutral-muted);
+  border-bottom-color: var(--borderColor-neutral-muted);
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 var(--borderColor-neutral-muted);
+}
+
+.github-markdown-body h1,
+.github-markdown-body h2,
+.github-markdown-body h3,
+.github-markdown-body h4,
+.github-markdown-body h5,
+.github-markdown-body h6 {
+  margin-top: var(--base-size-24);
+  margin-bottom: var(--base-size-16);
+  font-weight: var(--base-text-weight-semibold, 600);
+  line-height: 1.25;
+}
+
+.github-markdown-body h2 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid var(--borderColor-muted);
+}
+
+.github-markdown-body h3 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: 1.25em;
+}
+
+.github-markdown-body h4 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: 1em;
+}
+
+.github-markdown-body h5 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: .875em;
+}
+
+.github-markdown-body h6 {
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: .85em;
+  color: var(--fgColor-muted);
+}
+
+.github-markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.github-markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: var(--fgColor-muted);
+  border-left: .25em solid var(--borderColor-default);
+}
+
+.github-markdown-body ul,
+.github-markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.github-markdown-body ol ol,
+.github-markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.github-markdown-body ul ul ol,
+.github-markdown-body ul ol ol,
+.github-markdown-body ol ul ol,
+.github-markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.github-markdown-body dd {
+  margin-left: 0;
+}
+
+.github-markdown-body tt,
+.github-markdown-body code,
+.github-markdown-body samp {
+  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  font-size: 12px;
+}
+
+.github-markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.github-markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.github-markdown-body input::-webkit-outer-spin-button,
+.github-markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.github-markdown-body .mr-2 {
+  margin-right: var(--base-size-8, 8px) !important;
+}
+
+.github-markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.github-markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.github-markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.github-markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.github-markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.github-markdown-body .absent {
+  color: var(--fgColor-danger);
+}
+
+.github-markdown-body .anchor {
+  float: left;
+  padding-right: var(--base-size-4);
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.github-markdown-body .anchor:focus {
+  outline: none;
+}
+
+.github-markdown-body p,
+.github-markdown-body blockquote,
+.github-markdown-body ul,
+.github-markdown-body ol,
+.github-markdown-body dl,
+.github-markdown-body table,
+.github-markdown-body pre,
+.github-markdown-body details {
+  margin-top: 0;
+  margin-bottom: var(--base-size-16);
+}
+
+.github-markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.github-markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.github-markdown-body h1 .octicon-link,
+.github-markdown-body h2 .octicon-link,
+.github-markdown-body h3 .octicon-link,
+.github-markdown-body h4 .octicon-link,
+.github-markdown-body h5 .octicon-link,
+.github-markdown-body h6 .octicon-link {
+  color: var(--fgColor-default);
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+.github-markdown-body h1:hover .anchor,
+.github-markdown-body h2:hover .anchor,
+.github-markdown-body h3:hover .anchor,
+.github-markdown-body h4:hover .anchor,
+.github-markdown-body h5:hover .anchor,
+.github-markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.github-markdown-body h1:hover .anchor .octicon-link,
+.github-markdown-body h2:hover .anchor .octicon-link,
+.github-markdown-body h3:hover .anchor .octicon-link,
+.github-markdown-body h4:hover .anchor .octicon-link,
+.github-markdown-body h5:hover .anchor .octicon-link,
+.github-markdown-body h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+
+.github-markdown-body h1 tt,
+.github-markdown-body h1 code,
+.github-markdown-body h2 tt,
+.github-markdown-body h2 code,
+.github-markdown-body h3 tt,
+.github-markdown-body h3 code,
+.github-markdown-body h4 tt,
+.github-markdown-body h4 code,
+.github-markdown-body h5 tt,
+.github-markdown-body h5 code,
+.github-markdown-body h6 tt,
+.github-markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.github-markdown-body summary h1,
+.github-markdown-body summary h2,
+.github-markdown-body summary h3,
+.github-markdown-body summary h4,
+.github-markdown-body summary h5,
+.github-markdown-body summary h6 {
+  display: inline-block;
+}
+
+.github-markdown-body summary h1 .anchor,
+.github-markdown-body summary h2 .anchor,
+.github-markdown-body summary h3 .anchor,
+.github-markdown-body summary h4 .anchor,
+.github-markdown-body summary h5 .anchor,
+.github-markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.github-markdown-body summary h1,
+.github-markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.github-markdown-body ul.no-list,
+.github-markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.github-markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.github-markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.github-markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.github-markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.github-markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.github-markdown-body div>ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.github-markdown-body ul ul,
+.github-markdown-body ul ol,
+.github-markdown-body ol ol,
+.github-markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.github-markdown-body li>p {
+  margin-top: var(--base-size-16);
+}
+
+.github-markdown-body li+li {
+  margin-top: .25em;
+}
+
+.github-markdown-body dl {
+  padding: 0;
+}
+
+.github-markdown-body dl dt {
+  padding: 0;
+  margin-top: var(--base-size-16);
+  font-size: 1em;
+  font-style: italic;
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.github-markdown-body dl dd {
+  padding: 0 var(--base-size-16);
+  margin-bottom: var(--base-size-16);
+}
+
+.github-markdown-body table th {
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.github-markdown-body table th,
+.github-markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid var(--borderColor-default);
+}
+
+.github-markdown-body table td>:last-child {
+  margin-bottom: 0;
+}
+
+.github-markdown-body table tr {
+  background-color: var(--bgColor-default);
+  border-top: 1px solid var(--borderColor-muted);
+}
+
+.github-markdown-body table tr:nth-child(2n) {
+  background-color: var(--bgColor-muted);
+}
+
+.github-markdown-body table img {
+  background-color: transparent;
+}
+
+.github-markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.github-markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.github-markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.github-markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.github-markdown-body span.frame>span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid var(--borderColor-default);
+}
+
+.github-markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.github-markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: var(--fgColor-default);
+}
+
+.github-markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.github-markdown-body span.align-center>span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.github-markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.github-markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.github-markdown-body span.align-right>span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.github-markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.github-markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.github-markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.github-markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.github-markdown-body span.float-right>span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.github-markdown-body code,
+.github-markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: var(--bgColor-neutral-muted);
+  border-radius: 6px;
+}
+
+.github-markdown-body code br,
+.github-markdown-body tt br {
+  display: none;
+}
+
+.github-markdown-body del code {
+  text-decoration: inherit;
+}
+
+.github-markdown-body samp {
+  font-size: 85%;
+}
+
+.github-markdown-body pre code {
+  font-size: 100%;
+}
+
+.github-markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.github-markdown-body .highlight {
+  margin-bottom: var(--base-size-16);
+}
+
+.github-markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.github-markdown-body .highlight pre,
+.github-markdown-body pre {
+  padding: var(--base-size-16);
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-muted);
+  border-radius: 6px;
+}
+
+.github-markdown-body pre code,
+.github-markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.github-markdown-body .csv-data td,
+.github-markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.github-markdown-body .csv-data .blob-num {
+  padding: 10px var(--base-size-8) 9px;
+  text-align: right;
+  background: var(--bgColor-default);
+  border: 0;
+}
+
+.github-markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.github-markdown-body .csv-data th {
+  font-weight: var(--base-text-weight-semibold, 600);
+  background: var(--bgColor-muted);
+  border-top: 0;
+}
+
+.github-markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.github-markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.github-markdown-body .footnotes {
+  font-size: 12px;
+  color: var(--fgColor-muted);
+  border-top: 1px solid var(--borderColor-default);
+}
+
+.github-markdown-body .footnotes ol {
+  padding-left: var(--base-size-16);
+}
+
+.github-markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: var(--base-size-16);
+  margin-top: var(--base-size-16);
+}
+
+.github-markdown-body .footnotes li {
+  position: relative;
+}
+
+.github-markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(var(--base-size-8)*-1);
+  right: calc(var(--base-size-8)*-1);
+  bottom: calc(var(--base-size-8)*-1);
+  left: calc(var(--base-size-24)*-1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid var(--borderColor-accent-emphasis);
+  border-radius: 6px;
+}
+
+.github-markdown-body .footnotes li:target {
+  color: var(--fgColor-default);
+}
+
+.github-markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.github-markdown-body .pl-c {
+  color: var(--color-prettylights-syntax-comment);
+}
+
+.github-markdown-body .pl-c1,
+.github-markdown-body .pl-s .pl-v {
+  color: var(--color-prettylights-syntax-constant);
+}
+
+.github-markdown-body .pl-e,
+.github-markdown-body .pl-en {
+  color: var(--color-prettylights-syntax-entity);
+}
+
+.github-markdown-body .pl-smi,
+.github-markdown-body .pl-s .pl-s1 {
+  color: var(--color-prettylights-syntax-storage-modifier-import);
+}
+
+.github-markdown-body .pl-ent {
+  color: var(--color-prettylights-syntax-entity-tag);
+}
+
+.github-markdown-body .pl-k {
+  color: var(--color-prettylights-syntax-keyword);
+}
+
+.github-markdown-body .pl-s,
+.github-markdown-body .pl-pds,
+.github-markdown-body .pl-s .pl-pse .pl-s1,
+.github-markdown-body .pl-sr,
+.github-markdown-body .pl-sr .pl-cce,
+.github-markdown-body .pl-sr .pl-sre,
+.github-markdown-body .pl-sr .pl-sra {
+  color: var(--color-prettylights-syntax-string);
+}
+
+.github-markdown-body .pl-v,
+.github-markdown-body .pl-smw {
+  color: var(--color-prettylights-syntax-variable);
+}
+
+.github-markdown-body .pl-bu {
+  color: var(--color-prettylights-syntax-brackethighlighter-unmatched);
+}
+
+.github-markdown-body .pl-ii {
+  color: var(--color-prettylights-syntax-invalid-illegal-text);
+  background-color: var(--color-prettylights-syntax-invalid-illegal-bg);
+}
+
+.github-markdown-body .pl-c2 {
+  color: var(--color-prettylights-syntax-carriage-return-text);
+  background-color: var(--color-prettylights-syntax-carriage-return-bg);
+}
+
+.github-markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-string-regexp);
+}
+
+.github-markdown-body .pl-ml {
+  color: var(--color-prettylights-syntax-markup-list);
+}
+
+.github-markdown-body .pl-mh,
+.github-markdown-body .pl-mh .pl-en,
+.github-markdown-body .pl-ms {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-markup-heading);
+}
+
+.github-markdown-body .pl-mi {
+  font-style: italic;
+  color: var(--color-prettylights-syntax-markup-italic);
+}
+
+.github-markdown-body .pl-mb {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-markup-bold);
+}
+
+.github-markdown-body .pl-md {
+  color: var(--color-prettylights-syntax-markup-deleted-text);
+  background-color: var(--color-prettylights-syntax-markup-deleted-bg);
+}
+
+.github-markdown-body .pl-mi1 {
+  color: var(--color-prettylights-syntax-markup-inserted-text);
+  background-color: var(--color-prettylights-syntax-markup-inserted-bg);
+}
+
+.github-markdown-body .pl-mc {
+  color: var(--color-prettylights-syntax-markup-changed-text);
+  background-color: var(--color-prettylights-syntax-markup-changed-bg);
+}
+
+.github-markdown-body .pl-mi2 {
+  color: var(--color-prettylights-syntax-markup-ignored-text);
+  background-color: var(--color-prettylights-syntax-markup-ignored-bg);
+}
+
+.github-markdown-body .pl-mdr {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-meta-diff-range);
+}
+
+.github-markdown-body .pl-ba {
+  color: var(--color-prettylights-syntax-brackethighlighter-angle);
+}
+
+.github-markdown-body .pl-sg {
+  color: var(--color-prettylights-syntax-sublimelinter-gutter-mark);
+}
+
+.github-markdown-body .pl-corl {
+  text-decoration: underline;
+  color: var(--color-prettylights-syntax-constant-other-reference-link);
+}
+
+.github-markdown-body [role=button]:focus:not(:focus-visible),
+.github-markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.github-markdown-body button:focus:not(:focus-visible),
+.github-markdown-body summary:focus:not(:focus-visible),
+.github-markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.github-markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.github-markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.github-markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: var(--base-text-weight-normal, 400);
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.github-markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.github-markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.github-markdown-body .task-list-item label {
+  font-weight: var(--base-text-weight-normal, 400);
+}
+
+.github-markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.github-markdown-body .task-list-item+.task-list-item {
+  margin-top: var(--base-size-4);
+}
+
+.github-markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.github-markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.github-markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.github-markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.github-markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.github-markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.github-markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.github-markdown-body .markdown-alert {
+  padding: var(--base-size-8) var(--base-size-16);
+  margin-bottom: var(--base-size-16);
+  color: inherit;
+  border-left: .25em solid var(--borderColor-default);
+}
+
+.github-markdown-body .markdown-alert>:first-child {
+  margin-top: 0;
+}
+
+.github-markdown-body .markdown-alert>:last-child {
+  margin-bottom: 0;
+}
+
+.github-markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: var(--base-text-weight-medium, 500);
+  align-items: center;
+  line-height: 1;
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: var(--borderColor-accent-emphasis);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--fgColor-accent);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: var(--borderColor-done-emphasis);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--fgColor-done);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: var(--borderColor-attention-emphasis);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--fgColor-attention);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: var(--borderColor-success-emphasis);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--fgColor-success);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: var(--borderColor-danger-emphasis);
+}
+
+.github-markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--fgColor-danger);
+}
+
+.github-markdown-body>*:first-child>.heading-element:first-child {
+  margin-top: 0 !important;
+}
+.markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode=light][data-light-theme=light],
+[data-color-mode=dark][data-dark-theme=light],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=light],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=light] {
+  /*light*/
+  color-scheme: light;
+  --focus-outlineColor: #0969da;
+  --fgColor-default: #1f2328;
+  --fgColor-muted: #59636e;
+  --fgColor-accent: #0969da;
+  --fgColor-success: #1a7f37;
+  --fgColor-attention: #9a6700;
+  --fgColor-danger: #d1242f;
+  --fgColor-done: #8250df;
+  --bgColor-default: #ffffff;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --bgColor-attention-muted: #fff8c5;
+  --borderColor-default: #d1d9e0;
+  --borderColor-muted: #d1d9e0b3;
+  --borderColor-neutral-muted: #d1d9e0b3;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-success-emphasis: #1a7f37;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-danger-emphasis: #cf222e;
+  --borderColor-done-emphasis: #8250df;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-variable: #953800;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-string-regexp: #116329;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-inserted-text: #116329;
+  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+}
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-light-theme=light] {
+  /*light*/
+  color-scheme: light;
+  --focus-outlineColor: #0969da;
+  --fgColor-default: #1f2328;
+  --fgColor-muted: #59636e;
+  --fgColor-accent: #0969da;
+  --fgColor-success: #1a7f37;
+  --fgColor-attention: #9a6700;
+  --fgColor-danger: #d1242f;
+  --fgColor-done: #8250df;
+  --bgColor-default: #ffffff;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --bgColor-attention-muted: #fff8c5;
+  --borderColor-default: #d1d9e0;
+  --borderColor-muted: #d1d9e0b3;
+  --borderColor-neutral-muted: #d1d9e0b3;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-success-emphasis: #1a7f37;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-danger-emphasis: #cf222e;
+  --borderColor-done-emphasis: #8250df;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-variable: #953800;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-string-regexp: #116329;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-inserted-text: #116329;
+  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+}
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-dark-theme=light] {
+  /*light*/
+  color-scheme: light;
+  --focus-outlineColor: #0969da;
+  --fgColor-default: #1f2328;
+  --fgColor-muted: #59636e;
+  --fgColor-accent: #0969da;
+  --fgColor-success: #1a7f37;
+  --fgColor-attention: #9a6700;
+  --fgColor-danger: #d1242f;
+  --fgColor-done: #8250df;
+  --bgColor-default: #ffffff;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --bgColor-attention-muted: #fff8c5;
+  --borderColor-default: #d1d9e0;
+  --borderColor-muted: #d1d9e0b3;
+  --borderColor-neutral-muted: #d1d9e0b3;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-success-emphasis: #1a7f37;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-danger-emphasis: #cf222e;
+  --borderColor-done-emphasis: #8250df;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-variable: #953800;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-string-regexp: #116329;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-inserted-text: #116329;
+  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+}
+}
+
+.markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode=light][data-light-theme=light_colorblind],
+[data-color-mode=dark][data-dark-theme=light_colorblind],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=light_colorblind],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=light_colorblind] {
+  /*light_colorblind*/
+  color-scheme: light;
+  --focus-outlineColor: #0969da;
+  --fgColor-default: #1f2328;
+  --fgColor-muted: #59636e;
+  --fgColor-accent: #0969da;
+  --fgColor-success: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-danger: #be4e02;
+  --fgColor-done: #8250df;
+  --bgColor-default: #ffffff;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --bgColor-attention-muted: #fff8c5;
+  --borderColor-default: #d1d9e0;
+  --borderColor-muted: #d1d9e0b3;
+  --borderColor-neutral-muted: #d1d9e0b3;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-success-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-danger-emphasis: #bc4c00;
+  --borderColor-done-emphasis: #8250df;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-keyword: #bc4c00;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-variable: #953800;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #762c00;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #762c00;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #bc4c00;
+  --color-prettylights-syntax-string-regexp: #0550ae;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-deleted-text: #762c00;
+  --color-prettylights-syntax-markup-deleted-bg: #fff1e5;
+  --color-prettylights-syntax-markup-inserted-text: #0550ae;
+  --color-prettylights-syntax-markup-inserted-bg: #ddf4ff;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+}
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-light-theme=light_colorblind] {
+  /*light_colorblind*/
+  color-scheme: light;
+  --focus-outlineColor: #0969da;
+  --fgColor-default: #1f2328;
+  --fgColor-muted: #59636e;
+  --fgColor-accent: #0969da;
+  --fgColor-success: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-danger: #be4e02;
+  --fgColor-done: #8250df;
+  --bgColor-default: #ffffff;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --bgColor-attention-muted: #fff8c5;
+  --borderColor-default: #d1d9e0;
+  --borderColor-muted: #d1d9e0b3;
+  --borderColor-neutral-muted: #d1d9e0b3;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-success-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-danger-emphasis: #bc4c00;
+  --borderColor-done-emphasis: #8250df;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-keyword: #bc4c00;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-variable: #953800;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #762c00;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #762c00;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #bc4c00;
+  --color-prettylights-syntax-string-regexp: #0550ae;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-deleted-text: #762c00;
+  --color-prettylights-syntax-markup-deleted-bg: #fff1e5;
+  --color-prettylights-syntax-markup-inserted-text: #0550ae;
+  --color-prettylights-syntax-markup-inserted-bg: #ddf4ff;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+}
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-dark-theme=light_colorblind] {
+  /*light_colorblind*/
+  color-scheme: light;
+  --focus-outlineColor: #0969da;
+  --fgColor-default: #1f2328;
+  --fgColor-muted: #59636e;
+  --fgColor-accent: #0969da;
+  --fgColor-success: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-danger: #be4e02;
+  --fgColor-done: #8250df;
+  --bgColor-default: #ffffff;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --bgColor-attention-muted: #fff8c5;
+  --borderColor-default: #d1d9e0;
+  --borderColor-muted: #d1d9e0b3;
+  --borderColor-neutral-muted: #d1d9e0b3;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-success-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-danger-emphasis: #bc4c00;
+  --borderColor-done-emphasis: #8250df;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-keyword: #bc4c00;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-variable: #953800;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #762c00;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #762c00;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #bc4c00;
+  --color-prettylights-syntax-string-regexp: #0550ae;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-deleted-text: #762c00;
+  --color-prettylights-syntax-markup-deleted-bg: #fff1e5;
+  --color-prettylights-syntax-markup-inserted-text: #0550ae;
+  --color-prettylights-syntax-markup-inserted-bg: #ddf4ff;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+}
+}
+
+.markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode=light][data-light-theme=light_tritanopia],
+[data-color-mode=dark][data-dark-theme=light_tritanopia],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=light_tritanopia],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=light_tritanopia] {
+  /*light_tritanopia*/
+  color-scheme: light;
+  --focus-outlineColor: #0969da;
+  --fgColor-default: #1f2328;
+  --fgColor-muted: #59636e;
+  --fgColor-accent: #0969da;
+  --fgColor-success: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-danger: #d1242f;
+  --fgColor-done: #8250df;
+  --bgColor-default: #ffffff;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --bgColor-attention-muted: #fff8c5;
+  --borderColor-default: #d1d9e0;
+  --borderColor-muted: #d1d9e0b3;
+  --borderColor-neutral-muted: #d1d9e0b3;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-success-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-danger-emphasis: #cf222e;
+  --borderColor-done-emphasis: #8250df;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-variable: #a40e26;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-string-regexp: #0550ae;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-inserted-text: #0550ae;
+  --color-prettylights-syntax-markup-inserted-bg: #ddf4ff;
+  --color-prettylights-syntax-markup-changed-text: #a40e26;
+  --color-prettylights-syntax-markup-changed-bg: #ffcecb;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+}
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-light-theme=light_tritanopia] {
+  /*light_tritanopia*/
+  color-scheme: light;
+  --focus-outlineColor: #0969da;
+  --fgColor-default: #1f2328;
+  --fgColor-muted: #59636e;
+  --fgColor-accent: #0969da;
+  --fgColor-success: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-danger: #d1242f;
+  --fgColor-done: #8250df;
+  --bgColor-default: #ffffff;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --bgColor-attention-muted: #fff8c5;
+  --borderColor-default: #d1d9e0;
+  --borderColor-muted: #d1d9e0b3;
+  --borderColor-neutral-muted: #d1d9e0b3;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-success-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-danger-emphasis: #cf222e;
+  --borderColor-done-emphasis: #8250df;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-variable: #a40e26;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-string-regexp: #0550ae;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-inserted-text: #0550ae;
+  --color-prettylights-syntax-markup-inserted-bg: #ddf4ff;
+  --color-prettylights-syntax-markup-changed-text: #a40e26;
+  --color-prettylights-syntax-markup-changed-bg: #ffcecb;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+}
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-dark-theme=light_tritanopia] {
+  /*light_tritanopia*/
+  color-scheme: light;
+  --focus-outlineColor: #0969da;
+  --fgColor-default: #1f2328;
+  --fgColor-muted: #59636e;
+  --fgColor-accent: #0969da;
+  --fgColor-success: #0969da;
+  --fgColor-attention: #9a6700;
+  --fgColor-danger: #d1242f;
+  --fgColor-done: #8250df;
+  --bgColor-default: #ffffff;
+  --bgColor-muted: #f6f8fa;
+  --bgColor-neutral-muted: #818b981f;
+  --bgColor-attention-muted: #fff8c5;
+  --borderColor-default: #d1d9e0;
+  --borderColor-muted: #d1d9e0b3;
+  --borderColor-neutral-muted: #d1d9e0b3;
+  --borderColor-accent-emphasis: #0969da;
+  --borderColor-success-emphasis: #0969da;
+  --borderColor-attention-emphasis: #9a6700;
+  --borderColor-danger-emphasis: #cf222e;
+  --borderColor-done-emphasis: #8250df;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-variable: #a40e26;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-string-regexp: #0550ae;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-inserted-text: #0550ae;
+  --color-prettylights-syntax-markup-inserted-bg: #ddf4ff;
+  --color-prettylights-syntax-markup-changed-text: #a40e26;
+  --color-prettylights-syntax-markup-changed-bg: #ffcecb;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+}
+}
+
+.markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode=light][data-light-theme=light_high_contrast],
+[data-color-mode=dark][data-dark-theme=light_high_contrast],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=light_high_contrast],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=light_high_contrast] {
+  /*light_high_contrast*/
+  color-scheme: light;
+  --focus-outlineColor: #0349b4;
+  --fgColor-default: #010409;
+  --fgColor-muted: #454c54;
+  --fgColor-accent: #023b95;
+  --fgColor-success: #024c1a;
+  --fgColor-attention: #603700;
+  --fgColor-danger: #8a071e;
+  --fgColor-done: #512598;
+  --bgColor-default: #ffffff;
+  --bgColor-muted: #e6eaef;
+  --bgColor-neutral-muted: #e0e6eb;
+  --bgColor-attention-muted: #fcf7be;
+  --borderColor-default: #454c54;
+  --borderColor-muted: #454c54;
+  --borderColor-neutral-muted: #454c54;
+  --borderColor-accent-emphasis: #0349b4;
+  --borderColor-success-emphasis: #055d20;
+  --borderColor-attention-emphasis: #744500;
+  --borderColor-danger-emphasis: #a0111f;
+  --borderColor-done-emphasis: #622cbc;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #023b95;
+  --color-prettylights-syntax-constant-other-reference-link: #032563;
+  --color-prettylights-syntax-entity: #512598;
+  --color-prettylights-syntax-storage-modifier-import: #010409;
+  --color-prettylights-syntax-entity-tag: #023b95;
+  --color-prettylights-syntax-keyword: #a0111f;
+  --color-prettylights-syntax-string: #032563;
+  --color-prettylights-syntax-variable: #702c00;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #6e011a;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #6e011a;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #a0111f;
+  --color-prettylights-syntax-string-regexp: #024c1a;
+  --color-prettylights-syntax-markup-list: #2e1800;
+  --color-prettylights-syntax-markup-heading: #023b95;
+  --color-prettylights-syntax-markup-italic: #010409;
+  --color-prettylights-syntax-markup-bold: #010409;
+  --color-prettylights-syntax-markup-deleted-text: #6e011a;
+  --color-prettylights-syntax-markup-deleted-bg: #fff0ee;
+  --color-prettylights-syntax-markup-inserted-text: #024c1a;
+  --color-prettylights-syntax-markup-inserted-bg: #d2fedb;
+  --color-prettylights-syntax-markup-changed-text: #702c00;
+  --color-prettylights-syntax-markup-changed-bg: #ffc67b;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-ignored-bg: #023b95;
+  --color-prettylights-syntax-meta-diff-range: #622cbc;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+}
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-light-theme=light_high_contrast] {
+  /*light_high_contrast*/
+  color-scheme: light;
+  --focus-outlineColor: #0349b4;
+  --fgColor-default: #010409;
+  --fgColor-muted: #454c54;
+  --fgColor-accent: #023b95;
+  --fgColor-success: #024c1a;
+  --fgColor-attention: #603700;
+  --fgColor-danger: #8a071e;
+  --fgColor-done: #512598;
+  --bgColor-default: #ffffff;
+  --bgColor-muted: #e6eaef;
+  --bgColor-neutral-muted: #e0e6eb;
+  --bgColor-attention-muted: #fcf7be;
+  --borderColor-default: #454c54;
+  --borderColor-muted: #454c54;
+  --borderColor-neutral-muted: #454c54;
+  --borderColor-accent-emphasis: #0349b4;
+  --borderColor-success-emphasis: #055d20;
+  --borderColor-attention-emphasis: #744500;
+  --borderColor-danger-emphasis: #a0111f;
+  --borderColor-done-emphasis: #622cbc;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #023b95;
+  --color-prettylights-syntax-constant-other-reference-link: #032563;
+  --color-prettylights-syntax-entity: #512598;
+  --color-prettylights-syntax-storage-modifier-import: #010409;
+  --color-prettylights-syntax-entity-tag: #023b95;
+  --color-prettylights-syntax-keyword: #a0111f;
+  --color-prettylights-syntax-string: #032563;
+  --color-prettylights-syntax-variable: #702c00;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #6e011a;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #6e011a;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #a0111f;
+  --color-prettylights-syntax-string-regexp: #024c1a;
+  --color-prettylights-syntax-markup-list: #2e1800;
+  --color-prettylights-syntax-markup-heading: #023b95;
+  --color-prettylights-syntax-markup-italic: #010409;
+  --color-prettylights-syntax-markup-bold: #010409;
+  --color-prettylights-syntax-markup-deleted-text: #6e011a;
+  --color-prettylights-syntax-markup-deleted-bg: #fff0ee;
+  --color-prettylights-syntax-markup-inserted-text: #024c1a;
+  --color-prettylights-syntax-markup-inserted-bg: #d2fedb;
+  --color-prettylights-syntax-markup-changed-text: #702c00;
+  --color-prettylights-syntax-markup-changed-bg: #ffc67b;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-ignored-bg: #023b95;
+  --color-prettylights-syntax-meta-diff-range: #622cbc;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+}
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-dark-theme=light_high_contrast] {
+  /*light_high_contrast*/
+  color-scheme: light;
+  --focus-outlineColor: #0349b4;
+  --fgColor-default: #010409;
+  --fgColor-muted: #454c54;
+  --fgColor-accent: #023b95;
+  --fgColor-success: #024c1a;
+  --fgColor-attention: #603700;
+  --fgColor-danger: #8a071e;
+  --fgColor-done: #512598;
+  --bgColor-default: #ffffff;
+  --bgColor-muted: #e6eaef;
+  --bgColor-neutral-muted: #e0e6eb;
+  --bgColor-attention-muted: #fcf7be;
+  --borderColor-default: #454c54;
+  --borderColor-muted: #454c54;
+  --borderColor-neutral-muted: #454c54;
+  --borderColor-accent-emphasis: #0349b4;
+  --borderColor-success-emphasis: #055d20;
+  --borderColor-attention-emphasis: #744500;
+  --borderColor-danger-emphasis: #a0111f;
+  --borderColor-done-emphasis: #622cbc;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #023b95;
+  --color-prettylights-syntax-constant-other-reference-link: #032563;
+  --color-prettylights-syntax-entity: #512598;
+  --color-prettylights-syntax-storage-modifier-import: #010409;
+  --color-prettylights-syntax-entity-tag: #023b95;
+  --color-prettylights-syntax-keyword: #a0111f;
+  --color-prettylights-syntax-string: #032563;
+  --color-prettylights-syntax-variable: #702c00;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #6e011a;
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #6e011a;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #a0111f;
+  --color-prettylights-syntax-string-regexp: #024c1a;
+  --color-prettylights-syntax-markup-list: #2e1800;
+  --color-prettylights-syntax-markup-heading: #023b95;
+  --color-prettylights-syntax-markup-italic: #010409;
+  --color-prettylights-syntax-markup-bold: #010409;
+  --color-prettylights-syntax-markup-deleted-text: #6e011a;
+  --color-prettylights-syntax-markup-deleted-bg: #fff0ee;
+  --color-prettylights-syntax-markup-inserted-text: #024c1a;
+  --color-prettylights-syntax-markup-inserted-bg: #d2fedb;
+  --color-prettylights-syntax-markup-changed-text: #702c00;
+  --color-prettylights-syntax-markup-changed-bg: #ffc67b;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-ignored-bg: #023b95;
+  --color-prettylights-syntax-meta-diff-range: #622cbc;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+}
+}
+
+.markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode=light][data-light-theme=dark],
+[data-color-mode=dark][data-dark-theme=dark],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=dark],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=dark] {
+  /*dark*/
+  color-scheme: dark;
+  --focus-outlineColor: #1f6feb;
+  --fgColor-default: #f0f6fc;
+  --fgColor-muted: #9198a1;
+  --fgColor-accent: #4493f8;
+  --fgColor-success: #3fb950;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f85149;
+  --fgColor-done: #ab7df8;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --bgColor-attention-muted: #bb800926;
+  --borderColor-default: #3d444d;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-success-emphasis: #238636;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-danger-emphasis: #da3633;
+  --borderColor-done-emphasis: #8957e5;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #7ee787;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa657;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-string-regexp: #7ee787;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+  --color-prettylights-syntax-markup-inserted-bg: #033a16;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-light-theme=dark] {
+  /*dark*/
+  color-scheme: dark;
+  --focus-outlineColor: #1f6feb;
+  --fgColor-default: #f0f6fc;
+  --fgColor-muted: #9198a1;
+  --fgColor-accent: #4493f8;
+  --fgColor-success: #3fb950;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f85149;
+  --fgColor-done: #ab7df8;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --bgColor-attention-muted: #bb800926;
+  --borderColor-default: #3d444d;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-success-emphasis: #238636;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-danger-emphasis: #da3633;
+  --borderColor-done-emphasis: #8957e5;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #7ee787;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa657;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-string-regexp: #7ee787;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+  --color-prettylights-syntax-markup-inserted-bg: #033a16;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-dark-theme=dark] {
+  /*dark*/
+  color-scheme: dark;
+  --focus-outlineColor: #1f6feb;
+  --fgColor-default: #f0f6fc;
+  --fgColor-muted: #9198a1;
+  --fgColor-accent: #4493f8;
+  --fgColor-success: #3fb950;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f85149;
+  --fgColor-done: #ab7df8;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --bgColor-attention-muted: #bb800926;
+  --borderColor-default: #3d444d;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-success-emphasis: #238636;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-danger-emphasis: #da3633;
+  --borderColor-done-emphasis: #8957e5;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #7ee787;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa657;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-string-regexp: #7ee787;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+  --color-prettylights-syntax-markup-inserted-bg: #033a16;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+}
+
+.markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode=light][data-light-theme=dark_dimmed],
+[data-color-mode=dark][data-dark-theme=dark_dimmed],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=dark_dimmed],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=dark_dimmed] {
+  /*dark_dimmed*/
+  color-scheme: dark;
+  --focus-outlineColor: #316dca;
+  --fgColor-default: #d1d7e0;
+  --fgColor-muted: #9198a1;
+  --fgColor-accent: #478be6;
+  --fgColor-success: #57ab5a;
+  --fgColor-attention: #c69026;
+  --fgColor-danger: #e5534b;
+  --fgColor-done: #986ee2;
+  --bgColor-default: #212830;
+  --bgColor-muted: #262c36;
+  --bgColor-neutral-muted: #656c7633;
+  --bgColor-attention-muted: #ae7c1426;
+  --borderColor-default: #3d444d;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-accent-emphasis: #316dca;
+  --borderColor-success-emphasis: #347d39;
+  --borderColor-attention-emphasis: #966600;
+  --borderColor-danger-emphasis: #c93c37;
+  --borderColor-done-emphasis: #8256d0;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #6cb6ff;
+  --color-prettylights-syntax-constant-other-reference-link: #96d0ff;
+  --color-prettylights-syntax-entity: #dcbdfb;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #8ddb8c;
+  --color-prettylights-syntax-keyword: #f47067;
+  --color-prettylights-syntax-string: #96d0ff;
+  --color-prettylights-syntax-variable: #f69d50;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #e5534b;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #922323;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #ad2e2c;
+  --color-prettylights-syntax-string-regexp: #8ddb8c;
+  --color-prettylights-syntax-markup-list: #eac55f;
+  --color-prettylights-syntax-markup-heading: #316dca;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffd8d3;
+  --color-prettylights-syntax-markup-deleted-bg: #78191b;
+  --color-prettylights-syntax-markup-inserted-text: #b4f1b4;
+  --color-prettylights-syntax-markup-inserted-bg: #1b4721;
+  --color-prettylights-syntax-markup-changed-text: #ffddb0;
+  --color-prettylights-syntax-markup-changed-bg: #682d0f;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #255ab2;
+  --color-prettylights-syntax-meta-diff-range: #dcbdfb;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-light-theme=dark_dimmed] {
+  /*dark_dimmed*/
+  color-scheme: dark;
+  --focus-outlineColor: #316dca;
+  --fgColor-default: #d1d7e0;
+  --fgColor-muted: #9198a1;
+  --fgColor-accent: #478be6;
+  --fgColor-success: #57ab5a;
+  --fgColor-attention: #c69026;
+  --fgColor-danger: #e5534b;
+  --fgColor-done: #986ee2;
+  --bgColor-default: #212830;
+  --bgColor-muted: #262c36;
+  --bgColor-neutral-muted: #656c7633;
+  --bgColor-attention-muted: #ae7c1426;
+  --borderColor-default: #3d444d;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-accent-emphasis: #316dca;
+  --borderColor-success-emphasis: #347d39;
+  --borderColor-attention-emphasis: #966600;
+  --borderColor-danger-emphasis: #c93c37;
+  --borderColor-done-emphasis: #8256d0;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #6cb6ff;
+  --color-prettylights-syntax-constant-other-reference-link: #96d0ff;
+  --color-prettylights-syntax-entity: #dcbdfb;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #8ddb8c;
+  --color-prettylights-syntax-keyword: #f47067;
+  --color-prettylights-syntax-string: #96d0ff;
+  --color-prettylights-syntax-variable: #f69d50;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #e5534b;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #922323;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #ad2e2c;
+  --color-prettylights-syntax-string-regexp: #8ddb8c;
+  --color-prettylights-syntax-markup-list: #eac55f;
+  --color-prettylights-syntax-markup-heading: #316dca;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffd8d3;
+  --color-prettylights-syntax-markup-deleted-bg: #78191b;
+  --color-prettylights-syntax-markup-inserted-text: #b4f1b4;
+  --color-prettylights-syntax-markup-inserted-bg: #1b4721;
+  --color-prettylights-syntax-markup-changed-text: #ffddb0;
+  --color-prettylights-syntax-markup-changed-bg: #682d0f;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #255ab2;
+  --color-prettylights-syntax-meta-diff-range: #dcbdfb;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-dark-theme=dark_dimmed] {
+  /*dark_dimmed*/
+  color-scheme: dark;
+  --focus-outlineColor: #316dca;
+  --fgColor-default: #d1d7e0;
+  --fgColor-muted: #9198a1;
+  --fgColor-accent: #478be6;
+  --fgColor-success: #57ab5a;
+  --fgColor-attention: #c69026;
+  --fgColor-danger: #e5534b;
+  --fgColor-done: #986ee2;
+  --bgColor-default: #212830;
+  --bgColor-muted: #262c36;
+  --bgColor-neutral-muted: #656c7633;
+  --bgColor-attention-muted: #ae7c1426;
+  --borderColor-default: #3d444d;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-accent-emphasis: #316dca;
+  --borderColor-success-emphasis: #347d39;
+  --borderColor-attention-emphasis: #966600;
+  --borderColor-danger-emphasis: #c93c37;
+  --borderColor-done-emphasis: #8256d0;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #6cb6ff;
+  --color-prettylights-syntax-constant-other-reference-link: #96d0ff;
+  --color-prettylights-syntax-entity: #dcbdfb;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #8ddb8c;
+  --color-prettylights-syntax-keyword: #f47067;
+  --color-prettylights-syntax-string: #96d0ff;
+  --color-prettylights-syntax-variable: #f69d50;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #e5534b;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #922323;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #ad2e2c;
+  --color-prettylights-syntax-string-regexp: #8ddb8c;
+  --color-prettylights-syntax-markup-list: #eac55f;
+  --color-prettylights-syntax-markup-heading: #316dca;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffd8d3;
+  --color-prettylights-syntax-markup-deleted-bg: #78191b;
+  --color-prettylights-syntax-markup-inserted-text: #b4f1b4;
+  --color-prettylights-syntax-markup-inserted-bg: #1b4721;
+  --color-prettylights-syntax-markup-changed-text: #ffddb0;
+  --color-prettylights-syntax-markup-changed-bg: #682d0f;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #255ab2;
+  --color-prettylights-syntax-meta-diff-range: #dcbdfb;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+}
+
+.markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode=light][data-light-theme=dark_colorblind],
+[data-color-mode=dark][data-dark-theme=dark_colorblind],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=dark_colorblind],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=dark_colorblind] {
+  /*dark_colorblind*/
+  color-scheme: dark;
+  --focus-outlineColor: #1f6feb;
+  --fgColor-default: #f0f6fc;
+  --fgColor-muted: #9198a1;
+  --fgColor-accent: #4493f8;
+  --fgColor-success: #58a6ff;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #db6d28;
+  --fgColor-done: #ab7df8;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --bgColor-attention-muted: #bb800926;
+  --borderColor-default: #3d444d;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-success-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-danger-emphasis: #bd561d;
+  --borderColor-done-emphasis: #8957e5;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #a5d6ff;
+  --color-prettylights-syntax-keyword: #f0883e;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa657;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #db6d28;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #762d0a;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #9b4215;
+  --color-prettylights-syntax-string-regexp: #a5d6ff;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffdfb6;
+  --color-prettylights-syntax-markup-deleted-bg: #5a1e02;
+  --color-prettylights-syntax-markup-inserted-text: #cae8ff;
+  --color-prettylights-syntax-markup-inserted-bg: #0c2d6b;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-light-theme=dark_colorblind] {
+  /*dark_colorblind*/
+  color-scheme: dark;
+  --focus-outlineColor: #1f6feb;
+  --fgColor-default: #f0f6fc;
+  --fgColor-muted: #9198a1;
+  --fgColor-accent: #4493f8;
+  --fgColor-success: #58a6ff;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #db6d28;
+  --fgColor-done: #ab7df8;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --bgColor-attention-muted: #bb800926;
+  --borderColor-default: #3d444d;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-success-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-danger-emphasis: #bd561d;
+  --borderColor-done-emphasis: #8957e5;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #a5d6ff;
+  --color-prettylights-syntax-keyword: #f0883e;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa657;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #db6d28;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #762d0a;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #9b4215;
+  --color-prettylights-syntax-string-regexp: #a5d6ff;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffdfb6;
+  --color-prettylights-syntax-markup-deleted-bg: #5a1e02;
+  --color-prettylights-syntax-markup-inserted-text: #cae8ff;
+  --color-prettylights-syntax-markup-inserted-bg: #0c2d6b;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-dark-theme=dark_colorblind] {
+  /*dark_colorblind*/
+  color-scheme: dark;
+  --focus-outlineColor: #1f6feb;
+  --fgColor-default: #f0f6fc;
+  --fgColor-muted: #9198a1;
+  --fgColor-accent: #4493f8;
+  --fgColor-success: #58a6ff;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #db6d28;
+  --fgColor-done: #ab7df8;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --bgColor-attention-muted: #bb800926;
+  --borderColor-default: #3d444d;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-success-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-danger-emphasis: #bd561d;
+  --borderColor-done-emphasis: #8957e5;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #a5d6ff;
+  --color-prettylights-syntax-keyword: #f0883e;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa657;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #db6d28;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #762d0a;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #9b4215;
+  --color-prettylights-syntax-string-regexp: #a5d6ff;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffdfb6;
+  --color-prettylights-syntax-markup-deleted-bg: #5a1e02;
+  --color-prettylights-syntax-markup-inserted-text: #cae8ff;
+  --color-prettylights-syntax-markup-inserted-bg: #0c2d6b;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+}
+
+.markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode=light][data-light-theme=dark_tritanopia],
+[data-color-mode=dark][data-dark-theme=dark_tritanopia],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=dark_tritanopia],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=dark_tritanopia] {
+  /*dark_tritanopia*/
+  color-scheme: dark;
+  --focus-outlineColor: #1f6feb;
+  --fgColor-default: #f0f6fc;
+  --fgColor-muted: #9198a1;
+  --fgColor-accent: #4493f8;
+  --fgColor-success: #58a6ff;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f85149;
+  --fgColor-done: #ab7df8;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --bgColor-attention-muted: #bb800926;
+  --borderColor-default: #3d444d;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-success-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-danger-emphasis: #da3633;
+  --borderColor-done-emphasis: #8957e5;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #a5d6ff;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa198;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-string-regexp: #a5d6ff;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-inserted-text: #cae8ff;
+  --color-prettylights-syntax-markup-inserted-bg: #0c2d6b;
+  --color-prettylights-syntax-markup-changed-text: #ffdcd7;
+  --color-prettylights-syntax-markup-changed-bg: #67060c;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-light-theme=dark_tritanopia] {
+  /*dark_tritanopia*/
+  color-scheme: dark;
+  --focus-outlineColor: #1f6feb;
+  --fgColor-default: #f0f6fc;
+  --fgColor-muted: #9198a1;
+  --fgColor-accent: #4493f8;
+  --fgColor-success: #58a6ff;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f85149;
+  --fgColor-done: #ab7df8;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --bgColor-attention-muted: #bb800926;
+  --borderColor-default: #3d444d;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-success-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-danger-emphasis: #da3633;
+  --borderColor-done-emphasis: #8957e5;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #a5d6ff;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa198;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-string-regexp: #a5d6ff;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-inserted-text: #cae8ff;
+  --color-prettylights-syntax-markup-inserted-bg: #0c2d6b;
+  --color-prettylights-syntax-markup-changed-text: #ffdcd7;
+  --color-prettylights-syntax-markup-changed-bg: #67060c;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-dark-theme=dark_tritanopia] {
+  /*dark_tritanopia*/
+  color-scheme: dark;
+  --focus-outlineColor: #1f6feb;
+  --fgColor-default: #f0f6fc;
+  --fgColor-muted: #9198a1;
+  --fgColor-accent: #4493f8;
+  --fgColor-success: #58a6ff;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f85149;
+  --fgColor-done: #ab7df8;
+  --bgColor-default: #0d1117;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #656c7633;
+  --bgColor-attention-muted: #bb800926;
+  --borderColor-default: #3d444d;
+  --borderColor-muted: #3d444db3;
+  --borderColor-neutral-muted: #3d444db3;
+  --borderColor-accent-emphasis: #1f6feb;
+  --borderColor-success-emphasis: #1f6feb;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-danger-emphasis: #da3633;
+  --borderColor-done-emphasis: #8957e5;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #a5d6ff;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa198;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-string-regexp: #a5d6ff;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-inserted-text: #cae8ff;
+  --color-prettylights-syntax-markup-inserted-bg: #0c2d6b;
+  --color-prettylights-syntax-markup-changed-text: #ffdcd7;
+  --color-prettylights-syntax-markup-changed-bg: #67060c;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+}
+
+.markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode=light][data-light-theme=dark_high_contrast],
+[data-color-mode=dark][data-dark-theme=dark_high_contrast],
+.vscode-body.vscode-light [data-color-mode=auto][data-light-theme=dark_high_contrast],
+.vscode-body.vscode-dark [data-color-mode=auto][data-dark-theme=dark_high_contrast] {
+  /*dark_high_contrast*/
+  color-scheme: dark;
+  --focus-outlineColor: #409eff;
+  --fgColor-default: #ffffff;
+  --fgColor-muted: #b7bdc8;
+  --fgColor-accent: #74b9ff;
+  --fgColor-success: #2bd853;
+  --fgColor-attention: #f0b72f;
+  --fgColor-danger: #ff9492;
+  --fgColor-done: #d3abff;
+  --bgColor-default: #010409;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #212830;
+  --bgColor-attention-muted: #edaa2726;
+  --borderColor-default: #b7bdc8;
+  --borderColor-muted: #b7bdc8;
+  --borderColor-neutral-muted: #b7bdc8;
+  --borderColor-accent-emphasis: #409eff;
+  --borderColor-success-emphasis: #09b43a;
+  --borderColor-attention-emphasis: #e09b13;
+  --borderColor-danger-emphasis: #ff6a69;
+  --borderColor-done-emphasis: #b87fff;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #91cbff;
+  --color-prettylights-syntax-constant-other-reference-link: #addcff;
+  --color-prettylights-syntax-entity: #dbb7ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #72f088;
+  --color-prettylights-syntax-keyword: #ff9492;
+  --color-prettylights-syntax-string: #addcff;
+  --color-prettylights-syntax-variable: #ffb757;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #ff8080;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #e82a2f;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #ff4445;
+  --color-prettylights-syntax-string-regexp: #72f088;
+  --color-prettylights-syntax-markup-list: #fbd669;
+  --color-prettylights-syntax-markup-heading: #409eff;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffdedb;
+  --color-prettylights-syntax-markup-deleted-bg: #cc1421;
+  --color-prettylights-syntax-markup-inserted-text: #acf7b6;
+  --color-prettylights-syntax-markup-inserted-bg: #007728;
+  --color-prettylights-syntax-markup-changed-text: #ffe1b4;
+  --color-prettylights-syntax-markup-changed-bg: #a74c00;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #318bf8;
+  --color-prettylights-syntax-meta-diff-range: #dbb7ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+@media (prefers-color-scheme: light) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-light-theme=dark_high_contrast] {
+  /*dark_high_contrast*/
+  color-scheme: dark;
+  --focus-outlineColor: #409eff;
+  --fgColor-default: #ffffff;
+  --fgColor-muted: #b7bdc8;
+  --fgColor-accent: #74b9ff;
+  --fgColor-success: #2bd853;
+  --fgColor-attention: #f0b72f;
+  --fgColor-danger: #ff9492;
+  --fgColor-done: #d3abff;
+  --bgColor-default: #010409;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #212830;
+  --bgColor-attention-muted: #edaa2726;
+  --borderColor-default: #b7bdc8;
+  --borderColor-muted: #b7bdc8;
+  --borderColor-neutral-muted: #b7bdc8;
+  --borderColor-accent-emphasis: #409eff;
+  --borderColor-success-emphasis: #09b43a;
+  --borderColor-attention-emphasis: #e09b13;
+  --borderColor-danger-emphasis: #ff6a69;
+  --borderColor-done-emphasis: #b87fff;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #91cbff;
+  --color-prettylights-syntax-constant-other-reference-link: #addcff;
+  --color-prettylights-syntax-entity: #dbb7ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #72f088;
+  --color-prettylights-syntax-keyword: #ff9492;
+  --color-prettylights-syntax-string: #addcff;
+  --color-prettylights-syntax-variable: #ffb757;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #ff8080;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #e82a2f;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #ff4445;
+  --color-prettylights-syntax-string-regexp: #72f088;
+  --color-prettylights-syntax-markup-list: #fbd669;
+  --color-prettylights-syntax-markup-heading: #409eff;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffdedb;
+  --color-prettylights-syntax-markup-deleted-bg: #cc1421;
+  --color-prettylights-syntax-markup-inserted-text: #acf7b6;
+  --color-prettylights-syntax-markup-inserted-bg: #007728;
+  --color-prettylights-syntax-markup-changed-text: #ffe1b4;
+  --color-prettylights-syntax-markup-changed-bg: #a74c00;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #318bf8;
+  --color-prettylights-syntax-meta-diff-range: #dbb7ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-body {
+  --base-size-4: 0.25rem;
+  --base-size-8: 0.5rem;
+  --base-size-16: 1rem;
+  --base-size-24: 1.5rem;
+  --base-size-40: 2.5rem;
+  --base-text-weight-normal: 400;
+  --base-text-weight-medium: 500;
+  --base-text-weight-semibold: 600;
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+[data-color-mode='system'][data-dark-theme=dark_high_contrast] {
+  /*dark_high_contrast*/
+  color-scheme: dark;
+  --focus-outlineColor: #409eff;
+  --fgColor-default: #ffffff;
+  --fgColor-muted: #b7bdc8;
+  --fgColor-accent: #74b9ff;
+  --fgColor-success: #2bd853;
+  --fgColor-attention: #f0b72f;
+  --fgColor-danger: #ff9492;
+  --fgColor-done: #d3abff;
+  --bgColor-default: #010409;
+  --bgColor-muted: #151b23;
+  --bgColor-neutral-muted: #212830;
+  --bgColor-attention-muted: #edaa2726;
+  --borderColor-default: #b7bdc8;
+  --borderColor-muted: #b7bdc8;
+  --borderColor-neutral-muted: #b7bdc8;
+  --borderColor-accent-emphasis: #409eff;
+  --borderColor-success-emphasis: #09b43a;
+  --borderColor-attention-emphasis: #e09b13;
+  --borderColor-danger-emphasis: #ff6a69;
+  --borderColor-done-emphasis: #b87fff;
+  --color-prettylights-syntax-comment: #9198a1;
+  --color-prettylights-syntax-constant: #91cbff;
+  --color-prettylights-syntax-constant-other-reference-link: #addcff;
+  --color-prettylights-syntax-entity: #dbb7ff;
+  --color-prettylights-syntax-storage-modifier-import: #f0f6fc;
+  --color-prettylights-syntax-entity-tag: #72f088;
+  --color-prettylights-syntax-keyword: #ff9492;
+  --color-prettylights-syntax-string: #addcff;
+  --color-prettylights-syntax-variable: #ffb757;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #ff8080;
+  --color-prettylights-syntax-brackethighlighter-angle: #9198a1;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #e82a2f;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #ff4445;
+  --color-prettylights-syntax-string-regexp: #72f088;
+  --color-prettylights-syntax-markup-list: #fbd669;
+  --color-prettylights-syntax-markup-heading: #409eff;
+  --color-prettylights-syntax-markup-italic: #f0f6fc;
+  --color-prettylights-syntax-markup-bold: #f0f6fc;
+  --color-prettylights-syntax-markup-deleted-text: #ffdedb;
+  --color-prettylights-syntax-markup-deleted-bg: #cc1421;
+  --color-prettylights-syntax-markup-inserted-text: #acf7b6;
+  --color-prettylights-syntax-markup-inserted-bg: #007728;
+  --color-prettylights-syntax-markup-changed-text: #ffe1b4;
+  --color-prettylights-syntax-markup-changed-bg: #a74c00;
+  --color-prettylights-syntax-markup-ignored-text: #f0f6fc;
+  --color-prettylights-syntax-markup-ignored-bg: #318bf8;
+  --color-prettylights-syntax-meta-diff-range: #dbb7ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #3d444d;
+}
+}
+
+/*!
+  Theme: GitHub
+  Description: Highlight-js port of github.com theme
+  Author: github.com
+  Maintainer: @SNDST00M, @mjbvz
+  Updated: 2021-12-08
+*/
+.markdown-body pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 16px;
+}
+
+.markdown-body code.hljs {
+  padding: 3px 5px;
+}
+
+/*!
+  Theme: GitHub
+  Description: Theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/
+.markdown-body .hljs,
+.markdown-body pre > code {
+  color: var(--color-fg-default);
+  background: var(--color-canvas-subtle);
+}
+
+.markdown-body .hljs-function,
+.markdown-body .hljs-params {
+  color: var(--color-fg-default);
+}
+
+.markdown-body .hljs-doctag,
+.markdown-body .hljs-keyword,
+.markdown-body .hljs-meta .hljs-keyword,
+.markdown-body .hljs-template-tag,
+.markdown-body .hljs-template-variable,
+.markdown-body .hljs-type,
+.markdown-body .hljs-variable.language_ {
+  color: var(--color-prettylights-syntax-keyword);
+}
+
+.markdown-body .hljs-title,
+.markdown-body .hljs-title.class_,
+.markdown-body .hljs-title.class_.inherited__,
+.markdown-body .hljs-title.function_ {
+  color: var(--color-prettylights-syntax-entity);
+}
+
+.markdown-body .hljs-attr,
+.markdown-body .hljs-attribute,
+.markdown-body .hljs-literal,
+.markdown-body .hljs-meta,
+.markdown-body .hljs-number,
+.markdown-body .hljs-operator,
+.markdown-body .hljs-selector-attr,
+.markdown-body .hljs-selector-class,
+.markdown-body .hljs-selector-id,
+.markdown-body .hljs-variable {
+  color: var(--color-prettylights-syntax-constant);
+}
+
+.markdown-body .hljs-meta .hljs-string,
+.markdown-body .hljs-regexp,
+.markdown-body .hljs-string {
+  color: var(--color-prettylights-syntax-string);
+}
+
+.markdown-body .hljs-built_in,
+.markdown-body .hljs-symbol {
+  color: var(--color-prettylights-syntax-variable);
+}
+
+.markdown-body .hljs-code,
+.markdown-body .hljs-comment,
+.markdown-body .hljs-formula {
+  color: var(--color-prettylights-syntax-comment);
+}
+
+.markdown-body .hljs-name,
+.markdown-body .hljs-quote,
+.markdown-body .hljs-selector-pseudo,
+.markdown-body .hljs-selector-tag {
+  color: var(--color-prettylights-syntax-entity-tag);
+}
+
+.markdown-body .hljs-subst {
+  color: var(--color-prettylights-syntax-constant);
+}
+
+.markdown-body .hljs-section {
+  color: var(--color-prettylights-syntax-markup-heading);
+  font-weight: bold;
+}
+
+.markdown-body .hljs-bullet {
+  color: var(--color-prettylights-syntax-markup-list);
+}
+
+.markdown-body .hljs-emphasis {
+  color: var(--color-prettylights-syntax-constant);
+  font-style: italic;
+}
+
+.markdown-body .hljs-strong {
+  color: var(--color-prettylights-syntax-constant);
+  font-weight: bold;
+}
+
+.markdown-body .hljs-addition {
+  color: var(--color-prettylights-syntax-markup-inserted-text);
+  background-color: var(--color-prettylights-syntax-markup-inserted-bg);
+}
+
+.markdown-body .hljs-deletion {
+  color: var(--color-prettylights-syntax-markup-deleted-text);
+  background-color: var(--color-prettylights-syntax-markup-deleted-bg);
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+
+        </head>
+        <body class="vscode-body vscode-light">
+            <div
+            class="github-markdown-body"
+            data-color-mode="auto"
+            data-light-theme="light"
+            data-dark-theme="dark"
+        >
+            <div class="github-markdown-content"><ul>
+<li><a href="#montagem-e-anota%C3%A7%C3%A3o-funcional">Montagem e anotação funcional</a>
+<ul>
+<li><a href="#origem-dos-dados">Origem dos dados</a></li>
+<li><a href="#conhecendo-o-conte%C3%BAdo-da-pasta">Conhecendo o conteúdo da pasta</a></li>
+<li><a href="#controle-de-qualidade-das-sequ%C3%AAncias">Controle de qualidade das sequências</a></li>
+<li><a href="#montagem-do-genoma">Montagem do genoma</a></li>
+<li><a href="#avaliando-a-qualidade-da-montagem">Avaliando a qualidade da montagem</a></li>
+<li><a href="#predi%C3%A7%C3%A3o-de-genes">Predição de Genes</a></li>
+<li><a href="#classifica%C3%A7%C3%A3o-funcional-dos-genes">Classificação funcional dos genes</a></li>
+<li><a href="#visualiza%C3%A7%C3%A3o-em-vias-metab%C3%B3licas">Visualização em vias metabólicas</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="montagem-e-anotação-funcional">Montagem e anotação funcional</h1>
+<blockquote>
+<p><strong>Objetivo:</strong> Montagem e anotação funcional de um genoma bacteriano.</p>
+</blockquote>
+<hr>
+<h2 id="origem-dos-dados">Origem dos dados</h2>
+<p>Os dados utilizados são provenientes de um sequenciamento feito na plataforma Illumina. Uma biblioteca de DNA foi utilizada para duas diferentes abordagens de sequenciamento, porém com a mesma profundidade esperada de 60x.</p>
+<ul>
+<li>1 milhão de pares de leituras de 150bp: <code>lib1</code></li>
+<li>500 mil pares de leituras de 300bp. <code>lib2</code></li>
+</ul>
+<h2 id="conhecendo-o-conteúdo-da-pasta">Conhecendo o conteúdo da pasta</h2>
+<ul>
+<li>Uma vez dentro do servidor, pode ver a sua pasta atual e seu conteúdo com os comandos:</li>
+</ul>
+<pre><code class="language-bash"><span class="hljs-built_in">pwd</span> <span class="hljs-comment">#path of working directory</span>
+
+<span class="hljs-built_in">ls</span> <span class="hljs-comment">#lista o conteudo da pasta</span>
+</code></pre>
+<ul>
+<li>Entre na pasta de trabalho e veja seu conteúdo:</li>
+</ul>
+<pre><code class="language-bash"><span class="hljs-built_in">mkdir</span> Aula_Funcional
+<span class="hljs-built_in">cd</span> Aula_Funcional
+<span class="hljs-built_in">ls</span>
+</code></pre>
+<p>Baixe o arquivo com o conteúdo da aula e descompacte dentro da pasta.</p>
+<pre><code class="language-bash">tar -zxf elab.tar.gz
+</code></pre>
+<ul>
+<li>Vamos criar os diretórios onde armazenaremos os resultados.</li>
+</ul>
+<pre><code class="language-bash"><span class="hljs-built_in">mkdir</span> 0.Logs 1.Trim 2.Assembly 3.Genes 4.Function
+<span class="hljs-built_in">ls</span>
+
+conda activate assembly
+</code></pre>
+<hr>
+<h2 id="controle-de-qualidade-das-sequências">Controle de qualidade das sequências</h2>
+<p>O sequenciamento Illumina tem uma taxa de erro de substituição de bases de cerca de 1%. À medida em que a sequência vai sendo sintetizada essa taxa de erro pode aumentar. Por isso, é importante retirarmos as regiões com baixa qualidade de bases.</p>
+<p>A ferramenta Trimmomatic é uma das muitas utilizadas para esse fim. Nela, podemos definir a qualidade média das bases em uma janela deslizante, além da remoção de adaptadores e exclusão de sequências muito curtas.
+O comando utilizado é:</p>
+<pre><code class="language-bash">trimmomatic PE -threads 4 data/lib1_150bp_R1.fq.gz data/lib1_150bp_R2.fq.gz 1.Trim/lib1.Paired_R1.fastq.gz 1.Trim/lib1.Unpaired_R1.fastq.gz 1.Trim/lib1.Paired_R2.fastq.gz 1.Trim/lib1.Unpaired_R2.fastq.gz ILLUMINACLIP:data/adapters.fasta:2:30:10:2:keepBothReads LEADING:5 TRAILING:5 SLIDINGWINDOW:4:20 MINLEN:50 2&gt; 0.Logs/lib1.trimmomatic.log
+</code></pre>
+<p>A linha de comando recebe parâmetros que chamamos de <em><em>flags</em></em>. Seccionando as linhas de comando, vemos a função de cada parâmetro.</p>
+<pre><code class="language-bash">trimmomatic <span class="hljs-comment">#inicia o programa</span>
+PE <span class="hljs-comment">#informa que o sequenciamento é paired-end</span>
+-threads 4 <span class="hljs-comment">#conta que vai usar 4 processadores</span>
+data/lib1_150bp_R1.fq.gz data/lib1_150bp_R2.fq.gz <span class="hljs-comment">#indicas os arquivos que contem as sequências forward e reversas a serem corrigidas</span>
+1.Trim/lib1.Paired_R1.fastq.gz <span class="hljs-comment">#Indica onde vai escrever as sequências Forward (R1) cujos pares sobreviveram</span>
+1.Trim/lib1.Unpaired_R1.fastq.gz <span class="hljs-comment">#Sequências forward cujos pares reversos não passaram no critério de qualidade</span>
+1.Trim/lib1.Paired_R2.fastq.gz 1.Trim/lib1.Unpaired_R2.fastq.gz <span class="hljs-comment">#Os mesmos que os anteriores, só que com as sequências reversas: R2</span>
+ILLUMINACLIP:data/adapters.fasta:2:30:10:2:keepBothReads <span class="hljs-comment">#Cita o nome do arquivo que contém a sequência dos adaptadores : número de mismatches aceitos : tamanho mínimo de um palíndromo (em caso de pares de reads) : tamanho mínimo do alinhamento simples : tamanho mínimo da sequência do adaptador identifica.</span>
+LEADING:5 TRAILING:5 <span class="hljs-comment">#Valores mínimos de qualidade para começar a análise no início (LEADING) e no final da sequência (TRAILING)</span>
+SLIDINGWINDOW:4:20 <span class="hljs-comment">#Tamanho da janela de bases : Qualidade média dentro da janela</span>
+MINLEN:50 <span class="hljs-comment">#Tamanho mínimo da sequência restante para que não seja descartada</span>
+2&gt; 0.Logs/lib1.trimmomatic.log <span class="hljs-comment">#Escreve o relatório da análise no arquivo mencionado</span>
+</code></pre>
+<p>Assim, dentro da pasta <code>1.Trim</code> teremos os arquivos limpos. E no <code>0.Logs</code> podemos ver o relatório.</p>
+<pre><code class="language-bash"><span class="hljs-built_in">cat</span> 0.Logs/lib1.trimmomatic.log
+</code></pre>
+<h2 id="montagem-do-genoma">Montagem do genoma</h2>
+<p>Para a montagem do genoma, utilizaremos apenas as sequências cujos pares &quot;sobreviveram&quot; ao controle de qualidade. Assim, teremos dois arquivos de entrada: as sequências forward e as reverse.
+Dentre os vários programas para a montagem de um genoma, vamos utilizar o Spades.</p>
+<pre><code class="language-bash">spades.py --isolate -o 2.Assembly/lib1 -1 1.Trim/lib1.Paired_R1.fastq.gz -2 1.Trim/lib1.Paired_R2.fastq.gz -t 4 -m 16
+</code></pre>
+<p>Esse comando contém os seguintes parâmetros:</p>
+<pre><code class="language-bash">spades.py <span class="hljs-comment">#Roda o programa</span>
+--isolate <span class="hljs-comment">#Diz que o genoma é de um isolado. Ou seja, espera-se que todas as sequências tenham vindo de um mesmo organismo</span>
+-o 2.Assembly/lib1 <span class="hljs-comment">#Diretório onde escreverá os resultados</span>
+-1 1.Trim/lib1.Paired_R1.fastq.gz <span class="hljs-comment">#Arquivo forward</span>
+-2 1.Trim/lib1.Paired_R2.fastq.gz <span class="hljs-comment">#Arquivo reverse</span>
+-t 4 <span class="hljs-comment">#Número de processadores</span>
+-m 16 <span class="hljs-comment">#Máximo de memória</span>
+</code></pre>
+<hr>
+<h2 id="avaliando-a-qualidade-da-montagem">Avaliando a qualidade da montagem</h2>
+<p>Existem métrica que informam sobre o quão completa está a montagem do seu genoma. Uma das ferramentas é o Quast, que fornece métricas como:</p>
+<ul>
+<li>tamanho do genoma montado</li>
+<li>número de contigs úteis</li>
+<li>conteúdo GC</li>
+<li>N50 e L50</li>
+</ul>
+<p>Para rodar, podemos usar o comando com os seguintes parâmtros:</p>
+<pre><code class="language-bash">quast -o 2.Assembly/lib1/quast/ -m 1000 -t 4 -1 1.Trim/lib1.Paired_R1.fastq.gz -2 1.Trim/lib1.Paired_R2.fastq.gz 2.Assembly/lib1/scaffolds.fasta
+</code></pre>
+<p>Os parâmetros são:</p>
+<pre><code class="language-bash">quast <span class="hljs-comment">#Chama o programa</span>
+-o 2.Assembly/lib1/quast/ <span class="hljs-comment">#Diz onde vão escrever os resultados</span>
+-m 1000 <span class="hljs-comment">#Tamano mínimo de um contig</span>
+-t 4 <span class="hljs-comment">#Número de processadores</span>
+-1 1.Trim/lib1.Paired_R1.fastq.gz <span class="hljs-comment">#[OPCIONAL] Sequências forward utilizadas na montagem</span>
+-2 1.Trim/lib1.Paired_R2.fastq.gz <span class="hljs-comment">#[OPCIONAL] Sequências reverse utilizadas na montagem</span>
+2.Assembly/lib1/scaffolds.fasta <span class="hljs-comment">#Arquivo com sua montagem</span>
+</code></pre>
+<p>Observando o conteúdo do arquivo, vemos as métricas da montagem</p>
+<pre><code class="language-bash"><span class="hljs-built_in">cat</span> 2.Assembly/lib1/quast/report.txt
+</code></pre>
+<pre><code class="language-bash">Assembly                    scaffolds
+<span class="hljs-comment"># contigs (&gt;= 0 bp)         212      </span>
+<span class="hljs-comment"># contigs (&gt;= 1000 bp)      81       </span>
+<span class="hljs-comment"># contigs (&gt;= 5000 bp)      62       </span>
+<span class="hljs-comment"># contigs (&gt;= 10000 bp)     56       </span>
+<span class="hljs-comment"># contigs (&gt;= 25000 bp)     46       </span>
+<span class="hljs-comment"># contigs (&gt;= 50000 bp)     29       </span>
+Total length (&gt;= 0 bp)      4502140
+Total length (&gt;= 1000 bp)   4473025
+Total length (&gt;= 5000 bp)   4431666
+Total length (&gt;= 10000 bp)  4386681
+Total length (&gt;= 25000 bp)  4227455
+Total length (&gt;= 50000 bp)  3592230
+<span class="hljs-comment"># contigs                   81       </span>
+Largest contig              329901
+Total length                4473025
+GC (%)                      50.79
+N50                         115885
+N90                         34661
+auN                         148131.5
+L50                         12
+L90                         40
+<span class="hljs-comment"># total reads               1998966  </span>
+<span class="hljs-comment"># left                      999483   </span>
+<span class="hljs-comment"># right                     999483   </span>
+Mapped (%)                  99.28
+Properly paired (%)         98.67
+Avg. coverage depth         66
+Coverage &gt;= 1x (%)          100.0
+<span class="hljs-comment"># N&#x27;s per 100 kbp           4.47 </span>
+</code></pre>
+<h2 id="predição-de-genes">Predição de Genes</h2>
+<p>A predição de genes vai procurar por janelas abertas de leitura (ORF) e aprender sobre o uso de codons dentro dessa janela para predizer os genes possivelmente codificantes.</p>
+<p>Dentre as diversas ferramentas, usaremos a ferramenta <em><em>prodigal</em></em></p>
+<pre><code class="language-bash">prodigal -a 3.Genes/lib1.aa -d 3.Genes/lib1.nt -f gff -i 2.Assembly/lib1/scaffolds.fasta -o 3.Genes/lib1.gff
+</code></pre>
+<p>O comando contém as seguintes <em>flags</em></p>
+<pre><code class="language-bash">prodigal <span class="hljs-comment">#Chama o programa</span>
+-a 3.Genes/lib1.aa <span class="hljs-comment">#Escreve um arquivo contendo as sequências de aminoácidos</span>
+-d 3.Genes/lib1.nt <span class="hljs-comment">#Escreve um arquivo contendo os nucleotídeos</span>
+-f gff <span class="hljs-comment">#Determina o formato GFF para a anotação</span>
+-i 2.Assembly/lib1/scaffolds.fasta <span class="hljs-comment">#Conta qual o arquivo contém o genoma para a predição</span>
+-o 3.Genes/lib1.gff <span class="hljs-comment">#Escreve um arquivo contendo a anotação</span>
+</code></pre>
+<p>Podemos observar as primeiras linha do arquivo:</p>
+<pre><code class="language-bash"><span class="hljs-built_in">head</span> 3.Genes/lib1.aa
+</code></pre>
+<p>No cabeçalho temos algumas informações:
+<code>&gt;NODE_1_length_329901_cov_29.783351_1 # 19 # 486 # 1 # ID=1_1;partial=00;start_type=ATG;rbs_motif=AGGA;rbs_spacer=5-10bp;gc_cont=0.538</code>.</p>
+<p>A informação <code>partial=00</code> informa se o gene foi predito completamente - Metionina no início e codon de parada ao final. <code>partial=10</code> indica que não havia Metionina no início, mas havia codon de parada. <code>partial=01</code> indica que o codon de parada não estava presente. E <code>partial=11</code> indica que não havia metionina e nem codon de parada, porém o preditor encontrou uma sequência de possível codons que condiziam com <em>codon usage</em> do organismo.</p>
+<p>Podemos contar quantos genes codificantes de proteínas foram preditos:</p>
+<pre><code class="language-bash">grep <span class="hljs-string">&quot;&gt;&quot;</span> -c 3.Genes/lib1.aa
+</code></pre>
+<p>O que esse comando faz?</p>
+<pre><code class="language-bash">grep <span class="hljs-comment">#Chama o programa que faz buscas</span>
+<span class="hljs-string">&quot;&gt;&quot;</span> <span class="hljs-comment">#Aponta o que ele precisa buscar</span>
+-c <span class="hljs-comment">#Retorna a contagem de linhas que tinham aquele item da busca ao invés de retornar a linha inteira</span>
+3.Genes/lib1.aa <span class="hljs-comment">#Arquivo em que a busca será feita</span>
+</code></pre>
+<p>Podemos usar o <em>grep</em>  para contar quantos genes estavam completos:</p>
+<pre><code class="language-bash">grep <span class="hljs-string">&quot;&gt;&quot;</span> 3.Genes/lib1.aa | <span class="hljs-built_in">cut</span> -d <span class="hljs-string">&quot;#&quot;</span> -f5 | <span class="hljs-built_in">cut</span> -d <span class="hljs-string">&quot;;&quot;</span> -f2 | <span class="hljs-built_in">sort</span> | <span class="hljs-built_in">uniq</span> -c
+</code></pre>
+<p>Explicando...</p>
+<pre><code class="language-bash">grep <span class="hljs-comment">#Chama o programa que faz as buscas</span>
+<span class="hljs-string">&quot;&gt;&quot;</span> <span class="hljs-comment">#Aponta o que ele precisa buscar</span>
+3.Genes/lib1.aa <span class="hljs-comment">#Arquivo em que será feita a busca</span>
+| <span class="hljs-comment">#Conecta o resultado do comando anterior ao próximo comando</span>
+<span class="hljs-built_in">cut</span> <span class="hljs-comment">#Corta o arquivo em colunas</span>
+-d <span class="hljs-string">&quot;#&quot;</span> <span class="hljs-comment">#Determina que o caracter delimitador de colunas é o #</span>
+-f5 <span class="hljs-comment">#Mostra a coluna 5</span>
+| <span class="hljs-comment">#Conecta o resultado do comando anterior ao próximo comando</span>
+<span class="hljs-built_in">cut</span> -d <span class="hljs-string">&quot;;&quot;</span> -f2 | <span class="hljs-comment">#Corta usando o ; como delimitador e mostra a segunda coluna</span>
+<span class="hljs-built_in">sort</span> | <span class="hljs-comment">#Ordena em ordem alfabética</span>
+<span class="hljs-built_in">uniq</span> -c <span class="hljs-comment">#Conta quanta vezes cada item único apareceu</span>
+</code></pre>
+<h2 id="classificação-funcional-dos-genes">Classificação funcional dos genes</h2>
+<p>Como vimos, temos milhares de possíveis genes, e não sabemos suas funções.
+Uma das formas de identificar as funções é através de alinhamentos locais com bancos de dados secundários que contenham alguma informação funcional.
+Para tal tarefa, o BLAST é a ferramenta mais popular. Usaremos o <em>diamond</em> que faz um alinhamento local, assim como o BLAST, porém de maneira muito mais rápida.</p>
+<p>Utilizaremos o UniProt como banco de dados para as buscas. A primeira etapa é transformar as sequências do UniProt em um formato que o <em>diamond</em> possa ler.</p>
+<pre><code class="language-bash">diamond makedb --threads 4 --<span class="hljs-keyword">in</span> data/uniprotkb_proteome_UP000000625_2024_08_29.fasta.gz --db ecoli
+</code></pre>
+<p>As <em>flags</em> significam:</p>
+<pre><code class="language-bash">diamond <span class="hljs-comment">#Chama o programa</span>
+makedb <span class="hljs-comment">#Conta qual a tarefa que ele vai fazer</span>
+--threads 4 <span class="hljs-comment">#Número de processadores</span>
+--<span class="hljs-keyword">in</span> data/uniprotkb_proteome_UP000000625_2024_08_29.fasta.gz <span class="hljs-comment">#Onde está o arquivo do UniProt com as sequências</span>
+--db ecoli <span class="hljs-comment">#Nome que quer dar ao seu banco de dados</span>
+</code></pre>
+<p>Após formatarmos o banco de dados, podemos chamar o alinhamento. Temos um banco de dados de sequências de aminoácidos (UniProt), e arquivo de entrada de aminoácidos ou nucleotídeos. Poderiam então escolher entre duas opções:</p>
+<ul>
+<li><em><em>blastp</em></em>: que compara minhas sequências de proteínas a um banco de proteínas</li>
+<li><em><em>blastx</em></em>: que traduz minhas sequências de nucleotídeos nas 6 janelas de leitura para compará-las ao banco de prteínas</li>
+</ul>
+<p>Para otimizar o tempo - dado que temos as sequências de aminoácidos - rodaremos o <em><em>blastp</em></em>:</p>
+<pre><code class="language-bash">diamond blastp -d ecoli.dmnd -q 3.Genes/lib1.aa -o 4.Function/lib1.diamond -e 1e-20 -k 1 -p 4 --outfmt 6
+</code></pre>
+<p>As <em>flags</em> são:</p>
+<pre><code class="language-bash">diamond <span class="hljs-comment">#Chama o programa</span>
+blastp <span class="hljs-comment">#Diz a opção de alinhamento</span>
+-d ecoli.dmnd <span class="hljs-comment">#Aponta o banco de dados</span>
+-q 3.Genes/lib1.aa <span class="hljs-comment">#Aponta o arquivo de entrada </span>
+-o 4.Function/lib1.diamond <span class="hljs-comment">#Define o nome do arquivo de saída</span>
+-e 1e-20 <span class="hljs-comment">#Estabelece um mínimo de e-value</span>
+-k 1 <span class="hljs-comment">#Pede para mostrar só o melhor resultado para cada um dos meus genes</span>
+-p 4 <span class="hljs-comment">#Usa 4 processadores</span>
+--outfmt 6 <span class="hljs-comment">#Mostra o resultado em um formato tabular com 12 colunas</span>
+</code></pre>
+<p>Podemos ver como é o resultado:</p>
+<pre><code class="language-bash"><span class="hljs-built_in">head</span> 4.Function/lib1.diamond
+
+<span class="hljs-comment">#Descrição das colunas</span>
+ <span class="hljs-comment"># 1.  qseqid      query or source (gene) sequence id</span>
+ <span class="hljs-comment"># 2.  sseqid      subject or target (reference genome) sequence id</span>
+ <span class="hljs-comment"># 3.  pident      percentage of identical positions</span>
+ <span class="hljs-comment"># 4.  length      alignment length (sequence overlap)</span>
+ <span class="hljs-comment"># 5.  mismatch    number of mismatches</span>
+ <span class="hljs-comment"># 6.  gapopen     number of gap openings</span>
+ <span class="hljs-comment"># 7.  qstart      start of alignment in query</span>
+ <span class="hljs-comment"># 8.  qend        end of alignment in query</span>
+ <span class="hljs-comment"># 9.  sstart      start of alignment in subject</span>
+ <span class="hljs-comment">#10.  send        end of alignment in subject</span>
+ <span class="hljs-comment">#11.  evalue      expect value</span>
+ <span class="hljs-comment">#12.  bitscore    bit score</span>
+</code></pre>
+<p>Vemos que a segunda coluna contém o nome da proteína que melhor descreve nosso gene no banco de dados.
+Agora queremos adicionar informação funcional à ela.
+Vamos adicionar a informação do KEGG, e saber qual KO e via metabólica nosso gene pertence.</p>
+<p>Para isso vamos executar uma sério de comandos.</p>
+<pre><code class="language-bash"><span class="hljs-comment">#Entrar na pasta que contém os resultados</span>
+<span class="hljs-built_in">cd</span> 4.Function
+
+<span class="hljs-comment">#Pega o nome de cada proteína que teve hit</span>
+awk -F<span class="hljs-string">&#x27;|&#x27;</span> <span class="hljs-string">&#x27;{print $2}&#x27;</span> lib1.diamond &gt; protein_ids.txt
+<span class="hljs-built_in">head</span> protein_ids.txt
+
+<span class="hljs-comment">#Adicionar o nome dessa proteína do UniProte à nossa tabela do resultado do Diamond</span>
+<span class="hljs-built_in">paste</span> lib1.diamond protein_ids.txt &gt; diamond_with_protein_ids.txt
+
+<span class="hljs-comment"># Colocar em ordem alfabética as colunas que contem as informações que vamos precisar.</span>
+<span class="hljs-comment">## A coluna que contém o nome das proteínas é a 13.</span>
+<span class="hljs-built_in">sort</span> -k13 diamond_with_protein_ids.txt &gt; sorted_diamond.txt
+<span class="hljs-comment">## A coluna que contém os nomes das mesmas proteínas no arquivo de conversão, é a 1</span>
+<span class="hljs-built_in">sort</span> -k1 data/Uniprot2KEGG.eco.txt &gt; sorted_Uniprot2KEGG.txt
+<span class="hljs-comment">## Juntamos as duas tabelas, levando em consideração o ponto de junção como sendo a 13 coluna do resultado do Diamond, com a 1 coluna da tabela de conversão.</span>
+<span class="hljs-built_in">join</span> -t$<span class="hljs-string">&#x27;\t&#x27;</span> -1 13 -2 1 sorted_diamond.txt sorted_Uniprot2KEGG.txt &gt; diamond_with_KEGG.txt
+
+<span class="hljs-comment"># Colocar em ordem alfabética as colunas que contem as informações que vamos precisar.</span>
+<span class="hljs-comment">## A coluna que contém o nome da entrada no KEGG é a 14.</span>
+<span class="hljs-built_in">sort</span> -k14 diamond_with_KEGG.txt &gt; sorted_diamond_with_KEGG.txt
+<span class="hljs-comment">## A coluna que contém os nomes das mesmas proteínas no arquivo de conversão, é a 1</span>
+<span class="hljs-built_in">sort</span> -k1 data/KEGG2KO.eco.txt &gt; sorted_KEGG2KO.txt
+<span class="hljs-comment">## Juntamos as duas tabelas, levando em consideração o ponto de junção como sendo a 14 coluna do resultado do Diamond, com a 1 coluna da tabela de conversão.</span>
+<span class="hljs-built_in">join</span> -t$<span class="hljs-string">&#x27;\t&#x27;</span> -1 14 -2 1 sorted_diamond_with_KEGG.txt sorted_KEGG2KO.txt &gt; diamond_with_KO.txt
+
+<span class="hljs-comment"># Temos uma tabela com 15 colunas, sendo que a última delas é o identificador do KEGG Orthology</span>
+<span class="hljs-comment">## Podemos ver qual é o KO mais representado</span>
+<span class="hljs-built_in">cat</span> diamond_with_KO.txt | <span class="hljs-built_in">cut</span> -f15 | <span class="hljs-built_in">sort</span> | <span class="hljs-built_in">uniq</span> -c | <span class="hljs-built_in">sort</span> -k1 -nr | <span class="hljs-built_in">head</span>
+<span class="hljs-comment">## Podemos gerar uma lista para visualizar no mapa metabólico</span>
+<span class="hljs-built_in">cat</span> diamond_with_KO.txt | <span class="hljs-built_in">cut</span> -f15 | <span class="hljs-built_in">sort</span> -u | sed -e <span class="hljs-string">&#x27;s/ko://g&#x27;</span> &gt; KO_list.txt
+</code></pre>
+<h2 id="visualização-em-vias-metabólicas">Visualização em vias metabólicas</h2>
+<p>A partir da lista de KOs, é possível ver suas funções no site do <a href="https://www.genome.jp/kegg/">KEGG</a><base target="_blank"> ou criar uma via metabólica interativa com o <a href="https://pathways.embl.de/ipath3.cgi">iPath3</a><base target="_blank">.</p>
+</div>
+        </div>
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+
+        </body>
+        </html>
