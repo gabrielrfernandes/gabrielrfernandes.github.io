@@ -3353,6 +3353,12 @@ body,
 <pre><code class="language-bash"><span class="hljs-built_in">mkdir</span> 0.Logs 1.Trim 2.Assembly 3.Genes 4.Function
 <span class="hljs-built_in">ls</span>
 
+#Instalar mamba e os programas
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+bash Miniforge3-Linux-x86_64.sh
+mamba create -n assembly -c bioconda trimmomatic spades quast prodigal diamond
+
+#Ativar ambiente com programas instalados
 conda activate assembly
 </code></pre>
 <hr>
