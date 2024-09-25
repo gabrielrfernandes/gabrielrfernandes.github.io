@@ -3353,6 +3353,10 @@ body,
 <pre><code class="language-bash"><span class="hljs-built_in">mkdir</span> 0.Logs 1.Trim 2.Assembly 3.Genes 4.Function
 <span class="hljs-built_in">ls</span>
 
+####### Caso não tenha o ambiente com os programas instalados, pode instalar com: #####
+conda create -n assembly -c bioconda trimmomatic spades quast prodigal diamond
+#######################################################################################
+
 #Ativar ambiente com programas instalados
 conda activate assembly
 </code></pre>
