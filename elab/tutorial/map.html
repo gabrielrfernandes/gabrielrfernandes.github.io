@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Aula Mapeamento</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <ul>
+<li><a href="#aula-mapeamento">Aula Mapeamento</a>
+<ul>
+<li><a href="#identifica%C3%A7%C3%A3o-de-variante-em-sars-cov-2">Identificação de variante em SARS-CoV-2</a>
+<ul>
+<li><a href="#escolha-sua-amostra">Escolha sua amostra</a></li>
+<li><a href="#controle-de-qualidade">Controle de qualidade</a></li>
+<li><a href="#mapeamento-ao-genoma-refer%C3%AAncia">Mapeamento ao genoma referência</a></li>
+<li><a href="#ordenar-o-mapeamento-e-empilhar-as-sequ%C3%AAncias">Ordenar o mapeamento e empilhar as sequências</a></li>
+<li><a href="#identifica%C3%A7%C3%A3o-das-variantes">Identificação das variantes</a></li>
+<li><a href="#identificar-a-variante-de-sars-cov-2">Identificar a variante de SARS-CoV-2</a></li>
+</ul>
+</li>
+<li><a href="#mapeamento-para-quantifica%C3%A7%C3%A3o-de-rna-genoma-refer%C3%AAncia">Mapeamento para quantificação de RNA (Genoma referência)</a>
+<ul>
+<li><a href="#controle-de-qualidade-1">Controle de qualidade</a></li>
+<li><a href="#cria%C3%A7%C3%A3o-do-%C3%ADndice-para-mapeamento">Criação do índice para mapeamento</a></li>
+<li><a href="#mapeamento">Mapeamento</a></li>
+<li><a href="#quantifica%C3%A7%C3%A3o">Quantificação</a></li>
+</ul>
+</li>
+<li><a href="#quantifica%C3%A7%C3%A3o-sem-mapeamento">Quantificação sem mapeamento</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="aula-mapeamento">Aula Mapeamento</h1>
+<p>O mapeamento tem diferentes objetivos.</p>
+<ul>
+<li>Identificar mutações</li>
+<li>Quantificar a expressão de um gene</li>
+<li>Quantificar organismos em um metagenoma</li>
+<li>...</li>
+</ul>
+<p>Aqui seguiremos por dois caminhos:</p>
+<h2 id="identificação-de-variante-em-sars-cov-2">Identificação de variante em SARS-CoV-2</h2>
+<p>Para identificar as variantes, iremos mapear as sequências ao genoma referência, identificar os pontos de mutação e caracterizar a variante.</p>
+<p>Primeiro vamos ativar o ambiente que tem os programas instalados:</p>
+<pre><code class="language-bash">conda activate mapping
+</code></pre>
+<hr>
+<h3 id="escolha-sua-amostra">Escolha sua amostra</h3>
+<table>
+<thead>
+<tr>
+<th>Amostras</th>
+<th>Amostras</th>
+<th>Amostras</th>
+<th>Amostras</th>
+<th>Amostras</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IRR1820_S1</td>
+<td>IRR1821_S2</td>
+<td>IRR1822_S3</td>
+<td>IRR1823_S4</td>
+<td>IRR1824_S5</td>
+</tr>
+<tr>
+<td>IRR1825_S6</td>
+<td>IRR1826_S7</td>
+<td>IRR1827_S8</td>
+<td>IRR1828_S9</td>
+<td>IRR1829_S10</td>
+</tr>
+<tr>
+<td>IRR1830_S11</td>
+<td>IRR1831_S12</td>
+<td>IRR1832_S13</td>
+<td>IRR1833_S14</td>
+<td>IRR1834_S15</td>
+</tr>
+<tr>
+<td>IRR1835_S16</td>
+<td>IRR1836_S17</td>
+<td>IRR1837_S18</td>
+<td>IRR1838_S19</td>
+<td>IRR1839_S20</td>
+</tr>
+<tr>
+<td>IRR1840_S21</td>
+<td>IRR1841_S22</td>
+<td>IRR1842_S23</td>
+<td>IRR1843_S24</td>
+<td>IRR1844_S25</td>
+</tr>
+<tr>
+<td>IRR1845_S26</td>
+<td>IRR1846_S27</td>
+<td>IRR1847_S28</td>
+<td>IRR1848_S29</td>
+<td>IRR1849_S30</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Crie sua pasta e copie os arquivos<pre><code class="language-bash"><span class="hljs-built_in">mkdir</span> sars
+<span class="hljs-built_in">cd</span> sars
+
+<span class="hljs-comment">#Variável guarda o nome da sua amostra</span>
+<span class="hljs-built_in">export</span> AMOSTRA=<span class="hljs-string">&quot;AMOSTRA_ESCOLHIDA&quot;</span> <span class="hljs-comment">#Substitua o conteúdo entre aspas pelo código da amostra da tabela que escolheu</span>
+<span class="hljs-built_in">cp</span> /databases/big/input/map/<span class="hljs-variable">$AMOSTRA</span>*.fastq.gz .
+</code></pre>
+</li>
+</ul>
+<h3 id="controle-de-qualidade">Controle de qualidade</h3>
+<p>Trimmomatic vai retirar as regiões de baixa qualidade, remover os adaptadores e filtrar sequências curtas. Dando um ls repare como usando $AMOSTRA vc completa o nome do arquivo R1 e R2 com a variável exportada que tem o código da sua.</p>
+<pre><code class="language-bash">trimmomatic PE -threads 4 <span class="hljs-variable">$AMOSTRA</span>\_L001_R1_001.fastq.gz <span class="hljs-variable">$AMOSTRA</span>\_L001_R2_001.fastq.gz Paired_R1.fastq.gz Unpaired_R1.fastq.gz Paired_R2.fastq.gz Unpaired_R2.fastq.gz ILLUMINACLIP:/databases/big/ref/adapters.fasta:2:30:10:2:keepBothReads LEADING:5 TRAILING:5 SLIDINGWINDOW:4:20 MINLEN:50
+</code></pre>
+<h3 id="mapeamento-ao-genoma-referência">Mapeamento ao genoma referência</h3>
+<p>Antes de mapear, precisamos criar um índice que o programas BWA consiga utilizar. Usamos o genoma de referência para criar o índice.</p>
+<p>Em seguida, mapeamos os reads ao índice, criando um alinhamento no formato binário &quot;bam&quot; (&quot;sam&quot; daria pra ler, &quot;bam&quot; só computador lê). Vamos usar somente as saídas &quot;Paired&quot; do Trimmomatic, os reads R1 e R2 que produziram forward e reverse.</p>
+<pre><code class="language-bash"><span class="hljs-comment">#Cria o índice usando o arquivo FASTA de referência</span>
+bwa index /databases/big/ref/Sars_cov_2.ASM985889v3.dna.toplevel.fa
+<span class="hljs-comment">#Mapeia os reads ao indice</span>
+bwa mem /databases/big/ref/Sars_cov_2.ASM985889v3.dna.toplevel.fa Paired_R1.fastq.gz Paired_R2.fastq.gz -o map.bam
+</code></pre>
+<h3 id="ordenar-o-mapeamento-e-empilhar-as-sequências">Ordenar o mapeamento e empilhar as sequências</h3>
+<p>Para facilitar a identificação de variantes, é importante ordenarmos os reads e empilharmos para olharmos a informação que cobre cada base.
+Para isso, usaremos a ferramenta <em><em>samtools</em></em>, que trabalha com um arquivo BAM.</p>
+<p>A função <code>sort</code> serve para ordenar. E a função <code>mpileup</code> serve empilhar as sequências em relação ao genoma de referência.</p>
+<pre><code class="language-bash">samtools <span class="hljs-built_in">sort</span> map.bam -o map.sorted.bam
+<span class="hljs-comment"># -o = nome do arquivo de saída</span>
+
+samtools mpileup -d 50000 --reference /databases/big/ref/Sars_cov_2.ASM985889v3.dna.toplevel.fa -a -Q 30 map.sorted.bam &gt; pile.bam
+<span class="hljs-comment"># -d = número máximo de sequências empilhadas em uma mesma posição.</span>
+<span class="hljs-comment"># --reference = referência utilizada no mapeamento</span>
+<span class="hljs-comment"># -a = reportar até as regiões que não tiveram nenhuma sequência cobrindo.</span>
+<span class="hljs-comment"># -Q = qualidade mínima do mapeamento</span>
+<span class="hljs-comment"># &gt; = &quot;Salvar como&quot; pile.bam</span>
+</code></pre>
+<h3 id="identificação-das-variantes">Identificação das variantes</h3>
+<p>Compara as sequências mapeadas com a referência, e aplica teste estatístico para eliminar a hipótese de acaso. Para realizar esse teste, usamos a ferramenta <code>ivar</code>, embora existam diversas outras que fazer abordagens semelhantes.</p>
+<pre><code class="language-bash"><span class="hljs-built_in">cat</span> pile.bam | ivar variants -p variant -q 30 -t 0.1 -r /databases/big/ref/Sars_cov_2.ASM985889v3.dna.toplevel.fa -g /databases/big/ref/Sars_cov_2.ASM985889v3.101.gff3
+
+<span class="hljs-comment"># cat pile.bam | = usar o conteúdo do arquivo como entrada para o próximo comando</span>
+<span class="hljs-comment"># variants = função para chamada de SNV</span>
+<span class="hljs-comment"># -p = prefixo do nome do seu arquivo de saída</span>
+<span class="hljs-comment"># -q = qualidade mínima do mapeamento para ser considerada na chamada de variante</span>
+<span class="hljs-comment"># -t = proporção mínima de uma variante para ser chamada de &quot;SNV&quot;</span>
+<span class="hljs-comment"># -r = FASTA do genoma de referência</span>
+<span class="hljs-comment"># -g = GFF (arquivo de anotações) para predição do impacto na tradução dos genes</span>
+
+<span class="hljs-built_in">cat</span> pile.bam | ivar consensus -p variant -q 30 -t 0.5 -m 30 -n N
+
+<span class="hljs-comment"># consensus = função para construção de um FASTA</span>
+<span class="hljs-comment"># -p = prefixo do nome do arquivo de saída</span>
+<span class="hljs-comment"># -q = qualidade mínima do mapeamento para o cálculo do consenso</span>
+<span class="hljs-comment"># -t = proporção mínima de uma variante para ser incluída na sequência consenso.</span>
+<span class="hljs-comment"># -m = quantidade mínima de reads na posição para definir qual base será escrita</span>
+<span class="hljs-comment"># -n = caracter da base a ser incluída quandos os critérios mínimos não forem satisfeitos</span>
+
+</code></pre>
+<h3 id="identificar-a-variante-de-sars-cov-2">Identificar a variante de SARS-CoV-2</h3>
+<p>Uma das utilizadades da identificação de SNV é a caracterização de variantes de virus.
+No exemplo, usaremos o <em><em>pangolin</em></em>  que é uma ferramenta que agrupa diversos modelos para identificação das variantes de SARS-CoV-2 a partir da sequência de nucleotídeos deles.</p>
+<pre><code class="language-bash">conda activate pangolin 
+pangolin variant.fa
+conda deactivate
+</code></pre>
+<hr>
+<hr>
+<hr>
+<h2 id="mapeamento-para-quantificação-de-rna-genoma-referência">Mapeamento para quantificação de RNA (Genoma referência)</h2>
+<p>Outra importância do mapeamento de sequências é para fins de quantificação.</p>
+<p>Neste exemplo iremos quantificar RNA sequenciados ao mapeá-los a um genoma de referência.</p>
+<h3 id="controle-de-qualidade-1">Controle de qualidade</h3>
+<p>O controle de qualidade de reads a serem mapeados para quantificação não precisa ser tão restritivo quanto o para identificação de variantes, uma vez que o mapeamento serve apenas para contar o número de evidências sobre a expressão de um gene. Para isso, usaremos o <strong><em>trimmomatic</em></strong> mas um parâmetro de qualidade mais permissivo.</p>
+<p>Vamos criar o ambiente para trabalharmos, com estrutura de diretórios.</p>
+<pre><code class="language-bash"><span class="hljs-comment">#Ative o ambiente que contém os programas</span>
+conda activate mapping
+
+<span class="hljs-comment">#Crie e entre no diretório Map</span>
+<span class="hljs-built_in">mkdir</span> Map
+<span class="hljs-built_in">cd</span> Map
+
+<span class="hljs-comment">#Crie diretórios para escrever os resultados</span>
+<span class="hljs-built_in">mkdir</span> trim logs map
+
+<span class="hljs-comment">#Veja os arquivos de entrada</span>
+<span class="hljs-built_in">ls</span> /databases/big/input/data/yeast/reads 
+</code></pre>
+<p>Neste caso, temos uma lista com 9 arquivos, e vamos criar um comando para automatizar as análises.</p>
+<pre><code class="language-bash"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> `<span class="hljs-built_in">cat</span> /databases/big/input/data/yeast/reads/list.txt`; <span class="hljs-keyword">do</span> trimmomatic PE -threads 4 /databases/big/input/data/yeast/reads/<span class="hljs-variable">$i</span>\_1.fq.gz /databases/big/input/data/yeast/reads/<span class="hljs-variable">$i</span>\_2.fq.gz trim/<span class="hljs-variable">$i</span>.Paired_R1.fastq.gz trim/<span class="hljs-variable">$i</span>.Unpaired_R1.fastq.gz trim/<span class="hljs-variable">$i</span>.Paired_R2.fastq.gz trim/<span class="hljs-variable">$i</span>.Unpaired_R2.fastq.gz ILLUMINACLIP:/databases/big/ref/adapters.fasta:2:30:10:2:keepBothReads LEADING:5 TRAILING:5 SLIDINGWINDOW:4:15 MINLEN:50 2&gt; logs/<span class="hljs-variable">$i</span>.trim.log; <span class="hljs-keyword">done</span>
+
+<span class="hljs-comment">#Mudamos o critério de qualidade média de 20 para 15.</span>
+</code></pre>
+<h3 id="criação-do-índice-para-mapeamento">Criação do índice para mapeamento</h3>
+<p>Para este mapeamento, não usaremos o BWA. O BWA é uma ferramenta que faz mapeamento contínuo e muito preciso. Precisamos de um mapeamento <em>&quot;splice aware&quot;</em>, capaz de separar a sequência para escapar a região intrônica. Usaremos a ferramenta <strong><em>STAR</em></strong> que é rápido e é capaz de mapear sequências que contém introns.</p>
+<p>A primeira etapa é criar um índice que o <strong>STAR</strong> seja capaz de ler.</p>
+<pre><code class="language-bash">STAR --runMode genomeGenerate --runThreadN 4 --genomeDir map/STAR_ref --genomeFastaFiles /databases/big/ref/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa --sjdbGTFfile /databases/big/ref/Saccharomyces_cerevisiae.R64-1-1.112.gtf
+
+<span class="hljs-comment"># --runMode = programa a ser usado. Neste caso é o genomeGenerate para criar o índice</span>
+<span class="hljs-comment"># --runThreadN = número de processadores</span>
+<span class="hljs-comment"># --genomeDir = Nome da pasta onde irá escrever o índice</span>
+<span class="hljs-comment"># --genomeFastaFiles = Caminho para o arquivo FASTA que contém o genoma referência</span>
+<span class="hljs-comment"># --sjdbGTFfile = Caminho para o arquivo de anotação, que contém as posições de cada gene</span>
+</code></pre>
+<h3 id="mapeamento">Mapeamento</h3>
+<p>Após cria o índice, iremos mapear as sequências limpas ao genoma de referência</p>
+<pre><code class="language-bash"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> `<span class="hljs-built_in">cat</span> /databases/big/input/data/yeast/reads/list.txt`; <span class="hljs-keyword">do</span> STAR --runMode alignReads --runThreadN 4 --genomeDir map/STAR_ref/ --readFilesIn trim/<span class="hljs-variable">$i</span>.Paired_R1.fastq.gz trim/<span class="hljs-variable">$i</span>.Paired_R2.fastq.gz --readFilesCommand zcat --outFilterMultimapNmax 1 --outSAMtype BAM SortedByCoordinate --outFileNamePrefix map/<span class="hljs-variable">$i</span>. --quantMode GeneCounts; <span class="hljs-keyword">done</span>
+
+<span class="hljs-comment"># Para cada arquivo na nossa lista, irá rodar o STAR</span>
+<span class="hljs-comment"># --runMode = programa a ser rodado, agora é o alignReads</span>
+<span class="hljs-comment"># --runThreadN = Número de processadores</span>
+<span class="hljs-comment"># --genomeDir = Diretório que contém o índice que vai ler</span>
+<span class="hljs-comment"># --readFilesIn = Localização dos arquivos que contém as leituras</span>
+<span class="hljs-comment"># --readFilesCommand = Caso os arquivos estejam compactados (.gz) diz qual o comando que descompacta</span>
+<span class="hljs-comment"># --outFilterMultimapNmax = Máximo de loci que cada sequência pode ser mapeada</span>
+<span class="hljs-comment"># --outSAMtype = Tipo do formato de saída, no caso, será o formato BAM já ordenado</span>
+<span class="hljs-comment"># --outFileNamePrefix = Padrão dos nomes dos arquivos de saída</span>
+<span class="hljs-comment"># --quantMode = Informa se irá quantificar os reads mapeados, no caso por contagem dos genes (GeneCounts)</span>
+
+</code></pre>
+<p>Isso vai gerar arquivos de quantificação para cada amostra. A quantificação do STAR é bem restritiva, e muitos reads acabam não sendo quantificados.</p>
+<h3 id="quantificação">Quantificação</h3>
+<p>Vamos então quantificar usando uma ferramenta do <strong><em>bedtools</em></strong> que serve para quantificar utilizando como referência um arquivo de anotações. Filtrei somente as anotações de CDS. E então rodamos o comando:</p>
+<pre><code class="language-bash"><span class="hljs-comment"># Primeira etapa é gerar índices para os arquivos BAM</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> `<span class="hljs-built_in">ls</span> *.bam`; <span class="hljs-keyword">do</span> samtools index <span class="hljs-variable">$i</span>; <span class="hljs-keyword">done</span>
+<span class="hljs-comment"># Para cada arquivo BAM que temos, rode o indexador do samtools</span>
+
+<span class="hljs-comment"># Então quantificamos</span>
+multiBamCov -bams etoh60_1.Aligned.sortedByCoord.out.bam etoh60_2.Aligned.sortedByCoord.out.bam etoh60_3.Aligned.sortedByCoord.out.bam temp33_1.Aligned.sortedByCoord.out.bam temp33_2.Aligned.sortedByCoord.out.bam temp33_3.Aligned.sortedByCoord.out.bam -bed /databases/big/ref/Saccharomyces_cerevisiae.R64-1-1.cds.gff &gt; Quantification.tsv
+
+<span class="hljs-comment"># -bams = lista de arquivos BAM</span>
+<span class="hljs-comment"># -bed = arquivo que tem a posição de cada CDS no genoma</span>
+</code></pre>
+<hr>
+<h2 id="quantificação-sem-mapeamento">Quantificação sem mapeamento</h2>
+<p>Outra forma de mapear é utilizando ferramentas que fazem a contagem dos trancritos sem mapear. Para isso não usamos o genoma referência, mas sim um arquivo contendo todos os transcritos (CDS) do organismo.</p>
+<p>Neste exemplo, usaremos o <strong><em>salmon</em></strong>, que é uma ferramenta que quantifica e normaliza usando sequências de <em>kmer</em> para inferir o transcrito alvo.</p>
+<p>A primeira etapa (como sempre) é criar um índice com a informação das CDS.</p>
+<pre><code class="language-bash">salmon index -t /databases/big/ref/Saccharomyces_cerevisiae.R64-1-1.cdna.all.fa.gz -i salmon/index/Sce -p 4
+
+<span class="hljs-comment"># index = indica o programa a ser executado</span>
+<span class="hljs-comment"># -t = arquivo que contém os transcritos em formato FASTA</span>
+<span class="hljs-comment"># -i = nome da pasta que vai guardar os índices</span>
+<span class="hljs-comment"># -p = número de processadores</span>
+</code></pre>
+<p>Após cria o índice, podemos quantificar nossos reads limpos utilizando o transcritoma referência.</p>
+<pre><code class="language-bash"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> `<span class="hljs-built_in">cat</span> /databases/big/input/data/yeast/reads/list.txt`; <span class="hljs-keyword">do</span> salmon quant -i salmon/index/Sce/ -l A -1 trim/<span class="hljs-variable">$i</span>.Paired_R1.fastq.gz -2 trim/<span class="hljs-variable">$i</span>.Paired_R2.fastq.gz -p 4 -o salmon/<span class="hljs-variable">$i</span>; <span class="hljs-keyword">done</span>
+
+<span class="hljs-comment"># Para cada amostra da nossa lista, vai rodar o salmon</span>
+<span class="hljs-comment"># quant = programa do salmon a ser rodado</span>
+<span class="hljs-comment"># -i = pasta que contém o index</span>
+<span class="hljs-comment"># -l = Orientação da biblioteca, no caso usamos o A, que refere-se a Automático</span>
+<span class="hljs-comment"># -1 = Arquivo com as sequências diretas</span>
+<span class="hljs-comment"># -2 = Arquivo com as sequências reversas</span>
+<span class="hljs-comment"># -p = Número de processadores</span>
+<span class="hljs-comment"># -o = nome da pasta em que escreverá os arquivos de saída</span>
+</code></pre>
+<p>O salmon vai gerar uma pasta para cada amostra, e cada uma tem uma quantificação. Vamos juntar todas as quantificações em uma única tabela para as futuras análises estatísticas.</p>
+<pre><code class="language-bash">salmon quantmerge --quants salmon/etoh60_1/ salmon/etoh60_2/ salmon/etoh60_3/ salmon/ref1/ salmon/ref2/ salmon/ref3/ salmon/temp33_1/ salmon/temp33_2/ salmon/temp33_3/ --names etoh1 etoh2 etoh3 ref1 ref2 ref3 temp1 temp2 temp3 -o salmon/quant.txt
+
+<span class="hljs-comment"># --quants = Pastas que tem as quantificações</span>
+<span class="hljs-comment"># --names = Nomes que as colunas da sua tabela terão (na mesma ordem que os nomes das pastas)</span>
+<span class="hljs-comment"># -o = Nome do arquivo de saída</span>
+</code></pre>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>

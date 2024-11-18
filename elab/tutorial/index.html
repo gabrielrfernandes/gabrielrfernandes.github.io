@@ -3340,8 +3340,8 @@ body,
 <ul>
 <li>Entre na pasta de trabalho e veja seu conteúdo:</li>
 </ul>
-<pre><code class="language-bash"><span class="hljs-built_in">mkdir</span> Aula_Funcional
-<span class="hljs-built_in">cd</span> Aula_Funcional
+<pre><code class="language-bash"><span class="hljs-built_in">mkdir</span> ELAB
+<span class="hljs-built_in">cd</span> ELAB
 <span class="hljs-built_in">ls</span>
 </code></pre>
 <p>Baixe o arquivo com o conteúdo da aula e descompacte dentro da pasta.</p>
@@ -3353,6 +3353,11 @@ body,
 <pre><code class="language-bash"><span class="hljs-built_in">mkdir</span> 0.Logs 1.Trim 2.Assembly 3.Genes 4.Function
 <span class="hljs-built_in">ls</span>
 
+####### Caso não tenha o ambiente com os programas instalados, pode instalar com: #####
+conda create -n assembly -c bioconda trimmomatic spades quast prodigal diamond
+#######################################################################################
+
+#Ativar ambiente com programas instalados
 conda activate assembly
 </code></pre>
 <hr>
@@ -3360,17 +3365,17 @@ conda activate assembly
 <p>O sequenciamento Illumina tem uma taxa de erro de substituição de bases de cerca de 1%. À medida em que a sequência vai sendo sintetizada essa taxa de erro pode aumentar. Por isso, é importante retirarmos as regiões com baixa qualidade de bases.</p>
 <p>A ferramenta Trimmomatic é uma das muitas utilizadas para esse fim. Nela, podemos definir a qualidade média das bases em uma janela deslizante, além da remoção de adaptadores e exclusão de sequências muito curtas.
 O comando utilizado é:</p>
-<pre><code class="language-bash">trimmomatic PE -threads 4 data/lib1_150bp_R1.fq.gz data/lib1_150bp_R2.fq.gz 1.Trim/lib1.Paired_R1.fastq.gz 1.Trim/lib1.Unpaired_R1.fastq.gz 1.Trim/lib1.Paired_R2.fastq.gz 1.Trim/lib1.Unpaired_R2.fastq.gz ILLUMINACLIP:data/adapters.fasta:2:30:10:2:keepBothReads LEADING:5 TRAILING:5 SLIDINGWINDOW:4:20 MINLEN:50 2&gt; 0.Logs/lib1.trimmomatic.log
+<pre><code class="language-bash">trimmomatic PE -threads 4 /databases/big/input/lib1_150bp_R1.fq.gz /databases/big/input/lib1_150bp_R2.fq.gz 1.Trim/lib1.Paired_R1.fastq.gz 1.Trim/lib1.Unpaired_R1.fastq.gz 1.Trim/lib1.Paired_R2.fastq.gz 1.Trim/lib1.Unpaired_R2.fastq.gz ILLUMINACLIP:/databases/big/ref/adapters.fasta:2:30:10:2:keepBothReads LEADING:5 TRAILING:5 SLIDINGWINDOW:4:20 MINLEN:50 2&gt; 0.Logs/lib1.trimmomatic.log
 </code></pre>
 <p>A linha de comando recebe parâmetros que chamamos de <em><em>flags</em></em>. Seccionando as linhas de comando, vemos a função de cada parâmetro.</p>
 <pre><code class="language-bash">trimmomatic <span class="hljs-comment">#inicia o programa</span>
 PE <span class="hljs-comment">#informa que o sequenciamento é paired-end</span>
 -threads 4 <span class="hljs-comment">#conta que vai usar 4 processadores</span>
-data/lib1_150bp_R1.fq.gz data/lib1_150bp_R2.fq.gz <span class="hljs-comment">#indicas os arquivos que contem as sequências forward e reversas a serem corrigidas</span>
+/databases/big/input/lib1_150bp_R1.fq.gz /databases/big/input/lib1_150bp_R2.fq.gz <span class="hljs-comment">#indicas os arquivos que contem as sequências forward e reversas a serem corrigidas</span>
 1.Trim/lib1.Paired_R1.fastq.gz <span class="hljs-comment">#Indica onde vai escrever as sequências Forward (R1) cujos pares sobreviveram</span>
 1.Trim/lib1.Unpaired_R1.fastq.gz <span class="hljs-comment">#Sequências forward cujos pares reversos não passaram no critério de qualidade</span>
 1.Trim/lib1.Paired_R2.fastq.gz 1.Trim/lib1.Unpaired_R2.fastq.gz <span class="hljs-comment">#Os mesmos que os anteriores, só que com as sequências reversas: R2</span>
-ILLUMINACLIP:data/adapters.fasta:2:30:10:2:keepBothReads <span class="hljs-comment">#Cita o nome do arquivo que contém a sequência dos adaptadores : número de mismatches aceitos : tamanho mínimo de um palíndromo (em caso de pares de reads) : tamanho mínimo do alinhamento simples : tamanho mínimo da sequência do adaptador identifica.</span>
+ILLUMINACLIP:/databases/big/ref/adapters.fasta:2:30:10:2:keepBothReads <span class="hljs-comment">#Cita o nome do arquivo que contém a sequência dos adaptadores : número de mismatches aceitos : tamanho mínimo de um palíndromo (em caso de pares de reads) : tamanho mínimo do alinhamento simples : tamanho mínimo da sequência do adaptador identifica.</span>
 LEADING:5 TRAILING:5 <span class="hljs-comment">#Valores mínimos de qualidade para começar a análise no início (LEADING) e no final da sequência (TRAILING)</span>
 SLIDINGWINDOW:4:20 <span class="hljs-comment">#Tamanho da janela de bases : Qualidade média dentro da janela</span>
 MINLEN:50 <span class="hljs-comment">#Tamanho mínimo da sequência restante para que não seja descartada</span>
@@ -3497,13 +3502,13 @@ Coverage &gt;= 1x (%)          100.0
 Uma das formas de identificar as funções é através de alinhamentos locais com bancos de dados secundários que contenham alguma informação funcional.
 Para tal tarefa, o BLAST é a ferramenta mais popular. Usaremos o <em>diamond</em> que faz um alinhamento local, assim como o BLAST, porém de maneira muito mais rápida.</p>
 <p>Utilizaremos o UniProt como banco de dados para as buscas. A primeira etapa é transformar as sequências do UniProt em um formato que o <em>diamond</em> possa ler.</p>
-<pre><code class="language-bash">diamond makedb --threads 4 --<span class="hljs-keyword">in</span> data/uniprotkb_proteome_UP000000625_2024_08_29.fasta.gz --db ecoli
+<pre><code class="language-bash">diamond makedb --threads 4 --<span class="hljs-keyword">in</span> /databases/big/ref/uniprotkb_proteome_UP000000625_2024_08_29.fasta.gz --db ecoli
 </code></pre>
 <p>As <em>flags</em> significam:</p>
 <pre><code class="language-bash">diamond <span class="hljs-comment">#Chama o programa</span>
 makedb <span class="hljs-comment">#Conta qual a tarefa que ele vai fazer</span>
 --threads 4 <span class="hljs-comment">#Número de processadores</span>
---<span class="hljs-keyword">in</span> data/uniprotkb_proteome_UP000000625_2024_08_29.fasta.gz <span class="hljs-comment">#Onde está o arquivo do UniProt com as sequências</span>
+--<span class="hljs-keyword">in</span> /databases/big/ref/uniprotkb_proteome_UP000000625_2024_08_29.fasta.gz <span class="hljs-comment">#Onde está o arquivo do UniProt com as sequências</span>
 --db ecoli <span class="hljs-comment">#Nome que quer dar ao seu banco de dados</span>
 </code></pre>
 <p>Após formatarmos o banco de dados, podemos chamar o alinhamento. Temos um banco de dados de sequências de aminoácidos (UniProt), e arquivo de entrada de aminoácidos ou nucleotídeos. Poderiam então escolher entre duas opções:</p>
@@ -3560,7 +3565,7 @@ awk -F<span class="hljs-string">&#x27;|&#x27;</span> <span class="hljs-string">&
 <span class="hljs-comment">## A coluna que contém o nome das proteínas é a 13.</span>
 <span class="hljs-built_in">sort</span> -k13 diamond_with_protein_ids.txt &gt; sorted_diamond.txt
 <span class="hljs-comment">## A coluna que contém os nomes das mesmas proteínas no arquivo de conversão, é a 1</span>
-<span class="hljs-built_in">sort</span> -k1 data/Uniprot2KEGG.eco.txt &gt; sorted_Uniprot2KEGG.txt
+<span class="hljs-built_in">sort</span> -k1 /databases/big/ref/Uniprot2KEGG.eco.txt &gt; sorted_Uniprot2KEGG.txt
 <span class="hljs-comment">## Juntamos as duas tabelas, levando em consideração o ponto de junção como sendo a 13 coluna do resultado do Diamond, com a 1 coluna da tabela de conversão.</span>
 <span class="hljs-built_in">join</span> -t$<span class="hljs-string">&#x27;\t&#x27;</span> -1 13 -2 1 sorted_diamond.txt sorted_Uniprot2KEGG.txt &gt; diamond_with_KEGG.txt
 
@@ -3568,7 +3573,7 @@ awk -F<span class="hljs-string">&#x27;|&#x27;</span> <span class="hljs-string">&
 <span class="hljs-comment">## A coluna que contém o nome da entrada no KEGG é a 14.</span>
 <span class="hljs-built_in">sort</span> -k14 diamond_with_KEGG.txt &gt; sorted_diamond_with_KEGG.txt
 <span class="hljs-comment">## A coluna que contém os nomes das mesmas proteínas no arquivo de conversão, é a 1</span>
-<span class="hljs-built_in">sort</span> -k1 data/KEGG2KO.eco.txt &gt; sorted_KEGG2KO.txt
+<span class="hljs-built_in">sort</span> -k1 /databases/big/ref/KEGG2KO.eco.txt &gt; sorted_KEGG2KO.txt
 <span class="hljs-comment">## Juntamos as duas tabelas, levando em consideração o ponto de junção como sendo a 14 coluna do resultado do Diamond, com a 1 coluna da tabela de conversão.</span>
 <span class="hljs-built_in">join</span> -t$<span class="hljs-string">&#x27;\t&#x27;</span> -1 14 -2 1 sorted_diamond_with_KEGG.txt sorted_KEGG2KO.txt &gt; diamond_with_KO.txt
 
