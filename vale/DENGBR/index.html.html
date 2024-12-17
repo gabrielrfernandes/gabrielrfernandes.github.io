@@ -1,0 +1,1052 @@
+<!DOCTYPE html><html><head>
+      <title>fase2</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/gabrielfernandes/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.15/crossnote/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<ul>
+<li><a href="#base-de-dados-secund%C3%A1rios">Base de dados secundários</a>
+<ul>
+<li><a href="#transmiss%C3%A3o-por-vetores">Transmissão por vetores</a>
+<ul>
+<li><a href="#arboviroses">Arboviroses</a>
+<ul>
+<li><a href="#dengue">Dengue</a>
+<ul>
+<li><a href="#download-dos-dados">Download dos dados</a></li>
+<li><a href="#prepara%C3%A7%C3%A3o-dos-dados">Preparação dos dados</a></li>
+<li><a href="#an%C3%A1lises-descritivas">Análises descritivas</a>
+<ul>
+<li><a href="#boxplots-de-dispers%C3%A3o">Boxplots de dispersão</a></li>
+<li><a href="#busca-por-padr%C3%B5es">Busca por padrões</a></li>
+<li><a href="#an%C3%A1lise-de-componentes-principais-pca">Análise de componentes principais (PCA)</a></li>
+</ul>
+</li>
+<li><a href="#constru%C3%A7%C3%A3o-dos-modelos">Construção dos modelos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="base-de-dados-secundários">Base de dados secundários </h1>
+<ul>
+<li><strong>Objetivo:</strong> Avaliar a alteração na dinâmica de incidência entre municípios afetados e não afetados.</li>
+<li><strong>Metodologia:</strong>
+<ul>
+<li>Calcular a incidência para cada município em uma escala temporal média (Z-score).</li>
+<li>Usar os valores para análises de distância, importância das variáveis e modelagem.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="transmissão-por-vetores">Transmissão por vetores </h2>
+<h3 id="arboviroses">Arboviroses </h3>
+<h4 id="dengue">Dengue </h4>
+<h5 id="download-dos-dados">Download dos dados </h5>
+<p>Os arquivos dos anos 2014 ao 2023 foram obtidos do SINAN através do seu sítio de FTP localizado em: <a href="ftp://ftp.datasus.gov.br/dissemin/publicos/SINAN/DADOS/">ftp://ftp.datasus.gov.br/dissemin/publicos/SINAN/DADOS/</a> e identificados pelo prefixo <em>DENGBR</em>.</p>
+<h5 id="preparação-dos-dados">Preparação dos dados </h5>
+<p>O seguinte script cria o conjunto de variáveis a ser utilizada para a exploração, e os salva em um arquivo <code>.Rdata</code> que pode ser posteriormente carregado com a função <code>load()</code>.</p>
+<pre data-role="codeBlock" data-info="R" class="language-r R"><code><span class="token comment">#install.packages("devtools")</span>
+<span class="token comment">#library(devtools)</span>
+<span class="token comment">#install_github("danicat/read.dbc")</span>
+library<span class="token punctuation">(</span>read.dbc<span class="token punctuation">)</span> <span class="token comment"># ler dbc</span>
+library<span class="token punctuation">(</span>tidyverse<span class="token punctuation">)</span> <span class="token comment">#contem vários pacotes para diversas funções</span>
+library<span class="token punctuation">(</span>foreign<span class="token punctuation">)</span> <span class="token comment">#ler DBF</span>
+
+
+<span class="token comment">########################################################################################################</span>
+<span class="token comment">########################################################################################################</span>
+setwd<span class="token punctuation">(</span><span class="token string">"/data/gabriel/Trabalhos/Vale/DENG/"</span><span class="token punctuation">)</span>                                                <span class="token comment">#############</span>
+metadata <span class="token operator">=</span> read.table<span class="token punctuation">(</span><span class="token string">"/data/gabriel/Trabalhos/Vale/metadata.txt"</span><span class="token punctuation">,</span> header <span class="token operator">=</span> T<span class="token punctuation">,</span> sep <span class="token operator">=</span> <span class="token string">"\t"</span><span class="token punctuation">)</span> <span class="token comment">#############</span>
+city_codes <span class="token operator">&lt;-</span> metadata<span class="token operator">$</span>CODMUN6                                                             <span class="token comment">#############</span>
+disease_prefix <span class="token operator">=</span> <span class="token string">"DENGBR"</span>                                                                  <span class="token comment">#############</span>
+<span class="token comment">########################################################################################################</span>
+<span class="token comment">########################################################################################################</span>
+
+<span class="token comment"># Define folder path and initialize the list</span>
+folder_path <span class="token operator">&lt;-</span> getwd<span class="token punctuation">(</span><span class="token punctuation">)</span>
+years <span class="token operator">&lt;-</span> <span class="token number">14</span><span class="token operator">:</span><span class="token number">23</span>
+
+<span class="token comment"># Create a table with disease incidence per 10k population for each year</span>
+year_range <span class="token operator">&lt;-</span> as.character<span class="token punctuation">(</span><span class="token number">2014</span><span class="token operator">:</span><span class="token number">2023</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Find existing year columns in the dataset</span>
+existing_years <span class="token operator">&lt;-</span> intersect<span class="token punctuation">(</span>year_range<span class="token punctuation">,</span> colnames<span class="token punctuation">(</span>final_table<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Dynamically create the incidence table</span>
+incidence_table <span class="token operator">&lt;-</span> final_table <span class="token percent-operator operator">%&gt;%</span>
+  <span class="token comment"># Select necessary columns along with the existing years</span>
+  select<span class="token punctuation">(</span>NMMUNICIPIO<span class="token punctuation">,</span> NMREG<span class="token punctuation">,</span> AFETADO<span class="token punctuation">,</span> CENSO2022<span class="token punctuation">,</span> all_of<span class="token punctuation">(</span>existing_years<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  <span class="token comment"># Calculate incidence per 10k population for each available year</span>
+  mutate<span class="token punctuation">(</span>across<span class="token punctuation">(</span>all_of<span class="token punctuation">(</span>existing_years<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">~</span> <span class="token punctuation">(</span>.x <span class="token operator">/</span> CENSO2022<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">10000</span><span class="token punctuation">,</span> .names <span class="token operator">=</span> <span class="token string">"inc_{col}"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  <span class="token comment"># Select relevant columns for the final table</span>
+  select<span class="token punctuation">(</span>NMMUNICIPIO<span class="token punctuation">,</span> NMREG<span class="token punctuation">,</span> AFETADO<span class="token punctuation">,</span> starts_with<span class="token punctuation">(</span><span class="token string">"inc_"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Rename columns for readability</span>
+incidence_table <span class="token operator">&lt;-</span> incidence_table <span class="token percent-operator operator">%&gt;%</span>
+  rename_with<span class="token punctuation">(</span><span class="token operator">~</span> sub<span class="token punctuation">(</span><span class="token string">"inc_"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> .<span class="token punctuation">)</span><span class="token punctuation">,</span> starts_with<span class="token punctuation">(</span><span class="token string">"inc_"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># View the resulting table and scale</span>
+matrix <span class="token operator">=</span> incidence_table<span class="token punctuation">[</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token operator">:</span>ncol<span class="token punctuation">(</span>incidence_table<span class="token punctuation">)</span><span class="token punctuation">]</span>
+matrix_scaled_by_row <span class="token operator">&lt;-</span> t<span class="token punctuation">(</span>scale<span class="token punctuation">(</span>t<span class="token punctuation">(</span>matrix<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment"># Transpose, scale rows, then transpose back</span>
+
+incidence_table <span class="token operator">=</span> cbind<span class="token punctuation">(</span>incidence_table<span class="token punctuation">[</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token operator">:</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> matrix_scaled_by_row<span class="token punctuation">)</span>
+
+<span class="token comment"># Assuming incidence_table is your data frame from previous steps</span>
+
+<span class="token comment"># Reshape the data from wide to long format for plotting</span>
+incidence_long <span class="token operator">&lt;-</span> incidence_table <span class="token percent-operator operator">%&gt;%</span>
+  pivot_longer<span class="token punctuation">(</span>
+    cols <span class="token operator">=</span> all_of<span class="token punctuation">(</span>existing_years<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment"># Use only the columns that exist</span>
+    names_to <span class="token operator">=</span> <span class="token string">"Year"</span><span class="token punctuation">,</span>             <span class="token comment"># Name of the new column for years</span>
+    values_to <span class="token operator">=</span> <span class="token string">"Incidence"</span>        <span class="token comment"># Name of the new column for incidence values</span>
+  <span class="token punctuation">)</span>
+
+save<span class="token punctuation">(</span>incidence_long<span class="token punctuation">,</span> incidence_table<span class="token punctuation">,</span> final_table<span class="token punctuation">,</span> file <span class="token operator">=</span> paste0<span class="token punctuation">(</span>disease_prefix<span class="token punctuation">,</span><span class="token string">"_variables.Rdata"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre><h5 id="análises-descritivas">Análises descritivas </h5>
+<h6 id="boxplots-de-dispersão">Boxplots de dispersão </h6>
+<p>Criar boxplots que mostrem a dispersão do Z-score ao longos dos anos, e separando o períodos em antes e depois do rompimento da barragem.</p>
+<pre data-role="codeBlock" data-info="R" class="language-r R"><code>library<span class="token punctuation">(</span>tidyverse<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>ggplot2<span class="token punctuation">)</span>
+
+<span class="token comment">########################################################################################################</span>
+<span class="token comment">########################################################################################################</span>
+setwd<span class="token punctuation">(</span><span class="token string">"/data/gabriel/Trabalhos/Vale/DENG/"</span><span class="token punctuation">)</span>                                                <span class="token comment">#############</span>
+metadata <span class="token operator">=</span> read.table<span class="token punctuation">(</span><span class="token string">"/data/gabriel/Trabalhos/Vale/metadata.txt"</span><span class="token punctuation">,</span> header <span class="token operator">=</span> T<span class="token punctuation">,</span> sep <span class="token operator">=</span> <span class="token string">"\t"</span><span class="token punctuation">)</span> <span class="token comment">#############</span>
+city_codes <span class="token operator">&lt;-</span> metadata<span class="token operator">$</span>CODMUN6                                                             <span class="token comment">#############</span>
+disease_prefix <span class="token operator">=</span> <span class="token string">"DENGBR"</span>                                                                  <span class="token comment">#############</span>
+<span class="token comment">########################################################################################################</span>
+<span class="token comment">########################################################################################################</span>
+
+<span class="token comment"># Load previously processed data</span>
+load<span class="token punctuation">(</span>paste0<span class="token punctuation">(</span>disease_prefix<span class="token punctuation">,</span><span class="token string">"_variables.Rdata"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># Create boxplot with incidence per year</span>
+pdf<span class="token punctuation">(</span>file <span class="token operator">=</span> paste0<span class="token punctuation">(</span>disease_prefix<span class="token punctuation">,</span> <span class="token string">"_ScaledbyYear.pdf"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> width <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> height <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">)</span>
+
+ggplot<span class="token punctuation">(</span>incidence_long<span class="token punctuation">,</span> aes<span class="token punctuation">(</span>x <span class="token operator">=</span> Year<span class="token punctuation">,</span> y <span class="token operator">=</span> Incidence<span class="token punctuation">,</span> fill <span class="token operator">=</span> AFETADO<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  geom_boxplot<span class="token punctuation">(</span>outlier.shape <span class="token operator">=</span> <span class="token keyword keyword-NA">NA</span><span class="token punctuation">,</span> width <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token operator">+</span>  <span class="token comment"># Adjust box width</span>
+  geom_point<span class="token punctuation">(</span>position <span class="token operator">=</span> position_jitterdodge<span class="token punctuation">(</span>jitter.width <span class="token operator">=</span> <span class="token number">0.15</span><span class="token punctuation">,</span> dodge.width <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">,</span> shape <span class="token operator">=</span> <span class="token number">21</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> stroke <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token operator">+</span>  <span class="token comment"># Add points with jitter dodge</span>
+  facet_wrap<span class="token punctuation">(</span><span class="token operator">~</span> NMREG<span class="token punctuation">,</span> ncol <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  scale_fill_manual<span class="token punctuation">(</span>values <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"SIM"</span> <span class="token operator">=</span> <span class="token string">"#1b9e77"</span><span class="token punctuation">,</span> <span class="token string">"NAO"</span> <span class="token operator">=</span> <span class="token string">"#d95f02"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  labs<span class="token punctuation">(</span>
+    title <span class="token operator">=</span> <span class="token string">"Distribuição da Incidência de Doença por Região de Saúde"</span><span class="token punctuation">,</span>
+    x <span class="token operator">=</span> <span class="token string">"Ano"</span><span class="token punctuation">,</span>
+    y <span class="token operator">=</span> <span class="token string">"Incidência por 10000 Habitates"</span><span class="token punctuation">,</span>
+    fill <span class="token operator">=</span> <span class="token string">"Município Afetado"</span>
+  <span class="token punctuation">)</span> <span class="token operator">+</span>
+  theme_bw<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  theme<span class="token punctuation">(</span>axis.text.x <span class="token operator">=</span> element_text<span class="token punctuation">(</span>angle <span class="token operator">=</span> <span class="token number">45</span><span class="token punctuation">,</span> hjust <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+dev.off<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># Categorize the years as "Before" and "After"</span>
+incidence_long <span class="token operator">&lt;-</span> incidence_long <span class="token percent-operator operator">%&gt;%</span>
+  mutate<span class="token punctuation">(</span>
+    Period <span class="token operator">=</span> case_when<span class="token punctuation">(</span>
+      Year <span class="token percent-operator operator">%in%</span> <span class="token number">2014</span><span class="token operator">:</span><span class="token number">2018</span> <span class="token operator">~</span> <span class="token string">"Antes"</span><span class="token punctuation">,</span>
+      Year <span class="token percent-operator operator">%in%</span> <span class="token number">2019</span><span class="token operator">:</span><span class="token number">2023</span> <span class="token operator">~</span> <span class="token string">"Depois"</span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  filter<span class="token punctuation">(</span><span class="token operator">!</span>is.na<span class="token punctuation">(</span>Period<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment"># Remove rows outside of the specified range</span>
+
+<span class="token comment"># Create the plot showing distribution per city before and after</span>
+
+pdf<span class="token punctuation">(</span>file <span class="token operator">=</span> paste0<span class="token punctuation">(</span>disease_prefix<span class="token punctuation">,</span> <span class="token string">"_ScaledAntesDepois.pdf"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> width <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> height <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">)</span>
+
+ggplot<span class="token punctuation">(</span>incidence_long<span class="token punctuation">,</span> aes<span class="token punctuation">(</span>x <span class="token operator">=</span> NMMUNICIPIO<span class="token punctuation">,</span> y <span class="token operator">=</span> Incidence<span class="token punctuation">,</span> fill <span class="token operator">=</span> AFETADO<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  geom_boxplot<span class="token punctuation">(</span>aes<span class="token punctuation">(</span>group <span class="token operator">=</span> interaction<span class="token punctuation">(</span>NMMUNICIPIO<span class="token punctuation">,</span> Period<span class="token punctuation">)</span><span class="token punctuation">,</span> fill <span class="token operator">=</span> AFETADO<span class="token punctuation">)</span><span class="token punctuation">,</span> 
+               position <span class="token operator">=</span> position_dodge<span class="token punctuation">(</span>width <span class="token operator">=</span> <span class="token number">0.8</span><span class="token punctuation">)</span><span class="token punctuation">,</span> width <span class="token operator">=</span> <span class="token number">0.45</span><span class="token punctuation">,</span> outlier.shape <span class="token operator">=</span> <span class="token keyword keyword-NA">NA</span><span class="token punctuation">)</span> <span class="token operator">+</span>  <span class="token comment"># Adjust box width and dodge</span>
+  geom_point<span class="token punctuation">(</span>aes<span class="token punctuation">(</span>shape <span class="token operator">=</span> Period<span class="token punctuation">,</span> fill <span class="token operator">=</span> AFETADO<span class="token punctuation">,</span> group <span class="token operator">=</span> Period<span class="token punctuation">)</span><span class="token punctuation">,</span> 
+             position <span class="token operator">=</span> position_dodge<span class="token punctuation">(</span>width <span class="token operator">=</span> <span class="token number">0.8</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+             size <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> stroke <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token operator">+</span>  <span class="token comment"># Map Period to shape for distinction</span>
+  facet_wrap<span class="token punctuation">(</span><span class="token operator">~</span> NMREG<span class="token punctuation">,</span> ncol <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> scales <span class="token operator">=</span> <span class="token string">"free_x"</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  scale_fill_manual<span class="token punctuation">(</span>values <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"SIM"</span> <span class="token operator">=</span> <span class="token string">"#1b9e77"</span><span class="token punctuation">,</span> <span class="token string">"NAO"</span> <span class="token operator">=</span> <span class="token string">"#d95f02"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  scale_shape_manual<span class="token punctuation">(</span>values <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"Antes"</span> <span class="token operator">=</span> <span class="token number">21</span><span class="token punctuation">,</span> <span class="token string">"Depois"</span> <span class="token operator">=</span> <span class="token number">22</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span>  <span class="token comment"># Set shapes for periods</span>
+  labs<span class="token punctuation">(</span>
+    title <span class="token operator">=</span> <span class="token string">"Comparação da Incidência de Doenças antes e depois do evento"</span><span class="token punctuation">,</span>
+    x <span class="token operator">=</span> <span class="token string">"Minucípio"</span><span class="token punctuation">,</span>
+    y <span class="token operator">=</span> <span class="token string">"Incidência por 10000 Habitantes"</span><span class="token punctuation">,</span>
+    fill <span class="token operator">=</span> <span class="token string">"Município Afetado"</span><span class="token punctuation">,</span>
+    shape <span class="token operator">=</span> <span class="token string">"Período"</span>
+  <span class="token punctuation">)</span> <span class="token operator">+</span>
+  theme_bw<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  theme<span class="token punctuation">(</span>axis.text.x <span class="token operator">=</span> element_text<span class="token punctuation">(</span>angle <span class="token operator">=</span> <span class="token number">45</span><span class="token punctuation">,</span> hjust <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+dev.off<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre><p><img src="Figuras/DENGBR_ScaledbyYear.jpg" alt="By Year"><br>
+<img src="Figuras/DENGBR_ScaledAntesDepois.jpg" alt="By Moment"></p>
+<h6 id="busca-por-padrões">Busca por padrões </h6>
+<p>A busca por padrões envolve o cálculo de distâncias para criar agrupamentos. A distância utilizada foi a correlação de Pearson, uma vez que o objetivo é identificar cidades que seguem o mesmo padrão da incidência ao longo dos anos.<br>
+O índice de Calinski-Harabasz foi utilizado para definir o número ótimo de cluster. Quando o número era maior que 10 (indicando falta de padrão), optamos para escolher visualmente. |<br>
+Neste caso, o número de agrupamentos foi 5.</p>
+<pre data-role="codeBlock" data-info="R" class="language-r R"><code>library<span class="token punctuation">(</span>tidyverse<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>ggplot2<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>pheatmap<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>vegan<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>ComplexHeatmap<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>ggrepel<span class="token punctuation">)</span>
+
+<span class="token comment">########################################################################################################</span>
+<span class="token comment">########################################################################################################</span>
+setwd<span class="token punctuation">(</span><span class="token string">"/data/gabriel/Trabalhos/Vale/DENG/"</span><span class="token punctuation">)</span>                                                <span class="token comment">#############</span>
+metadata <span class="token operator">=</span> read.table<span class="token punctuation">(</span><span class="token string">"/data/gabriel/Trabalhos/Vale/metadata.txt"</span><span class="token punctuation">,</span> header <span class="token operator">=</span> T<span class="token punctuation">,</span> sep <span class="token operator">=</span> <span class="token string">"\t"</span><span class="token punctuation">)</span> <span class="token comment">#############</span>
+city_codes <span class="token operator">&lt;-</span> metadata<span class="token operator">$</span>CODMUN6                                                             <span class="token comment">#############</span>
+disease_prefix <span class="token operator">=</span> <span class="token string">"DENGBR"</span>                                                                  <span class="token comment">#############</span>
+<span class="token comment">########################################################################################################</span>
+<span class="token comment">########################################################################################################</span>
+
+<span class="token comment"># Load previously processed data</span>
+load<span class="token punctuation">(</span>paste0<span class="token punctuation">(</span>disease_prefix<span class="token punctuation">,</span><span class="token string">"_variables.Rdata"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+matrix <span class="token operator">=</span> data.frame<span class="token punctuation">(</span>incidence_table<span class="token punctuation">[</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token operator">:</span>ncol<span class="token punctuation">(</span>incidence_table<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span> row.names <span class="token operator">=</span> incidence_table<span class="token operator">$</span>NMMUNICIPIO<span class="token punctuation">)</span>
+row_anot <span class="token operator">=</span> data.frame<span class="token punctuation">(</span>incidence_table<span class="token punctuation">[</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token operator">:</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> row.names <span class="token operator">=</span> incidence_table<span class="token operator">$</span>NMMUNICIPIO<span class="token punctuation">)</span>
+
+<span class="token comment"># Calculate the distance matrix</span>
+data.dist <span class="token operator">&lt;-</span> as.dist<span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> cor<span class="token punctuation">(</span>t<span class="token punctuation">(</span>matrix<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Perform hierarchical clustering</span>
+hc <span class="token operator">&lt;-</span> hclust<span class="token punctuation">(</span>data.dist<span class="token punctuation">,</span> method <span class="token operator">=</span> <span class="token string">"complete"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Calculate the CH Index for different numbers of clusters</span>
+ch_index <span class="token operator">&lt;-</span> numeric<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>k <span class="token keyword keyword-in">in</span> <span class="token number">2</span><span class="token operator">:</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  clustering <span class="token operator">&lt;-</span> cutree<span class="token punctuation">(</span>hc<span class="token punctuation">,</span> k <span class="token operator">=</span> k<span class="token punctuation">)</span>
+  ch_index<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">&lt;-</span> cluster.stats<span class="token punctuation">(</span>d <span class="token operator">=</span> as.dist<span class="token punctuation">(</span>data.dist<span class="token punctuation">)</span><span class="token punctuation">,</span> clustering<span class="token punctuation">)</span><span class="token operator">$</span>ch
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Find the optimal number of clusters</span>
+optimal_clusters <span class="token operator">&lt;-</span> which.max<span class="token punctuation">(</span>ch_index<span class="token punctuation">)</span>
+optimal_clusters <span class="token operator">&lt;-</span> <span class="token number">5</span>
+
+<span class="token comment"># Plot the CH Index</span>
+plot<span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">:</span><span class="token number">10</span><span class="token punctuation">,</span> ch_index<span class="token punctuation">[</span><span class="token number">2</span><span class="token operator">:</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span> type <span class="token operator">=</span> <span class="token string">"b"</span><span class="token punctuation">,</span> xlab <span class="token operator">=</span> <span class="token string">"Number of Clusters"</span><span class="token punctuation">,</span> ylab <span class="token operator">=</span> <span class="token string">"CH Index"</span><span class="token punctuation">,</span>
+     main <span class="token operator">=</span> <span class="token string">"Optimal Number of Clusters using CH Index"</span><span class="token punctuation">)</span>
+abline<span class="token punctuation">(</span>v <span class="token operator">=</span> optimal_clusters<span class="token punctuation">,</span> col <span class="token operator">=</span> <span class="token string">"red"</span><span class="token punctuation">,</span> lty <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">)</span>
+
+annotation_colors <span class="token operator">&lt;-</span> list<span class="token punctuation">(</span>
+  AFETADO <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"SIM"</span> <span class="token operator">=</span> <span class="token string">"#1b9e77"</span><span class="token punctuation">,</span> <span class="token string">"NAO"</span> <span class="token operator">=</span> <span class="token string">"#d95f02"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>  <span class="token comment"># Colors for AFETADO</span>
+  NMREG <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"BETIM"</span> <span class="token operator">=</span> <span class="token string">"#66c2a5"</span><span class="token punctuation">,</span>           <span class="token comment"># Greenish</span>
+            <span class="token string">"CURVELO"</span> <span class="token operator">=</span> <span class="token string">"#fc8d62"</span><span class="token punctuation">,</span>         <span class="token comment"># Orange</span>
+            <span class="token string">"PARA DE MINAS/NOVA SERRANA"</span> <span class="token operator">=</span> <span class="token string">"#8da0cb"</span><span class="token punctuation">,</span>  <span class="token comment"># Blue</span>
+            <span class="token string">"PATOS DE MINAS"</span> <span class="token operator">=</span> <span class="token string">"#e78ac3"</span><span class="token punctuation">,</span>  <span class="token comment"># Pink</span>
+            <span class="token string">"SETE LAGOAS"</span> <span class="token operator">=</span> <span class="token string">"#a6d854"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>     <span class="token comment"># Light green</span>
+  Cluster <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"1"</span> <span class="token operator">=</span> <span class="token string">"#FFDB6D"</span><span class="token punctuation">,</span> <span class="token string">"2"</span> <span class="token operator">=</span> <span class="token string">"#C4961A"</span><span class="token punctuation">,</span> <span class="token string">"3"</span> <span class="token operator">=</span> <span class="token string">"#D16103"</span><span class="token punctuation">,</span> <span class="token string">"4"</span> <span class="token operator">=</span> <span class="token string">"#52854C"</span><span class="token punctuation">,</span> <span class="token string">"5"</span> <span class="token operator">=</span> <span class="token string">"#293352"</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+row_anot <span class="token operator">=</span> data.frame<span class="token punctuation">(</span>row_anot<span class="token punctuation">,</span> Cluster <span class="token operator">=</span> as.factor<span class="token punctuation">(</span>cutree<span class="token punctuation">(</span>hc<span class="token punctuation">,</span> k <span class="token operator">=</span> optimal_clusters<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+</code></pre><p>A partir dos padrões, geramos 2 heatmaps:</p>
+<ul>
+<li>Um mostrando a distribuição das incidências ao longo dos anos.</li>
+<li>Um mostrando os municípios que mais correlacionam entre si.</li>
+</ul>
+<pre data-role="codeBlock" data-info="R" class="language-r R"><code><span class="token comment"># Plot the heatmap</span>
+pdf<span class="token punctuation">(</span>file <span class="token operator">=</span> paste0<span class="token punctuation">(</span>disease_prefix<span class="token punctuation">,</span> <span class="token string">"_ScaledHeatmap.pdf"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> width <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">,</span> height <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">)</span>
+pheatmap<span class="token punctuation">(</span>
+  mat <span class="token operator">=</span> as.matrix<span class="token punctuation">(</span>matrix<span class="token punctuation">[</span>rowSums<span class="token punctuation">(</span>matrix <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  scale <span class="token operator">=</span> <span class="token string">"row"</span><span class="token punctuation">,</span>
+  annotation_row <span class="token operator">=</span> row_anot<span class="token punctuation">[</span>rowSums<span class="token punctuation">(</span>matrix <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  annotation_colors <span class="token operator">=</span> annotation_colors<span class="token punctuation">,</span>
+  clustering_distance_rows <span class="token operator">=</span> <span class="token string">"correlation"</span><span class="token punctuation">,</span>
+  cluster_cols <span class="token operator">=</span> F<span class="token punctuation">,</span>
+  cutree_rows <span class="token operator">=</span> optimal_clusters<span class="token punctuation">,</span>
+  clustering_method <span class="token operator">=</span> <span class="token string">"complete"</span><span class="token punctuation">,</span>
+  show_rownames <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">,</span>
+  show_colnames <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">,</span>
+  main <span class="token operator">=</span> <span class="token string">"Heatmap of Disease Incidence"</span>
+<span class="token punctuation">)</span>
+dev.off<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Create a color mapping for annotations</span>
+annotation_colors <span class="token operator">&lt;-</span> list<span class="token punctuation">(</span>
+  AFETADO <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"SIM"</span> <span class="token operator">=</span> <span class="token string">"#1b9e77"</span><span class="token punctuation">,</span> <span class="token string">"NAO"</span> <span class="token operator">=</span> <span class="token string">"#d95f02"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  NMREG <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"BETIM"</span> <span class="token operator">=</span> <span class="token string">"#66c2a5"</span><span class="token punctuation">,</span> 
+            <span class="token string">"CURVELO"</span> <span class="token operator">=</span> <span class="token string">"#fc8d62"</span><span class="token punctuation">,</span> 
+            <span class="token string">"PARA DE MINAS/NOVA SERRANA"</span> <span class="token operator">=</span> <span class="token string">"#8da0cb"</span><span class="token punctuation">,</span> 
+            <span class="token string">"PATOS DE MINAS"</span> <span class="token operator">=</span> <span class="token string">"#e78ac3"</span><span class="token punctuation">,</span> 
+            <span class="token string">"SETE LAGOAS"</span> <span class="token operator">=</span> <span class="token string">"#a6d854"</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># Define row annotations</span>
+row_annotation <span class="token operator">&lt;-</span> rowAnnotation<span class="token punctuation">(</span>
+  AFETADO <span class="token operator">=</span> row_anot<span class="token operator">$</span>AFETADO<span class="token punctuation">,</span>
+  NMREG <span class="token operator">=</span> row_anot<span class="token operator">$</span>NMREG<span class="token punctuation">,</span>
+  col <span class="token operator">=</span> annotation_colors
+<span class="token punctuation">)</span>
+
+<span class="token comment"># Create the heatmap object with row annotations</span>
+ht <span class="token operator">&lt;-</span> Heatmap<span class="token punctuation">(</span>
+  as.matrix<span class="token punctuation">(</span>data.dist<span class="token punctuation">)</span><span class="token punctuation">,</span>
+  name <span class="token operator">=</span> <span class="token string">"Distance"</span><span class="token punctuation">,</span>
+  row_title <span class="token operator">=</span> <span class="token string">"Cities"</span><span class="token punctuation">,</span>
+  column_title <span class="token operator">=</span> <span class="token string">"Cities"</span><span class="token punctuation">,</span>
+  row_split <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span>
+  column_split <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span>
+  right_annotation <span class="token operator">=</span> row_annotation
+<span class="token punctuation">)</span>
+
+<span class="token comment"># Draw the heatmap with legends at the bottom</span>
+pdf<span class="token punctuation">(</span>file <span class="token operator">=</span> paste0<span class="token punctuation">(</span>disease_prefix<span class="token punctuation">,</span> <span class="token string">"_ScaledDistance.pdf"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> width <span class="token operator">=</span> <span class="token number">13</span><span class="token punctuation">,</span> height <span class="token operator">=</span> <span class="token number">14</span><span class="token punctuation">)</span>
+draw<span class="token punctuation">(</span>ht<span class="token punctuation">,</span> heatmap_legend_side <span class="token operator">=</span> <span class="token string">"bottom"</span><span class="token punctuation">,</span> annotation_legend_side <span class="token operator">=</span> <span class="token string">"bottom"</span><span class="token punctuation">)</span>
+dev.off<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre><p><img src="Figuras/DENGBR_ScaledHeatmap.jpg" alt="Heatmap"><br>
+<img src="Figuras/DENGBR_ScaledDistance.jpg" alt="Distance"></p>
+<p>Um teste exato de Fisher foi usado para avaliar se havia maior prevalência de municípios afetados, ou de uma determinada região em um cluster. Isso poderia explicar se os municípios se agrupam mais por suas propriedades regionais, ou pelo fato de terem sido afetados.</p>
+<pre data-role="codeBlock" data-info="R" class="language-r R"><code><span class="token comment"># Initialize results for affected prevalence</span>
+affected_results <span class="token operator">&lt;-</span> list<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>cluster_id <span class="token keyword keyword-in">in</span> unique<span class="token punctuation">(</span>row_anot<span class="token operator">$</span>Cluster<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Cities inside the cluster</span>
+  inside_cluster <span class="token operator">&lt;-</span> row_anot<span class="token punctuation">[</span>row_anot<span class="token operator">$</span>Cluster <span class="token operator">==</span> cluster_id<span class="token punctuation">,</span> <span class="token punctuation">]</span>
+  <span class="token comment"># Cities outside the cluster</span>
+  outside_cluster <span class="token operator">&lt;-</span> row_anot<span class="token punctuation">[</span>row_anot<span class="token operator">$</span>Cluster <span class="token operator">!=</span> cluster_id<span class="token punctuation">,</span> <span class="token punctuation">]</span>
+  
+  <span class="token comment"># Contingency table for AFETADO</span>
+  affected_table <span class="token operator">&lt;-</span> matrix<span class="token punctuation">(</span>
+    c<span class="token punctuation">(</span>
+      sum<span class="token punctuation">(</span>inside_cluster<span class="token operator">$</span>AFETADO <span class="token operator">==</span> <span class="token string">"SIM"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      sum<span class="token punctuation">(</span>inside_cluster<span class="token operator">$</span>AFETADO <span class="token operator">==</span> <span class="token string">"NAO"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      sum<span class="token punctuation">(</span>outside_cluster<span class="token operator">$</span>AFETADO <span class="token operator">==</span> <span class="token string">"SIM"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      sum<span class="token punctuation">(</span>outside_cluster<span class="token operator">$</span>AFETADO <span class="token operator">==</span> <span class="token string">"NAO"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    nrow <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    dimnames <span class="token operator">=</span> list<span class="token punctuation">(</span>
+      c<span class="token punctuation">(</span><span class="token string">"Inside Cluster"</span><span class="token punctuation">,</span> <span class="token string">"Outside Cluster"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      c<span class="token punctuation">(</span><span class="token string">"Affected"</span><span class="token punctuation">,</span> <span class="token string">"Not Affected"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
+  
+  <span class="token comment"># Run Fisher's test</span>
+  fisher_affected <span class="token operator">&lt;-</span> fisher.test<span class="token punctuation">(</span>affected_table<span class="token punctuation">)</span>
+  
+  <span class="token comment"># Save results</span>
+  affected_results<span class="token punctuation">[</span><span class="token punctuation">[</span>paste0<span class="token punctuation">(</span><span class="token string">"Cluster_"</span><span class="token punctuation">,</span> cluster_id<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;-</span> list<span class="token punctuation">(</span>
+    pval <span class="token operator">=</span> fisher_affected<span class="token operator">$</span>p.value<span class="token punctuation">,</span>
+    affected_ratio_inside <span class="token operator">=</span> affected_table<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">/</span> sum<span class="token punctuation">(</span>affected_table<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    affected_ratio_outside <span class="token operator">=</span> affected_table<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">/</span> sum<span class="token punctuation">(</span>affected_table<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Initialize results for regional prevalence</span>
+region_results <span class="token operator">&lt;-</span> list<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>cluster_id <span class="token keyword keyword-in">in</span> unique<span class="token punctuation">(</span>row_anot<span class="token operator">$</span>Cluster<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>region <span class="token keyword keyword-in">in</span> unique<span class="token punctuation">(</span>row_anot<span class="token operator">$</span>NMREG<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment"># Cities inside the cluster</span>
+    inside_cluster <span class="token operator">&lt;-</span> row_anot<span class="token punctuation">[</span>row_anot<span class="token operator">$</span>Cluster <span class="token operator">==</span> cluster_id<span class="token punctuation">,</span> <span class="token punctuation">]</span>
+    <span class="token comment"># Cities outside the cluster</span>
+    outside_cluster <span class="token operator">&lt;-</span> row_anot<span class="token punctuation">[</span>row_anot<span class="token operator">$</span>Cluster <span class="token operator">!=</span> cluster_id<span class="token punctuation">,</span> <span class="token punctuation">]</span>
+    
+    <span class="token comment"># Contingency table for NMREG</span>
+    region_table <span class="token operator">&lt;-</span> matrix<span class="token punctuation">(</span>
+      c<span class="token punctuation">(</span>
+        sum<span class="token punctuation">(</span>inside_cluster<span class="token operator">$</span>NMREG <span class="token operator">==</span> region<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        nrow<span class="token punctuation">(</span>inside_cluster<span class="token punctuation">)</span> <span class="token operator">-</span> sum<span class="token punctuation">(</span>inside_cluster<span class="token operator">$</span>NMREG <span class="token operator">==</span> region<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        sum<span class="token punctuation">(</span>outside_cluster<span class="token operator">$</span>NMREG <span class="token operator">==</span> region<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        nrow<span class="token punctuation">(</span>outside_cluster<span class="token punctuation">)</span> <span class="token operator">-</span> sum<span class="token punctuation">(</span>outside_cluster<span class="token operator">$</span>NMREG <span class="token operator">==</span> region<span class="token punctuation">)</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      nrow <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      dimnames <span class="token operator">=</span> list<span class="token punctuation">(</span>
+        c<span class="token punctuation">(</span><span class="token string">"Inside Cluster"</span><span class="token punctuation">,</span> <span class="token string">"Outside Cluster"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        c<span class="token punctuation">(</span><span class="token string">"In Region"</span><span class="token punctuation">,</span> <span class="token string">"Not In Region"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+    
+    <span class="token comment"># Run Fisher's test</span>
+    fisher_region <span class="token operator">&lt;-</span> fisher.test<span class="token punctuation">(</span>region_table<span class="token punctuation">)</span>
+    
+    <span class="token comment"># Save results</span>
+    region_results<span class="token punctuation">[</span><span class="token punctuation">[</span>paste0<span class="token punctuation">(</span><span class="token string">"Cluster_"</span><span class="token punctuation">,</span> cluster_id<span class="token punctuation">,</span> <span class="token string">"_Region_"</span><span class="token punctuation">,</span> region<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;-</span> list<span class="token punctuation">(</span>
+      pval <span class="token operator">=</span> fisher_region<span class="token operator">$</span>p.value<span class="token punctuation">,</span>
+      region_ratio_inside <span class="token operator">=</span> region_table<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">/</span> sum<span class="token punctuation">(</span>region_table<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      region_ratio_outside <span class="token operator">=</span> region_table<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">/</span> sum<span class="token punctuation">(</span>region_table<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token comment">#Compile</span>
+affected_results_df <span class="token operator">&lt;-</span> do.call<span class="token punctuation">(</span>rbind<span class="token punctuation">,</span> lapply<span class="token punctuation">(</span>names<span class="token punctuation">(</span>affected_results<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-function">function</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  data.frame<span class="token punctuation">(</span>
+    Cluster <span class="token operator">=</span> name<span class="token punctuation">,</span>
+    pval <span class="token operator">=</span> affected_results<span class="token punctuation">[</span><span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">$</span>pval<span class="token punctuation">,</span>
+    ratio_inside <span class="token operator">=</span> affected_results<span class="token punctuation">[</span><span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">$</span>affected_ratio_inside<span class="token punctuation">,</span>
+    ratio_outside <span class="token operator">=</span> affected_results<span class="token punctuation">[</span><span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">$</span>affected_ratio_outside
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+region_results_df <span class="token operator">&lt;-</span> do.call<span class="token punctuation">(</span>rbind<span class="token punctuation">,</span> lapply<span class="token punctuation">(</span>names<span class="token punctuation">(</span>region_results<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-function">function</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  parts <span class="token operator">&lt;-</span> strsplit<span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token string">"_"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span>  <span class="token comment"># Split name into cluster and region</span>
+  data.frame<span class="token punctuation">(</span>
+    Cluster <span class="token operator">=</span> parts<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    Region <span class="token operator">=</span> parts<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    pval <span class="token operator">=</span> region_results<span class="token punctuation">[</span><span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">$</span>pval<span class="token punctuation">,</span>
+    ratio_inside <span class="token operator">=</span> region_results<span class="token punctuation">[</span><span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">$</span>region_ratio_inside<span class="token punctuation">,</span>
+    ratio_outside <span class="token operator">=</span> region_results<span class="token punctuation">[</span><span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">$</span>region_ratio_outside
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+kable<span class="token punctuation">(</span>subset<span class="token punctuation">(</span>affected_results_df<span class="token punctuation">,</span> subset <span class="token operator">=</span> pval <span class="token operator">&lt;</span> <span class="token number">0.05</span><span class="token punctuation">)</span><span class="token punctuation">,</span> format <span class="token operator">=</span> <span class="token string">"markdown"</span><span class="token punctuation">)</span>
+kable<span class="token punctuation">(</span>subset<span class="token punctuation">(</span>region_results_df<span class="token punctuation">,</span> subset <span class="token operator">=</span> pval <span class="token operator">&lt;</span> <span class="token number">0.05</span><span class="token punctuation">)</span><span class="token punctuation">,</span> format <span class="token operator">=</span> <span class="token string">"markdown"</span><span class="token punctuation">)</span>
+</code></pre><p>Os clusters 1 e 2 estão superrepresentados por municípios das regiões de Betim e Patos de Minas, respectivamente.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left">Cluster</th>
+<th style="text-align:left">Region</th>
+<th style="text-align:right">pval</th>
+<th style="text-align:right">ratio_inside</th>
+<th style="text-align:right">ratio_outside</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:right">0.0316180</td>
+<td style="text-align:right">0.5384615</td>
+<td style="text-align:right">0.2037037</td>
+</tr>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:right">0.0206585</td>
+<td style="text-align:right">0.3636364</td>
+<td style="text-align:right">0.0714286</td>
+</tr>
+</tbody>
+</table>
+<p>A importância de cada variável em explicar a variância entre os municípios foi medida através de um teste de <code>PERMANOVA</code> e foi visualizado em uma análise de Escalonamento Multidimensional não métrico (NMDS).</p>
+<pre data-role="codeBlock" data-info="R" class="language-r R"><code><span class="token comment">### PERMANOVA</span>
+
+<span class="token comment"># Ensure the annotation variables are factors</span>
+row_anot<span class="token operator">$</span>AFETADO <span class="token operator">&lt;-</span> factor<span class="token punctuation">(</span>row_anot<span class="token operator">$</span>AFETADO<span class="token punctuation">)</span>
+row_anot<span class="token operator">$</span>NMREG <span class="token operator">&lt;-</span> factor<span class="token punctuation">(</span>row_anot<span class="token operator">$</span>NMREG<span class="token punctuation">)</span>
+
+<span class="token comment"># Perform the PERMANOVA test</span>
+permanova_result <span class="token operator">&lt;-</span> adonis2<span class="token punctuation">(</span>
+  as.dist<span class="token punctuation">(</span>data.dist<span class="token punctuation">)</span> <span class="token operator">~</span> AFETADO <span class="token operator">+</span> NMREG <span class="token operator">+</span> AFETADO<span class="token operator">:</span>NMREG<span class="token punctuation">,</span>
+  data <span class="token operator">=</span> row_anot<span class="token punctuation">,</span>
+  permutations <span class="token operator">=</span> <span class="token number">199</span><span class="token punctuation">,</span>
+  method <span class="token operator">=</span> <span class="token string">"euclidean"</span><span class="token punctuation">,</span> by <span class="token operator">=</span> <span class="token string">"terms"</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># Display the results</span>
+kable<span class="token punctuation">(</span>permanova_result<span class="token punctuation">)</span>
+
+<span class="token comment"># Extract PERMANOVA results using rownames</span>
+permanova_text <span class="token operator">&lt;-</span> paste0<span class="token punctuation">(</span>
+  <span class="token string">"PERMANOVA Results:\n"</span><span class="token punctuation">,</span>
+  <span class="token string">"AFETADO: R² = "</span><span class="token punctuation">,</span> round<span class="token punctuation">(</span>permanova_result<span class="token punctuation">[</span><span class="token string">"AFETADO"</span><span class="token punctuation">,</span> <span class="token string">"R2"</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"%, p = "</span><span class="token punctuation">,</span> signif<span class="token punctuation">(</span>permanova_result<span class="token punctuation">[</span><span class="token string">"AFETADO"</span><span class="token punctuation">,</span> <span class="token string">"Pr(&gt;F)"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"\n"</span><span class="token punctuation">,</span>
+  <span class="token string">"NMREG: R² = "</span><span class="token punctuation">,</span> round<span class="token punctuation">(</span>permanova_result<span class="token punctuation">[</span><span class="token string">"NMREG"</span><span class="token punctuation">,</span> <span class="token string">"R2"</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"%, p = "</span><span class="token punctuation">,</span> signif<span class="token punctuation">(</span>permanova_result<span class="token punctuation">[</span><span class="token string">"NMREG"</span><span class="token punctuation">,</span> <span class="token string">"Pr(&gt;F)"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"\n"</span><span class="token punctuation">,</span>
+  <span class="token string">"Interaction (AFETADO:NMREG): R² = "</span><span class="token punctuation">,</span> round<span class="token punctuation">(</span>permanova_result<span class="token punctuation">[</span><span class="token string">"AFETADO:NMREG"</span><span class="token punctuation">,</span> <span class="token string">"R2"</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"%, p = "</span><span class="token punctuation">,</span> signif<span class="token punctuation">(</span>permanova_result<span class="token punctuation">[</span><span class="token string">"AFETADO:NMREG"</span><span class="token punctuation">,</span> <span class="token string">"Pr(&gt;F)"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># Perform NMDS</span>
+nmds_result <span class="token operator">&lt;-</span> metaMDS<span class="token punctuation">(</span>as.dist<span class="token punctuation">(</span>data.dist<span class="token punctuation">)</span><span class="token punctuation">,</span> k <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> trymax <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">)</span>
+<span class="token comment"># Calculate variance explained by each NMDS axis</span>
+distance_matrix <span class="token operator">&lt;-</span> as.matrix<span class="token punctuation">(</span>data.dist<span class="token punctuation">)</span>
+eigenvalues <span class="token operator">&lt;-</span> cmdscale<span class="token punctuation">(</span>distance_matrix<span class="token punctuation">,</span> k <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> eig <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span><span class="token operator">$</span>eig
+variance_explained_axis1 <span class="token operator">&lt;-</span> round<span class="token punctuation">(</span><span class="token number">100</span> <span class="token operator">*</span> eigenvalues<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">/</span> sum<span class="token punctuation">(</span>abs<span class="token punctuation">(</span>eigenvalues<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+variance_explained_axis2 <span class="token operator">&lt;-</span> round<span class="token punctuation">(</span><span class="token number">100</span> <span class="token operator">*</span> eigenvalues<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">/</span> sum<span class="token punctuation">(</span>abs<span class="token punctuation">(</span>eigenvalues<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token comment"># Extract coordinates and add annotations</span>
+nmds_data <span class="token operator">&lt;-</span> data.frame<span class="token punctuation">(</span>
+  NMDS1 <span class="token operator">=</span> nmds_result<span class="token operator">$</span>points<span class="token punctuation">[</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  NMDS2 <span class="token operator">=</span> nmds_result<span class="token operator">$</span>points<span class="token punctuation">[</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  NMREG <span class="token operator">=</span> row_anot<span class="token operator">$</span>NMREG<span class="token punctuation">,</span>
+  AFETADO <span class="token operator">=</span> row_anot<span class="token operator">$</span>AFETADO
+<span class="token punctuation">)</span>
+<span class="token comment"># Define region colors</span>
+region_colors <span class="token operator">&lt;-</span> c<span class="token punctuation">(</span>
+  <span class="token string">"BETIM"</span> <span class="token operator">=</span> <span class="token string">"#66c2a5"</span><span class="token punctuation">,</span>
+  <span class="token string">"CURVELO"</span> <span class="token operator">=</span> <span class="token string">"#fc8d62"</span><span class="token punctuation">,</span>
+  <span class="token string">"PARA DE MINAS/NOVA SERRANA"</span> <span class="token operator">=</span> <span class="token string">"#8da0cb"</span><span class="token punctuation">,</span>
+  <span class="token string">"PATOS DE MINAS"</span> <span class="token operator">=</span> <span class="token string">"#e78ac3"</span><span class="token punctuation">,</span>
+  <span class="token string">"SETE LAGOAS"</span> <span class="token operator">=</span> <span class="token string">"#a6d854"</span>
+<span class="token punctuation">)</span>
+
+
+<span class="token comment"># Plot with ggplot2</span>
+pdf<span class="token punctuation">(</span>file <span class="token operator">=</span> paste0<span class="token punctuation">(</span>disease_prefix<span class="token punctuation">,</span> <span class="token string">"_ScaledNMDS.pdf"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> width <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">,</span> height <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">)</span>
+
+ggplot<span class="token punctuation">(</span>nmds_data<span class="token punctuation">,</span> aes<span class="token punctuation">(</span>x <span class="token operator">=</span> NMDS1<span class="token punctuation">,</span> y <span class="token operator">=</span> NMDS2<span class="token punctuation">,</span> fill <span class="token operator">=</span> AFETADO<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  geom_point<span class="token punctuation">(</span>size <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> shape <span class="token operator">=</span> <span class="token number">21</span><span class="token punctuation">,</span> stroke <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> color <span class="token operator">=</span> <span class="token string">"black"</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  stat_ellipse<span class="token punctuation">(</span>aes<span class="token punctuation">(</span>group <span class="token operator">=</span> NMREG<span class="token punctuation">,</span> color <span class="token operator">=</span> NMREG<span class="token punctuation">)</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.8</span><span class="token punctuation">)</span> <span class="token operator">+</span>  <span class="token comment"># Explicit group aesthetic for ellipses</span>
+  scale_fill_manual<span class="token punctuation">(</span>values <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"SIM"</span> <span class="token operator">=</span> <span class="token string">"#1b9e77"</span><span class="token punctuation">,</span> <span class="token string">"NAO"</span> <span class="token operator">=</span> <span class="token string">"#d95f02"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  scale_color_manual<span class="token punctuation">(</span>values <span class="token operator">=</span> region_colors<span class="token punctuation">)</span> <span class="token operator">+</span>
+  labs<span class="token punctuation">(</span>
+    title <span class="token operator">=</span> <span class="token string">"NMDS of Disease Incidence"</span><span class="token punctuation">,</span>
+    x <span class="token operator">=</span> paste0<span class="token punctuation">(</span><span class="token string">"NMDS 1 ("</span><span class="token punctuation">,</span> variance_explained_axis1<span class="token punctuation">,</span> <span class="token string">"% explained)"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    y <span class="token operator">=</span> paste0<span class="token punctuation">(</span><span class="token string">"NMDS 2 ("</span><span class="token punctuation">,</span> variance_explained_axis2<span class="token punctuation">,</span> <span class="token string">"% explained)"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    fill <span class="token operator">=</span> <span class="token string">"Affected (AFETADO)"</span><span class="token punctuation">,</span>
+    color <span class="token operator">=</span> <span class="token string">"Region (NMREG)"</span>
+  <span class="token punctuation">)</span> <span class="token operator">+</span>
+  annotate<span class="token punctuation">(</span>
+    <span class="token string">"text"</span><span class="token punctuation">,</span> x <span class="token operator">=</span> <span class="token number">Inf</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">Inf</span><span class="token punctuation">,</span> label <span class="token operator">=</span> permanova_text<span class="token punctuation">,</span> hjust <span class="token operator">=</span> <span class="token number">1.1</span><span class="token punctuation">,</span> vjust <span class="token operator">=</span> <span class="token number">1.2</span><span class="token punctuation">,</span>
+    size <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">,</span> color <span class="token operator">=</span> <span class="token string">"black"</span><span class="token punctuation">,</span> fontface <span class="token operator">=</span> <span class="token string">"italic"</span>
+  <span class="token punctuation">)</span> <span class="token operator">+</span>
+  theme_minimal<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  theme<span class="token punctuation">(</span>
+    legend.position <span class="token operator">=</span> <span class="token string">"right"</span><span class="token punctuation">,</span>
+    legend.box <span class="token operator">=</span> <span class="token string">"vertical"</span>
+  <span class="token punctuation">)</span>
+
+dev.off<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre><p>O PERMANOVA aponta que a variável <code>AFETADO</code> explica -1,32% da variabilidade observada entre as amostras. Esse valor negativo significa que a variável representa mais um ruído do que uma solução para os padrões. Por outro lado, a variável <code>NMREG</code>, que representa a região, responde por 32,92% da variabilidade (coluna <code>R2</code>), com um valor de p de 0,005 (coluna <code>Pr(&gt;F)</code>)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:right">Df</th>
+<th style="text-align:right">SumOfSqs</th>
+<th style="text-align:right">R2</th>
+<th style="text-align:right">F</th>
+<th style="text-align:right">Pr(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AFETADO</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">-0.1221172</td>
+<td style="text-align:right">-0.0132911</td>
+<td style="text-align:right">-1.265351</td>
+<td style="text-align:right">1.000</td>
+</tr>
+<tr>
+<td style="text-align:left">NMREG</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">3.0249668</td>
+<td style="text-align:right">0.3292334</td>
+<td style="text-align:right">7.836010</td>
+<td style="text-align:right">0.005</td>
+</tr>
+<tr>
+<td style="text-align:left">AFETADO:NMREG</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.7840742</td>
+<td style="text-align:right">0.0853376</td>
+<td style="text-align:right">2.031101</td>
+<td style="text-align:right">0.045</td>
+</tr>
+<tr>
+<td style="text-align:left">Residual</td>
+<td style="text-align:right">57</td>
+<td style="text-align:right">5.5009858</td>
+<td style="text-align:right">0.5987201</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:right">66</td>
+<td style="text-align:right">9.1879097</td>
+<td style="text-align:right">1.0000000</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+</tbody>
+</table>
+<p><img src="Figuras/DENGBR_ScaledNMDS.jpg" alt="NMDS"></p>
+<h6 id="análise-de-componentes-principais-pca">Análise de componentes principais (PCA) </h6>
+<p>A análise de componentes principais avalia qual o ano tem mais influência sobre o a distribuição dos municípios ao longo dos eixos X e Y.</p>
+<pre data-role="codeBlock" data-info="R" class="language-r R"><code><span class="token comment"># Perform PCA</span>
+pca_result_row_scaled <span class="token operator">&lt;-</span> prcomp<span class="token punctuation">(</span>matrix<span class="token punctuation">,</span> scale. <span class="token operator">=</span> F<span class="token punctuation">)</span>
+
+<span class="token comment"># Extract PCA scores for cities</span>
+pca_scores_row_scaled <span class="token operator">&lt;-</span> data.frame<span class="token punctuation">(</span>
+  pca_result_row_scaled<span class="token operator">$</span>x<span class="token punctuation">,</span> 
+  AFETADO <span class="token operator">=</span> row_anot<span class="token operator">$</span>AFETADO<span class="token punctuation">,</span> 
+  NMREG <span class="token operator">=</span> row_anot<span class="token operator">$</span>NMREG<span class="token punctuation">,</span> 
+  CityName <span class="token operator">=</span> rownames<span class="token punctuation">(</span>matrix<span class="token punctuation">)</span>  <span class="token comment"># Add city names for labeling</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># Extract PCA loadings for years</span>
+pca_loadings_row_scaled <span class="token operator">&lt;-</span> data.frame<span class="token punctuation">(</span>
+  pca_result_row_scaled<span class="token operator">$</span>rotation<span class="token punctuation">,</span> 
+  Variable <span class="token operator">=</span> colnames<span class="token punctuation">(</span>matrix<span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># PCA Biplot with ellipses for NMREG</span>
+
+pdf<span class="token punctuation">(</span>file <span class="token operator">=</span> paste0<span class="token punctuation">(</span>disease_prefix<span class="token punctuation">,</span> <span class="token string">"_Scaledbiplot.pdf"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> width <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">,</span> height <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">)</span>
+
+ggplot<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  <span class="token comment"># Plot cities as points, styled by AFETADO</span>
+  geom_point<span class="token punctuation">(</span>data <span class="token operator">=</span> pca_scores_row_scaled<span class="token punctuation">,</span> aes<span class="token punctuation">(</span>x <span class="token operator">=</span> PC1<span class="token punctuation">,</span> y <span class="token operator">=</span> PC2<span class="token punctuation">,</span> fill <span class="token operator">=</span> AFETADO<span class="token punctuation">)</span><span class="token punctuation">,</span> 
+             size <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> shape <span class="token operator">=</span> <span class="token number">21</span><span class="token punctuation">,</span> stroke <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> color <span class="token operator">=</span> <span class="token string">"black"</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  <span class="token comment"># Add city names with ggrepel</span>
+  geom_text_repel<span class="token punctuation">(</span>data <span class="token operator">=</span> pca_scores_row_scaled<span class="token punctuation">,</span> aes<span class="token punctuation">(</span>x <span class="token operator">=</span> PC1<span class="token punctuation">,</span> y <span class="token operator">=</span> PC2<span class="token punctuation">,</span> label <span class="token operator">=</span> CityName<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                  size <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> box.padding <span class="token operator">=</span> <span class="token number">0.3</span><span class="token punctuation">,</span> point.padding <span class="token operator">=</span> <span class="token number">0.2</span><span class="token punctuation">,</span> segment.color <span class="token operator">=</span> <span class="token string">"grey50"</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  <span class="token comment"># Add ellipses for NMREG</span>
+  stat_ellipse<span class="token punctuation">(</span>data <span class="token operator">=</span> pca_scores_row_scaled<span class="token punctuation">,</span> aes<span class="token punctuation">(</span>x <span class="token operator">=</span> PC1<span class="token punctuation">,</span> y <span class="token operator">=</span> PC2<span class="token punctuation">,</span> group <span class="token operator">=</span> NMREG<span class="token punctuation">,</span> color <span class="token operator">=</span> NMREG<span class="token punctuation">)</span><span class="token punctuation">,</span> 
+               size <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> alpha <span class="token operator">=</span> <span class="token number">0.8</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  <span class="token comment"># Add arrows for years</span>
+  geom_segment<span class="token punctuation">(</span>data <span class="token operator">=</span> pca_loadings_row_scaled<span class="token punctuation">,</span> aes<span class="token punctuation">(</span>x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> xend <span class="token operator">=</span> PC1 <span class="token operator">*</span> <span class="token number">5</span><span class="token punctuation">,</span> yend <span class="token operator">=</span> PC2 <span class="token operator">*</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+               arrow <span class="token operator">=</span> arrow<span class="token punctuation">(</span>length <span class="token operator">=</span> unit<span class="token punctuation">(</span><span class="token number">0.2</span><span class="token punctuation">,</span> <span class="token string">"cm"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> color <span class="token operator">=</span> <span class="token string">"blue"</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  <span class="token comment"># Label arrows with year names</span>
+  geom_text<span class="token punctuation">(</span>data <span class="token operator">=</span> pca_loadings_row_scaled<span class="token punctuation">,</span> aes<span class="token punctuation">(</span>x <span class="token operator">=</span> PC1 <span class="token operator">*</span> <span class="token number">5</span><span class="token punctuation">,</span> y <span class="token operator">=</span> PC2 <span class="token operator">*</span> <span class="token number">5</span><span class="token punctuation">,</span> label <span class="token operator">=</span> Variable<span class="token punctuation">)</span><span class="token punctuation">,</span> 
+            color <span class="token operator">=</span> <span class="token string">"blue"</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> vjust <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  <span class="token comment"># Define color scales</span>
+  scale_fill_manual<span class="token punctuation">(</span>values <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"SIM"</span> <span class="token operator">=</span> <span class="token string">"#1b9e77"</span><span class="token punctuation">,</span> <span class="token string">"NAO"</span> <span class="token operator">=</span> <span class="token string">"#d95f02"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  scale_color_manual<span class="token punctuation">(</span>values <span class="token operator">=</span> region_colors<span class="token punctuation">)</span> <span class="token operator">+</span>
+  <span class="token comment"># Add labels and themes</span>
+  labs<span class="token punctuation">(</span>
+    title <span class="token operator">=</span> <span class="token string">"PCA Biplot of Disease Incidence (Row-Scaled, 2014-2023)"</span><span class="token punctuation">,</span>
+    x <span class="token operator">=</span> paste0<span class="token punctuation">(</span><span class="token string">"PC1 ("</span><span class="token punctuation">,</span> round<span class="token punctuation">(</span>summary<span class="token punctuation">(</span>pca_result_row_scaled<span class="token punctuation">)</span><span class="token operator">$</span>importance<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"%)"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    y <span class="token operator">=</span> paste0<span class="token punctuation">(</span><span class="token string">"PC2 ("</span><span class="token punctuation">,</span> round<span class="token punctuation">(</span>summary<span class="token punctuation">(</span>pca_result_row_scaled<span class="token punctuation">)</span><span class="token operator">$</span>importance<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"%)"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    fill <span class="token operator">=</span> <span class="token string">"Affected (AFETADO)"</span><span class="token punctuation">,</span>
+    color <span class="token operator">=</span> <span class="token string">"Region (NMREG)"</span>
+  <span class="token punctuation">)</span> <span class="token operator">+</span>
+  theme_minimal<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  theme<span class="token punctuation">(</span>
+    legend.position <span class="token operator">=</span> <span class="token string">"right"</span><span class="token punctuation">,</span>
+    legend.box <span class="token operator">=</span> <span class="token string">"vertical"</span>
+  <span class="token punctuation">)</span>
+
+dev.off<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre><p><img src="Figuras/DENGBR_Scaledbiplot.jpg" alt="PCA"></p>
+<h5 id="construção-dos-modelos">Construção dos modelos </h5>
+<p>A proposta foi de construir um modelo que explique a dinâmica da incidência 5 antes do rompimento da barragem (2014-2018) e comparar com um modelo que explique a dinâmica após o rompimento (2019-2023).<br>
+Avaliamos então a importância de cada variável ou combinação de variáveis com um teste anova.</p>
+<pre data-role="codeBlock" data-info="R" class="language-r R"><code>library<span class="token punctuation">(</span>tidyverse<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>ggplot2<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>knitr<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>car<span class="token punctuation">)</span>
+
+<span class="token comment">########################################################################################################</span>
+<span class="token comment">########################################################################################################</span>
+setwd<span class="token punctuation">(</span><span class="token string">"/data/gabriel/Trabalhos/Vale/DENG/"</span><span class="token punctuation">)</span>                                                <span class="token comment">#############</span>
+metadata <span class="token operator">=</span> read.table<span class="token punctuation">(</span><span class="token string">"/data/gabriel/Trabalhos/Vale/metadata.txt"</span><span class="token punctuation">,</span> header <span class="token operator">=</span> T<span class="token punctuation">,</span> sep <span class="token operator">=</span> <span class="token string">"\t"</span><span class="token punctuation">)</span> <span class="token comment">#############</span>
+city_codes <span class="token operator">&lt;-</span> metadata<span class="token operator">$</span>CODMUN6                                                             <span class="token comment">#############</span>
+disease_prefix <span class="token operator">=</span> <span class="token string">"DENGBR"</span>                                                                  <span class="token comment">#############</span>
+<span class="token comment">########################################################################################################</span>
+<span class="token comment">########################################################################################################</span>
+
+<span class="token comment"># Load previously processed data</span>
+load<span class="token punctuation">(</span>paste0<span class="token punctuation">(</span>disease_prefix<span class="token punctuation">,</span><span class="token string">"_variables.Rdata"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">########################################################################################################</span>
+<span class="token comment">############################## Compare slopes ##########################################################</span>
+<span class="token comment">########################################################################################################</span>
+<span class="token comment"># Create a period variable</span>
+incidence_long<span class="token operator">$</span>Period <span class="token operator">&lt;-</span> ifelse<span class="token punctuation">(</span>incidence_long<span class="token operator">$</span>Year <span class="token operator">&lt;</span> <span class="token number">2019</span><span class="token punctuation">,</span> <span class="token string">"Before"</span><span class="token punctuation">,</span> <span class="token string">"After"</span><span class="token punctuation">)</span>
+incidence_long<span class="token operator">$</span>Period <span class="token operator">&lt;-</span> as.factor<span class="token punctuation">(</span>incidence_long<span class="token operator">$</span>Period<span class="token punctuation">)</span>
+
+
+<span class="token comment">#################### #################### #################### #################### #################### </span>
+<span class="token comment">#################### Regional Model.      #################### #################### #################### </span>
+<span class="token comment">#################### #################### #################### #################### #################### </span>
+model_before_regional <span class="token operator">&lt;-</span> glm<span class="token punctuation">(</span>
+  Incidence <span class="token operator">~</span> Year <span class="token operator">*</span> AFETADO <span class="token operator">*</span> NMREG<span class="token punctuation">,</span>
+  data <span class="token operator">=</span> subset<span class="token punctuation">(</span>incidence_long<span class="token punctuation">,</span> Period <span class="token operator">==</span> <span class="token string">"Before"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  family <span class="token operator">=</span> gaussian
+<span class="token punctuation">)</span>
+
+<span class="token comment"># Summary and ANOVA for "Before"</span>
+kable<span class="token punctuation">(</span>summary<span class="token punctuation">(</span>model_before_regional<span class="token punctuation">)</span><span class="token operator">$</span>coefficients<span class="token punctuation">)</span>
+kable<span class="token punctuation">(</span>subset<span class="token punctuation">(</span>summary<span class="token punctuation">(</span>model_before_regional<span class="token punctuation">)</span><span class="token operator">$</span>coefficients<span class="token punctuation">,</span> subset <span class="token operator">=</span> summary<span class="token punctuation">(</span>model_before_regional<span class="token punctuation">)</span><span class="token operator">$</span>coefficients<span class="token punctuation">[</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token operator">&lt;</span><span class="token number">0.05</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+anova_before_regional <span class="token operator">&lt;-</span> Anova<span class="token punctuation">(</span>model_before_regional<span class="token punctuation">,</span> type <span class="token operator">=</span> <span class="token string">"III"</span><span class="token punctuation">)</span>
+kable<span class="token punctuation">(</span>anova_before_regional<span class="token punctuation">)</span>
+write.table<span class="token punctuation">(</span>anova_before_regional<span class="token punctuation">,</span> file <span class="token operator">=</span> paste0<span class="token punctuation">(</span>disease_prefix<span class="token punctuation">,</span> <span class="token string">"before_regional_anova.txt"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> sep <span class="token operator">=</span> <span class="token string">"\t"</span><span class="token punctuation">,</span> quote <span class="token operator">=</span> F<span class="token punctuation">)</span>
+
+
+model_after_regional <span class="token operator">&lt;-</span> glm<span class="token punctuation">(</span>
+  Incidence <span class="token operator">~</span> Year <span class="token operator">*</span> AFETADO <span class="token operator">*</span> NMREG<span class="token punctuation">,</span>
+  data <span class="token operator">=</span> subset<span class="token punctuation">(</span>incidence_long<span class="token punctuation">,</span> Period <span class="token operator">==</span> <span class="token string">"After"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  family <span class="token operator">=</span> gaussian
+<span class="token punctuation">)</span>
+
+<span class="token comment"># Summary and ANOVA for "After"</span>
+kable<span class="token punctuation">(</span>summary<span class="token punctuation">(</span>model_after_regional<span class="token punctuation">)</span><span class="token operator">$</span>coefficients<span class="token punctuation">)</span>
+kable<span class="token punctuation">(</span>subset<span class="token punctuation">(</span>summary<span class="token punctuation">(</span>model_after_regional<span class="token punctuation">)</span><span class="token operator">$</span>coefficients<span class="token punctuation">,</span> subset <span class="token operator">=</span> summary<span class="token punctuation">(</span>model_after_regional<span class="token punctuation">)</span><span class="token operator">$</span>coefficients<span class="token punctuation">[</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token operator">&lt;</span><span class="token number">0.05</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+anova_after_regional <span class="token operator">&lt;-</span> Anova<span class="token punctuation">(</span>model_after_regional<span class="token punctuation">,</span> type <span class="token operator">=</span> <span class="token string">"III"</span><span class="token punctuation">)</span>
+kable<span class="token punctuation">(</span>anova_after_regional<span class="token punctuation">)</span>
+write.table<span class="token punctuation">(</span>anova_after_regional<span class="token punctuation">,</span> file <span class="token operator">=</span> paste0<span class="token punctuation">(</span>disease_prefix<span class="token punctuation">,</span> <span class="token string">"after_regional_anova.txt"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> sep <span class="token operator">=</span> <span class="token string">"\t"</span><span class="token punctuation">,</span> quote <span class="token operator">=</span> F<span class="token punctuation">)</span>
+
+<span class="token comment"># Predictions for "Before"</span>
+before_predictions_regional <span class="token operator">&lt;-</span> expand.grid<span class="token punctuation">(</span>
+  Year <span class="token operator">=</span> as.factor<span class="token punctuation">(</span>seq<span class="token punctuation">(</span>min<span class="token punctuation">(</span>subset<span class="token punctuation">(</span>incidence_long<span class="token punctuation">,</span> Period <span class="token operator">==</span> <span class="token string">"Before"</span><span class="token punctuation">)</span><span class="token operator">$</span>Year<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2018</span><span class="token punctuation">,</span> by <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  AFETADO <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"SIM"</span><span class="token punctuation">,</span> <span class="token string">"NAO"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  NMREG <span class="token operator">=</span> unique<span class="token punctuation">(</span>incidence_long<span class="token operator">$</span>NMREG<span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+before_predictions_regional<span class="token operator">$</span>Predicted_Incidence <span class="token operator">&lt;-</span> predict<span class="token punctuation">(</span>model_before_regional<span class="token punctuation">,</span> newdata <span class="token operator">=</span> before_predictions_regional<span class="token punctuation">)</span>
+before_predictions_regional<span class="token operator">$</span>Period <span class="token operator">&lt;-</span> <span class="token string">"Before"</span>
+
+<span class="token comment"># Predictions for "After"</span>
+after_predictions_regional <span class="token operator">&lt;-</span> expand.grid<span class="token punctuation">(</span>
+  Year <span class="token operator">=</span> as.factor<span class="token punctuation">(</span>seq<span class="token punctuation">(</span><span class="token number">2019</span><span class="token punctuation">,</span> max<span class="token punctuation">(</span>subset<span class="token punctuation">(</span>incidence_long<span class="token punctuation">,</span> Period <span class="token operator">==</span> <span class="token string">"After"</span><span class="token punctuation">)</span><span class="token operator">$</span>Year<span class="token punctuation">)</span><span class="token punctuation">,</span> by <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  AFETADO <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"SIM"</span><span class="token punctuation">,</span> <span class="token string">"NAO"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  NMREG <span class="token operator">=</span> unique<span class="token punctuation">(</span>incidence_long<span class="token operator">$</span>NMREG<span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+after_predictions_regional<span class="token operator">$</span>Predicted_Incidence <span class="token operator">&lt;-</span> predict<span class="token punctuation">(</span>model_after_regional<span class="token punctuation">,</span> newdata <span class="token operator">=</span> after_predictions_regional<span class="token punctuation">)</span>
+after_predictions_regional<span class="token operator">$</span>Period <span class="token operator">&lt;-</span> <span class="token string">"After"</span>
+
+<span class="token comment"># Combine predictions</span>
+combined_predictions_regional <span class="token operator">&lt;-</span> rbind<span class="token punctuation">(</span>before_predictions_regional<span class="token punctuation">,</span> after_predictions_regional<span class="token punctuation">)</span>
+
+pdf<span class="token punctuation">(</span>file <span class="token operator">=</span> paste0<span class="token punctuation">(</span>disease_prefix<span class="token punctuation">,</span> <span class="token string">"_ScaledBeforeVsAfter_regionaltrend.pdf"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> width <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> height <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">)</span>
+
+ggplot<span class="token punctuation">(</span>combined_predictions_regional<span class="token punctuation">,</span> aes<span class="token punctuation">(</span>x <span class="token operator">=</span> Year<span class="token punctuation">,</span> y <span class="token operator">=</span> Predicted_Incidence<span class="token punctuation">,</span> fill <span class="token operator">=</span> AFETADO<span class="token punctuation">,</span> color <span class="token operator">=</span> AFETADO<span class="token punctuation">,</span> linetype <span class="token operator">=</span> Period<span class="token punctuation">,</span> group <span class="token operator">=</span> interaction<span class="token punctuation">(</span>AFETADO<span class="token punctuation">,</span> Period<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  geom_line<span class="token punctuation">(</span>size <span class="token operator">=</span> <span class="token number">1.2</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  geom_point<span class="token punctuation">(</span>size <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> shape <span class="token operator">=</span> <span class="token number">21</span><span class="token punctuation">,</span> stroke <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> color <span class="token operator">=</span> <span class="token string">"black"</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  scale_color_manual<span class="token punctuation">(</span>values <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"SIM"</span> <span class="token operator">=</span> <span class="token string">"#1b9e77"</span><span class="token punctuation">,</span> <span class="token string">"NAO"</span> <span class="token operator">=</span> <span class="token string">"#d95f02"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  scale_fill_manual<span class="token punctuation">(</span>values <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"SIM"</span> <span class="token operator">=</span> <span class="token string">"#1b9e77"</span><span class="token punctuation">,</span> <span class="token string">"NAO"</span> <span class="token operator">=</span> <span class="token string">"#d95f02"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  scale_linetype_manual<span class="token punctuation">(</span>values <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token string">"Before"</span> <span class="token operator">=</span> <span class="token string">"dotted"</span><span class="token punctuation">,</span> <span class="token string">"After"</span> <span class="token operator">=</span> <span class="token string">"solid"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  facet_wrap<span class="token punctuation">(</span><span class="token operator">~</span> NMREG<span class="token punctuation">,</span> scales <span class="token operator">=</span> <span class="token string">"free_y"</span><span class="token punctuation">)</span> <span class="token operator">+</span>  <span class="token comment"># Separate plots by region</span>
+  labs<span class="token punctuation">(</span>
+    title <span class="token operator">=</span> <span class="token string">"Regional Trends in Disease Incidence Before and After 2019"</span><span class="token punctuation">,</span>
+    x <span class="token operator">=</span> <span class="token string">"Year"</span><span class="token punctuation">,</span>
+    y <span class="token operator">=</span> <span class="token string">"Predicted Incidence"</span><span class="token punctuation">,</span>
+    color <span class="token operator">=</span> <span class="token string">"Affected (AFETADO)"</span><span class="token punctuation">,</span>
+    linetype <span class="token operator">=</span> <span class="token string">"Period"</span>
+  <span class="token punctuation">)</span> <span class="token operator">+</span>
+  theme_minimal<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  theme<span class="token punctuation">(</span>
+    axis.text.x <span class="token operator">=</span> element_text<span class="token punctuation">(</span>angle <span class="token operator">=</span> <span class="token number">45</span><span class="token punctuation">,</span> hjust <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    legend.position <span class="token operator">=</span> <span class="token string">"bottom"</span>
+  <span class="token punctuation">)</span>
+
+dev.off<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre><p>Para o modelo antes do rompimento, temos uma grande importância da variável Ano, e de sua combinação do a região.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:right">LR Chisq</th>
+<th style="text-align:right">Df</th>
+<th style="text-align:right">Pr(&gt;Chisq)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Year</td>
+<td style="text-align:right">39.3028378</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.0000001</td>
+</tr>
+<tr>
+<td style="text-align:left">AFETADO</td>
+<td style="text-align:right">0.0454078</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0.8312560</td>
+</tr>
+<tr>
+<td style="text-align:left">NMREG</td>
+<td style="text-align:right">3.3630664</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.4990023</td>
+</tr>
+<tr>
+<td style="text-align:left">Year:AFETADO</td>
+<td style="text-align:right">1.2662192</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.8670803</td>
+</tr>
+<tr>
+<td style="text-align:left">Year:NMREG</td>
+<td style="text-align:right">79.9783356</td>
+<td style="text-align:right">16</td>
+<td style="text-align:right">0.0000000</td>
+</tr>
+<tr>
+<td style="text-align:left">AFETADO:NMREG</td>
+<td style="text-align:right">7.7124321</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.1026986</td>
+</tr>
+<tr>
+<td style="text-align:left">Year:AFETADO:NMREG</td>
+<td style="text-align:right">28.3729996</td>
+<td style="text-align:right">16</td>
+<td style="text-align:right">0.0285234</td>
+</tr>
+</tbody>
+</table>
+<p>Detalhadamente, vemos que alguns anos tiveram grandes impactos em regiões específicas.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:right">Estimate</th>
+<th style="text-align:right">Std. Error</th>
+<th style="text-align:right">t value</th>
+<th style="text-align:right">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">(Intercept)</td>
+<td style="text-align:right">-0.6542616</td>
+<td style="text-align:right">0.2640693</td>
+<td style="text-align:right">-2.477613</td>
+<td style="text-align:right">0.0138061</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2015</td>
+<td style="text-align:right">1.0646953</td>
+<td style="text-align:right">0.3734504</td>
+<td style="text-align:right">2.850969</td>
+<td style="text-align:right">0.0046771</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2016</td>
+<td style="text-align:right">1.8937904</td>
+<td style="text-align:right">0.3734504</td>
+<td style="text-align:right">5.071063</td>
+<td style="text-align:right">0.0000007</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2015:NMREGCURVELO</td>
+<td style="text-align:right">-0.9817491</td>
+<td style="text-align:right">0.4573814</td>
+<td style="text-align:right">-2.146456</td>
+<td style="text-align:right">0.0326807</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2015:NMREGPARA DE MINAS/NOVA SERRANA</td>
+<td style="text-align:right">-1.2677773</td>
+<td style="text-align:right">0.4821223</td>
+<td style="text-align:right">-2.629576</td>
+<td style="text-align:right">0.0090134</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2015:NMREGPATOS DE MINAS</td>
+<td style="text-align:right">-1.1185041</td>
+<td style="text-align:right">0.4418724</td>
+<td style="text-align:right">-2.531283</td>
+<td style="text-align:right">0.0119025</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2016:NMREGPATOS DE MINAS</td>
+<td style="text-align:right">-1.7306026</td>
+<td style="text-align:right">0.4418724</td>
+<td style="text-align:right">-3.916521</td>
+<td style="text-align:right">0.0001125</td>
+</tr>
+<tr>
+<td style="text-align:left">AFETADOSIM:NMREGCURVELO</td>
+<td style="text-align:right">1.0818140</td>
+<td style="text-align:right">0.4780878</td>
+<td style="text-align:right">2.262794</td>
+<td style="text-align:right">0.0244010</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2015:AFETADOSIM:NMREGCURVELO</td>
+<td style="text-align:right">-1.5687132</td>
+<td style="text-align:right">0.6761182</td>
+<td style="text-align:right">-2.320176</td>
+<td style="text-align:right">0.0210376</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2016:AFETADOSIM:NMREGCURVELO</td>
+<td style="text-align:right">-1.9849759</td>
+<td style="text-align:right">0.6761182</td>
+<td style="text-align:right">-2.935841</td>
+<td style="text-align:right">0.0035975</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2016:AFETADOSIM:NMREGPATOS DE MINAS</td>
+<td style="text-align:right">2.2446226</td>
+<td style="text-align:right">0.9028269</td>
+<td style="text-align:right">2.486216</td>
+<td style="text-align:right">0.0134839</td>
+</tr>
+</tbody>
+</table>
+<p>No modelo após o rompimento, observamos importância das variáveis tempo, região, e suas interações com os municípios afetados.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:right">LR Chisq</th>
+<th style="text-align:right">Df</th>
+<th style="text-align:right">Pr(&gt;Chisq)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Year</td>
+<td style="text-align:right">28.735676</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.0000088</td>
+</tr>
+<tr>
+<td style="text-align:left">AFETADO</td>
+<td style="text-align:right">6.257194</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0.0123690</td>
+</tr>
+<tr>
+<td style="text-align:left">NMREG</td>
+<td style="text-align:right">13.650989</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.0084964</td>
+</tr>
+<tr>
+<td style="text-align:left">Year:AFETADO</td>
+<td style="text-align:right">9.956422</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.0411682</td>
+</tr>
+<tr>
+<td style="text-align:left">Year:NMREG</td>
+<td style="text-align:right">24.066263</td>
+<td style="text-align:right">16</td>
+<td style="text-align:right">0.0880672</td>
+</tr>
+<tr>
+<td style="text-align:left">AFETADO:NMREG</td>
+<td style="text-align:right">8.785039</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.0667029</td>
+</tr>
+<tr>
+<td style="text-align:left">Year:AFETADO:NMREG</td>
+<td style="text-align:right">38.761046</td>
+<td style="text-align:right">16</td>
+<td style="text-align:right">0.0011774</td>
+</tr>
+</tbody>
+</table>
+<p>Detalhadamente temos diversas combinações com potencial preditivo.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:right">Estimate</th>
+<th style="text-align:right">Std. Error</th>
+<th style="text-align:right">t value</th>
+<th style="text-align:right">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">(Intercept)</td>
+<td style="text-align:right">1.0136220</td>
+<td style="text-align:right">0.3048146</td>
+<td style="text-align:right">3.325372</td>
+<td style="text-align:right">0.0009987</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2020</td>
+<td style="text-align:right">-1.4624108</td>
+<td style="text-align:right">0.4310729</td>
+<td style="text-align:right">-3.392491</td>
+<td style="text-align:right">0.0007907</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2021</td>
+<td style="text-align:right">-1.5921867</td>
+<td style="text-align:right">0.4310729</td>
+<td style="text-align:right">-3.693544</td>
+<td style="text-align:right">0.0002650</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2022</td>
+<td style="text-align:right">-1.6942963</td>
+<td style="text-align:right">0.4310729</td>
+<td style="text-align:right">-3.930417</td>
+<td style="text-align:right">0.0001065</td>
+</tr>
+<tr>
+<td style="text-align:left">AFETADOSIM</td>
+<td style="text-align:right">0.9163808</td>
+<td style="text-align:right">0.3663415</td>
+<td style="text-align:right">2.501438</td>
+<td style="text-align:right">0.0129300</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2020:AFETADOSIM</td>
+<td style="text-align:right">-1.0211617</td>
+<td style="text-align:right">0.5180852</td>
+<td style="text-align:right">-1.971031</td>
+<td style="text-align:right">0.0496878</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2021:AFETADOSIM</td>
+<td style="text-align:right">-1.0328913</td>
+<td style="text-align:right">0.5180852</td>
+<td style="text-align:right">-1.993671</td>
+<td style="text-align:right">0.0471409</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2023:AFETADOSIM</td>
+<td style="text-align:right">-1.6030728</td>
+<td style="text-align:right">0.5180852</td>
+<td style="text-align:right">-3.094226</td>
+<td style="text-align:right">0.0021693</td>
+</tr>
+<tr>
+<td style="text-align:left">AFETADOSIM:NMREGSETE LAGOAS</td>
+<td style="text-align:right">-1.1047846</td>
+<td style="text-align:right">0.4433741</td>
+<td style="text-align:right">-2.491767</td>
+<td style="text-align:right">0.0132795</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2020:AFETADOSIM:NMREGPARA DE MINAS/NOVA SERRANA</td>
+<td style="text-align:right">2.8043566</td>
+<td style="text-align:right">0.8740381</td>
+<td style="text-align:right">3.208506</td>
+<td style="text-align:right">0.0014865</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2022:AFETADOSIM:NMREGSETE LAGOAS</td>
+<td style="text-align:right">1.2625989</td>
+<td style="text-align:right">0.6270256</td>
+<td style="text-align:right">2.013632</td>
+<td style="text-align:right">0.0449879</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2023:AFETADOSIM:NMREGSETE LAGOAS</td>
+<td style="text-align:right">2.3463774</td>
+<td style="text-align:right">0.6270256</td>
+<td style="text-align:right">3.742076</td>
+<td style="text-align:right">0.0002207</td>
+</tr>
+</tbody>
+</table>
+<p>Visualmente observamos que o padrão está mais associado à característica regional e o momento em que foi atingido pela epidemia de dengue: anos 2016, 2019 ou 2023, o que corrobora o PCA mostrado.<br>
+<img src="Figuras/DENGBR_ScaledBeforeVsAfter_regionaltrend.jpg" alt="Modelo"></p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
