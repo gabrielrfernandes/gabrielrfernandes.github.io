@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Base de dados secund&aacute;rios</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <ul>
+<li><a href="#base-de-dados-secund%C3%A1rios">Base de dados secundários</a>
+<ul>
+<li><a href="#transmiss%C3%A3o-por-vetores">Transmissão por vetores</a>
+<ul>
+<li><a href="#arboviroses">Arboviroses</a>
+<ul>
+<li><a href="#chikungunya">Chikungunya</a>
+<ul>
+<li><a href="#download-dos-dados">Download dos dados</a></li>
+<li><a href="#carregamento-dos-dados-dbc">Carregamento dos dados dbc</a></li>
+<li><a href="#prepara%C3%A7%C3%A3o-dos-dados">Preparação dos dados</a></li>
+<li><a href="#an%C3%A1lises-descritivas">Análises descritivas</a>
+<ul>
+<li><a href="#boxplots-de-dispers%C3%A3o">Boxplots de dispersão</a></li>
+<li><a href="#busca-por-padr%C3%B5es">Busca por padrões</a></li>
+<li><a href="#an%C3%A1lise-de-componentes-principais-pca">Análise de componentes principais (PCA)</a></li>
+</ul>
+</li>
+<li><a href="#constru%C3%A7%C3%A3o-dos-modelos">Construção dos modelos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="base-de-dados-secundários">Base de dados secundários</h1>
+<ul>
+<li><strong>Objetivo:</strong> Avaliar a alteração na dinâmica de incidência entre municípios afetados e não afetados.</li>
+<li><strong>Metodologia:</strong>
+<ul>
+<li>Calcular a incidência para cada município em uma escala temporal média (Z-score).</li>
+<li>Usar os valores para análises de distância, importância das variáveis e modelagem.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="transmissão-por-vetores">Transmissão por vetores</h2>
+<h3 id="arboviroses">Arboviroses</h3>
+<h4 id="chikungunya">Chikungunya</h4>
+<h5 id="download-dos-dados">Download dos dados</h5>
+<p>Os arquivos dos anos 2014 ao 2023 foram obtidos do SINAN através do seu sítio de FTP localizado em: <a href="ftp://ftp.datasus.gov.br/dissemin/publicos/SINAN/DADOS/">ftp://ftp.datasus.gov.br/dissemin/publicos/SINAN/DADOS/</a> e identificados pelo prefixo <em>CHIKBR</em>.</p>
+<h5 id="carregamento-dos-dados-dbc">Carregamento dos dados dbc</h5>
+<p>O script lê os arquivos baixados do datasus e cria uma <em>final_table</em> a ser trabalhada nos passos seguintes.</p>
+<pre><code class="language-R"><span class="hljs-comment">#install.packages(&quot;devtools&quot;)</span>
+<span class="hljs-comment">#library(devtools)</span>
+<span class="hljs-comment">#install_github(&quot;danicat/read.dbc&quot;)</span>
+library<span class="hljs-punctuation">(</span>read.dbc<span class="hljs-punctuation">)</span> <span class="hljs-comment"># ler dbc</span>
+library<span class="hljs-punctuation">(</span>tidyverse<span class="hljs-punctuation">)</span> <span class="hljs-comment">#contem vários pacotes para diversas funções</span>
+library<span class="hljs-punctuation">(</span>foreign<span class="hljs-punctuation">)</span> <span class="hljs-comment">#ler DBF</span>
+
+
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+setwd<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;/data/gabriel/Trabalhos/Vale/CHIK/&quot;</span><span class="hljs-punctuation">)</span>                                                <span class="hljs-comment">#############</span>
+metadata <span class="hljs-operator">=</span> read.table<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;/data/gabriel/Trabalhos/Vale/metadata.txt&quot;</span><span class="hljs-punctuation">,</span> header <span class="hljs-operator">=</span> <span class="hljs-built_in">T</span><span class="hljs-punctuation">,</span> sep <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\t&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-comment">#############</span>
+city_codes <span class="hljs-operator">&lt;-</span> metadata<span class="hljs-operator">$</span>CODMUN6                                                             <span class="hljs-comment">#############</span>
+disease_prefix <span class="hljs-operator">=</span> <span class="hljs-string">&quot;CHIKBR&quot;</span>                                                                  <span class="hljs-comment">#############</span>
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+
+<span class="hljs-comment"># Define folder path and initialize the list</span>
+folder_path <span class="hljs-operator">&lt;-</span> getwd<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+years <span class="hljs-operator">&lt;-</span> 14<span class="hljs-operator">:</span><span class="hljs-number">23</span>
+bases <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">list</span><span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">############################## Data Processing #########################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+
+<span class="hljs-comment"># Loop through each year and read corresponding files if they exist</span>
+<span class="hljs-keyword">for</span> <span class="hljs-punctuation">(</span>year <span class="hljs-keyword">in</span> years<span class="hljs-punctuation">)</span> <span class="hljs-punctuation">{</span>
+  file_name <span class="hljs-operator">&lt;-</span> paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span> year<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;.dbc&quot;</span><span class="hljs-punctuation">)</span>
+  file_path <span class="hljs-operator">&lt;-</span> file.path<span class="hljs-punctuation">(</span>folder_path<span class="hljs-punctuation">,</span> file_name<span class="hljs-punctuation">)</span>
+  
+  <span class="hljs-comment"># Check if the file exists before reading</span>
+  <span class="hljs-keyword">if</span> <span class="hljs-punctuation">(</span>file.exists<span class="hljs-punctuation">(</span>file_path<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-comment"># Read the file and filter by city codes</span>
+    data <span class="hljs-operator">&lt;-</span> read.dbc<span class="hljs-punctuation">(</span>file_path<span class="hljs-punctuation">)</span>
+    filtered_data <span class="hljs-operator">&lt;-</span> data<span class="hljs-punctuation">[</span>data<span class="hljs-operator">$</span>ID_MUNICIP <span class="hljs-operator">%in%</span> city_codes<span class="hljs-punctuation">,</span> <span class="hljs-punctuation">]</span>
+    
+    <span class="hljs-comment"># Store the filtered data in the list</span>
+    bases<span class="hljs-punctuation">[[</span><span class="hljs-built_in">as.character</span><span class="hljs-punctuation">(</span>year<span class="hljs-punctuation">)</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">&lt;-</span> filtered_data
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+
+
+<span class="hljs-comment"># Find common columns across all data frames in the list</span>
+common_variables <span class="hljs-operator">&lt;-</span> Reduce<span class="hljs-punctuation">(</span>intersect<span class="hljs-punctuation">,</span> lapply<span class="hljs-punctuation">(</span>bases<span class="hljs-punctuation">,</span> colnames<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Select only the common columns in each data frame</span>
+filtered_bases <span class="hljs-operator">&lt;-</span> lapply<span class="hljs-punctuation">(</span>bases<span class="hljs-punctuation">,</span> <span class="hljs-keyword">function</span><span class="hljs-punctuation">(</span>df<span class="hljs-punctuation">)</span> df<span class="hljs-punctuation">[</span><span class="hljs-punctuation">,</span> common_variables<span class="hljs-punctuation">,</span> drop <span class="hljs-operator">=</span> <span class="hljs-literal">FALSE</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Combine all data frames into one by binding rows</span>
+BASE <span class="hljs-operator">&lt;-</span> do.call<span class="hljs-punctuation">(</span>rbind<span class="hljs-punctuation">,</span> filtered_bases<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Drop unused factor levels in each factor column of the combined table</span>
+BASE<span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">&lt;-</span> lapply<span class="hljs-punctuation">(</span>BASE<span class="hljs-punctuation">,</span> <span class="hljs-keyword">function</span><span class="hljs-punctuation">(</span>col<span class="hljs-punctuation">)</span> <span class="hljs-punctuation">{</span>
+  <span class="hljs-keyword">if</span> <span class="hljs-punctuation">(</span>is.factor<span class="hljs-punctuation">(</span>col<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> droplevels<span class="hljs-punctuation">(</span>col<span class="hljs-punctuation">)</span> <span class="hljs-keyword">else</span> col
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">)</span>
+
+library<span class="hljs-punctuation">(</span>dplyr<span class="hljs-punctuation">)</span>
+library<span class="hljs-punctuation">(</span>tidyr<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Count entries by city and year</span>
+city_year_counts <span class="hljs-operator">&lt;-</span> BASE <span class="hljs-operator">%&gt;%</span>
+  count<span class="hljs-punctuation">(</span>ID_MUNICIP<span class="hljs-punctuation">,</span> NU_ANO<span class="hljs-punctuation">)</span> <span class="hljs-operator">%&gt;%</span>
+  pivot_wider<span class="hljs-punctuation">(</span>names_from <span class="hljs-operator">=</span> NU_ANO<span class="hljs-punctuation">,</span> values_from <span class="hljs-operator">=</span> n<span class="hljs-punctuation">,</span> values_fill <span class="hljs-operator">=</span> <span class="hljs-number">0</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># View the resulting table</span>
+city_year_counts
+
+city_year_counts <span class="hljs-operator">&lt;-</span> city_year_counts <span class="hljs-operator">%&gt;%</span>
+  mutate<span class="hljs-punctuation">(</span>ID_MUNICIP <span class="hljs-operator">=</span> <span class="hljs-built_in">as.character</span><span class="hljs-punctuation">(</span>ID_MUNICIP<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+metadata <span class="hljs-operator">&lt;-</span> metadata <span class="hljs-operator">%&gt;%</span>
+  rename<span class="hljs-punctuation">(</span>ID_MUNICIP <span class="hljs-operator">=</span> CODMUN6<span class="hljs-punctuation">)</span> <span class="hljs-operator">%&gt;%</span>
+  mutate<span class="hljs-punctuation">(</span>ID_MUNICIP <span class="hljs-operator">=</span> <span class="hljs-built_in">as.character</span><span class="hljs-punctuation">(</span>ID_MUNICIP<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Merge the city-year counts with the metadata</span>
+final_table <span class="hljs-operator">&lt;-</span> left_join<span class="hljs-punctuation">(</span>metadata<span class="hljs-punctuation">,</span> city_year_counts<span class="hljs-punctuation">,</span> by <span class="hljs-operator">=</span> <span class="hljs-string">&quot;ID_MUNICIP&quot;</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># View the final table</span>
+final_table<span class="hljs-punctuation">[</span><span class="hljs-built_in">is.na</span><span class="hljs-punctuation">(</span>final_table<span class="hljs-punctuation">)</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>
+final_table
+
+<span class="hljs-comment">####################</span>
+<span class="hljs-comment">### Descriptive ####</span>
+<span class="hljs-comment">####################</span>
+
+library<span class="hljs-punctuation">(</span>dplyr<span class="hljs-punctuation">)</span>
+library<span class="hljs-punctuation">(</span>tidyr<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Reshape data to long format</span>
+final_table_long <span class="hljs-operator">&lt;-</span> final_table <span class="hljs-operator">%&gt;%</span>
+  pivot_longer<span class="hljs-punctuation">(</span>
+    cols <span class="hljs-operator">=</span> starts_with<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;20&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>      <span class="hljs-comment"># Select year columns (e.g., 2014, 2015, etc.)</span>
+    names_to <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Year&quot;</span><span class="hljs-punctuation">,</span>             <span class="hljs-comment"># Name of the new column for years</span>
+    values_to <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Cases&quot;</span>            <span class="hljs-comment"># Name of the new column for case counts</span>
+  <span class="hljs-punctuation">)</span> <span class="hljs-operator">%&gt;%</span>
+  mutate<span class="hljs-punctuation">(</span>Year <span class="hljs-operator">=</span> <span class="hljs-built_in">as.numeric</span><span class="hljs-punctuation">(</span>Year<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>  <span class="hljs-comment"># Ensure Year is numeric</span>
+
+<span class="hljs-comment"># Categorize into &quot;Before&quot; and &quot;After&quot; periods</span>
+final_table_long <span class="hljs-operator">&lt;-</span> final_table_long <span class="hljs-operator">%&gt;%</span>
+  mutate<span class="hljs-punctuation">(</span>Period <span class="hljs-operator">=</span> case_when<span class="hljs-punctuation">(</span>
+    Year <span class="hljs-operator">&gt;=</span> <span class="hljs-number">2014</span> <span class="hljs-operator">&amp;</span> Year <span class="hljs-operator">&lt;=</span> <span class="hljs-number">2018</span> <span class="hljs-operator">~</span> <span class="hljs-string">&quot;Before&quot;</span><span class="hljs-punctuation">,</span>
+    Year <span class="hljs-operator">&gt;=</span> <span class="hljs-number">2019</span> <span class="hljs-operator">&amp;</span> Year <span class="hljs-operator">&lt;=</span> <span class="hljs-number">2023</span> <span class="hljs-operator">~</span> <span class="hljs-string">&quot;After&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-literal">TRUE</span> <span class="hljs-operator">~</span> <span class="hljs-literal">NA_character_</span>          <span class="hljs-comment"># Exclude years outside the range</span>
+  <span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Filter out rows with missing cases or years outside the range</span>
+final_table_long <span class="hljs-operator">&lt;-</span> final_table_long <span class="hljs-operator">%&gt;%</span>
+  filter<span class="hljs-punctuation">(</span><span class="hljs-operator">!</span><span class="hljs-built_in">is.na</span><span class="hljs-punctuation">(</span>Cases<span class="hljs-punctuation">)</span> <span class="hljs-operator">&amp;</span> Year <span class="hljs-operator">&gt;=</span> <span class="hljs-number">2014</span> <span class="hljs-operator">&amp;</span> Year <span class="hljs-operator">&lt;=</span> <span class="hljs-number">2023</span><span class="hljs-punctuation">)</span>
+
+
+<span class="hljs-comment"># Calculate statistics for each period, including the entire range (General)</span>
+summary_stats <span class="hljs-operator">&lt;-</span> final_table_long <span class="hljs-operator">%&gt;%</span>
+  group_by<span class="hljs-punctuation">(</span>CODREG<span class="hljs-punctuation">,</span> NMREG<span class="hljs-punctuation">,</span> ID_MUNICIP<span class="hljs-punctuation">,</span> NMMUNICIPIO<span class="hljs-punctuation">,</span> CENSO2022<span class="hljs-punctuation">,</span> AFETADO<span class="hljs-punctuation">)</span> <span class="hljs-operator">%&gt;%</span>
+  summarise<span class="hljs-punctuation">(</span>
+    General_Mean <span class="hljs-operator">=</span> mean<span class="hljs-punctuation">(</span>Cases<span class="hljs-punctuation">,</span> na.rm <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>        <span class="hljs-comment"># Mean for all years</span>
+    General_SD <span class="hljs-operator">=</span> sd<span class="hljs-punctuation">(</span>Cases<span class="hljs-punctuation">,</span> na.rm <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>           <span class="hljs-comment"># SD for all years</span>
+    Before_Mean <span class="hljs-operator">=</span> mean<span class="hljs-punctuation">(</span>Cases<span class="hljs-punctuation">[</span>Period <span class="hljs-operator">==</span> <span class="hljs-string">&quot;Before&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> na.rm <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment"># Mean for Before period</span>
+    Before_SD <span class="hljs-operator">=</span> sd<span class="hljs-punctuation">(</span>Cases<span class="hljs-punctuation">[</span>Period <span class="hljs-operator">==</span> <span class="hljs-string">&quot;Before&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> na.rm <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>      <span class="hljs-comment"># SD for Before period</span>
+    After_Mean <span class="hljs-operator">=</span> mean<span class="hljs-punctuation">(</span>Cases<span class="hljs-punctuation">[</span>Period <span class="hljs-operator">==</span> <span class="hljs-string">&quot;After&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> na.rm <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>    <span class="hljs-comment"># Mean for After period</span>
+    After_SD <span class="hljs-operator">=</span> sd<span class="hljs-punctuation">(</span>Cases<span class="hljs-punctuation">[</span>Period <span class="hljs-operator">==</span> <span class="hljs-string">&quot;After&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> na.rm <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>        <span class="hljs-comment"># SD for After period</span>
+    .groups <span class="hljs-operator">=</span> <span class="hljs-string">&quot;drop&quot;</span>
+  <span class="hljs-punctuation">)</span>
+summary_stats <span class="hljs-operator">=</span> data.frame<span class="hljs-punctuation">(</span>summary_stats<span class="hljs-punctuation">)</span> 
+
+library<span class="hljs-punctuation">(</span>knitr<span class="hljs-punctuation">)</span>
+kable<span class="hljs-punctuation">(</span>summary_stats<span class="hljs-punctuation">)</span>
+</code></pre>
+<p>Ao carregar os dados, temos uma descrição da média e desvio padrão do número de casos em cada município durante todo o perídio, e estratificado por períodos pré e pós rompimento da barragem.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">CODREG</th>
+<th style="text-align:left">NMREG</th>
+<th style="text-align:left">ID_MUNICIP</th>
+<th style="text-align:left">NMMUNICIPIO</th>
+<th style="text-align:right">CENSO2022</th>
+<th style="text-align:left">AFETADO</th>
+<th style="text-align:right">General_Mean</th>
+<th style="text-align:right">General_SD</th>
+<th style="text-align:right">Before_Mean</th>
+<th style="text-align:right">Before_SD</th>
+<th style="text-align:right">After_Mean</th>
+<th style="text-align:right">After_SD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">31017</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:left">310670</td>
+<td style="text-align:left">Betim</td>
+<td style="text-align:right">411846</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">179.7777778</td>
+<td style="text-align:right">457.3930962</td>
+<td style="text-align:right">32.00</td>
+<td style="text-align:right">36.6242179</td>
+<td style="text-align:right">298.0</td>
+<td style="text-align:right">614.8999919</td>
+</tr>
+<tr>
+<td style="text-align:right">31017</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:left">310810</td>
+<td style="text-align:left">Bonfim</td>
+<td style="text-align:right">7434</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.6666667</td>
+<td style="text-align:right">2.0000000</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">1.2</td>
+<td style="text-align:right">2.6832816</td>
+</tr>
+<tr>
+<td style="text-align:right">31017</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:left">310900</td>
+<td style="text-align:left">Brumadinho</td>
+<td style="text-align:right">38915</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">3.2222222</td>
+<td style="text-align:right">3.8333333</td>
+<td style="text-align:right">1.75</td>
+<td style="text-align:right">2.8722813</td>
+<td style="text-align:right">4.4</td>
+<td style="text-align:right">4.3931765</td>
+</tr>
+<tr>
+<td style="text-align:right">31017</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:left">312060</td>
+<td style="text-align:left">Crucilandia</td>
+<td style="text-align:right">5434</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.8888889</td>
+<td style="text-align:right">1.1666667</td>
+<td style="text-align:right">0.50</td>
+<td style="text-align:right">1.0000000</td>
+<td style="text-align:right">1.2</td>
+<td style="text-align:right">1.3038405</td>
+</tr>
+<tr>
+<td style="text-align:right">31017</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:left">312410</td>
+<td style="text-align:left">Esmeraldas</td>
+<td style="text-align:right">85598</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">26.8888889</td>
+<td style="text-align:right">73.9534388</td>
+<td style="text-align:right">0.25</td>
+<td style="text-align:right">0.5000000</td>
+<td style="text-align:right">48.2</td>
+<td style="text-align:right">98.2888600</td>
+</tr>
+<tr>
+<td style="text-align:right">31017</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:left">312600</td>
+<td style="text-align:left">Florestal</td>
+<td style="text-align:right">8045</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">0.2222222</td>
+<td style="text-align:right">0.4409586</td>
+<td style="text-align:right">0.25</td>
+<td style="text-align:right">0.5000000</td>
+<td style="text-align:right">0.2</td>
+<td style="text-align:right">0.4472136</td>
+</tr>
+<tr>
+<td style="text-align:right">31017</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:left">313010</td>
+<td style="text-align:left">Igarape</td>
+<td style="text-align:right">45847</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">3.8888889</td>
+<td style="text-align:right">10.1912272</td>
+<td style="text-align:right">0.75</td>
+<td style="text-align:right">0.9574271</td>
+<td style="text-align:right">6.4</td>
+<td style="text-align:right">13.7586337</td>
+</tr>
+<tr>
+<td style="text-align:right">31017</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:left">313665</td>
+<td style="text-align:left">Juatuba</td>
+<td style="text-align:right">30716</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">34.2222222</td>
+<td style="text-align:right">95.5755954</td>
+<td style="text-align:right">2.00</td>
+<td style="text-align:right">2.7080128</td>
+<td style="text-align:right">60.0</td>
+<td style="text-align:right">128.0429615</td>
+</tr>
+<tr>
+<td style="text-align:right">31017</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:left">314015</td>
+<td style="text-align:left">Mario Campos</td>
+<td style="text-align:right">15900</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">1.2222222</td>
+<td style="text-align:right">1.7159384</td>
+<td style="text-align:right">0.75</td>
+<td style="text-align:right">0.9574271</td>
+<td style="text-align:right">1.6</td>
+<td style="text-align:right">2.1908902</td>
+</tr>
+<tr>
+<td style="text-align:right">31017</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:left">314070</td>
+<td style="text-align:left">Mateus Leme</td>
+<td style="text-align:right">37841</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">11.4444444</td>
+<td style="text-align:right">30.2411603</td>
+<td style="text-align:right">1.50</td>
+<td style="text-align:right">1.2909944</td>
+<td style="text-align:right">19.4</td>
+<td style="text-align:right">40.6177301</td>
+</tr>
+<tr>
+<td style="text-align:right">31017</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:left">315040</td>
+<td style="text-align:left">Piedade dos Gerais</td>
+<td style="text-align:right">5019</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.0</td>
+<td style="text-align:right">0.0000000</td>
+</tr>
+<tr>
+<td style="text-align:right">31017</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:left">315530</td>
+<td style="text-align:left">Rio Manso</td>
+<td style="text-align:right">5568</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.2222222</td>
+<td style="text-align:right">0.4409586</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.4</td>
+<td style="text-align:right">0.5477226</td>
+</tr>
+<tr>
+<td style="text-align:right">31017</td>
+<td style="text-align:left">BETIM</td>
+<td style="text-align:left">316292</td>
+<td style="text-align:left">Sao Joaquim de Bicas</td>
+<td style="text-align:right">34348</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">6.8888889</td>
+<td style="text-align:right">18.8111964</td>
+<td style="text-align:right">0.50</td>
+<td style="text-align:right">1.0000000</td>
+<td style="text-align:right">12.0</td>
+<td style="text-align:right">25.1694259</td>
+</tr>
+<tr>
+<td style="text-align:right">31019</td>
+<td style="text-align:left">CURVELO</td>
+<td style="text-align:left">310480</td>
+<td style="text-align:left">Augusto de Lima</td>
+<td style="text-align:right">4538</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">3.6666667</td>
+<td style="text-align:right">8.8175960</td>
+<td style="text-align:right">0.75</td>
+<td style="text-align:right">1.5000000</td>
+<td style="text-align:right">6.0</td>
+<td style="text-align:right">11.7686023</td>
+</tr>
+<tr>
+<td style="text-align:right">31019</td>
+<td style="text-align:left">CURVELO</td>
+<td style="text-align:left">310920</td>
+<td style="text-align:left">Buenopolis</td>
+<td style="text-align:right">9150</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">1.2222222</td>
+<td style="text-align:right">2.0480343</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">1.4142136</td>
+<td style="text-align:right">1.4</td>
+<td style="text-align:right">2.6076810</td>
+</tr>
+<tr>
+<td style="text-align:right">31019</td>
+<td style="text-align:left">CURVELO</td>
+<td style="text-align:left">311910</td>
+<td style="text-align:left">Corinto</td>
+<td style="text-align:right">23532</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">109.3333333</td>
+<td style="text-align:right">324.6267087</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">0.8164966</td>
+<td style="text-align:right">196.0</td>
+<td style="text-align:right">435.4761762</td>
+</tr>
+<tr>
+<td style="text-align:right">31019</td>
+<td style="text-align:left">CURVELO</td>
+<td style="text-align:left">312090</td>
+<td style="text-align:left">Curvelo</td>
+<td style="text-align:right">80665</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">178.2222222</td>
+<td style="text-align:right">508.0941787</td>
+<td style="text-align:right">10.00</td>
+<td style="text-align:right">10.6144556</td>
+<td style="text-align:right">312.8</td>
+<td style="text-align:right">682.1269677</td>
+</tr>
+<tr>
+<td style="text-align:right">31019</td>
+<td style="text-align:left">CURVELO</td>
+<td style="text-align:left">312570</td>
+<td style="text-align:left">Felixlandia</td>
+<td style="text-align:right">13978</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">32.0000000</td>
+<td style="text-align:right">72.4913788</td>
+<td style="text-align:right">1.75</td>
+<td style="text-align:right">2.0615528</td>
+<td style="text-align:right">56.2</td>
+<td style="text-align:right">94.1259794</td>
+</tr>
+<tr>
+<td style="text-align:right">31019</td>
+<td style="text-align:left">CURVELO</td>
+<td style="text-align:left">313110</td>
+<td style="text-align:left">Inimutaba</td>
+<td style="text-align:right">7371</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">5.8888889</td>
+<td style="text-align:right">15.8780072</td>
+<td style="text-align:right">1.25</td>
+<td style="text-align:right">2.5000000</td>
+<td style="text-align:right">9.6</td>
+<td style="text-align:right">21.4662526</td>
+</tr>
+<tr>
+<td style="text-align:right">31019</td>
+<td style="text-align:left">CURVELO</td>
+<td style="text-align:left">314250</td>
+<td style="text-align:left">Monjolos</td>
+<td style="text-align:right">2169</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">9.2222222</td>
+<td style="text-align:right">18.0331485</td>
+<td style="text-align:right">0.75</td>
+<td style="text-align:right">0.9574271</td>
+<td style="text-align:right">16.0</td>
+<td style="text-align:right">22.8144691</td>
+</tr>
+<tr>
+<td style="text-align:right">31019</td>
+<td style="text-align:left">CURVELO</td>
+<td style="text-align:left">314360</td>
+<td style="text-align:left">Morro da Garca</td>
+<td style="text-align:right">2411</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.1111111</td>
+<td style="text-align:right">0.3333333</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.2</td>
+<td style="text-align:right">0.4472136</td>
+</tr>
+<tr>
+<td style="text-align:right">31019</td>
+<td style="text-align:left">CURVELO</td>
+<td style="text-align:left">315320</td>
+<td style="text-align:left">Presidente Juscelino</td>
+<td style="text-align:right">3465</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">4.1111111</td>
+<td style="text-align:right">11.6022029</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">7.4</td>
+<td style="text-align:right">15.4531550</td>
+</tr>
+<tr>
+<td style="text-align:right">31019</td>
+<td style="text-align:left">CURVELO</td>
+<td style="text-align:left">316060</td>
+<td style="text-align:left">Santo Hipolito</td>
+<td style="text-align:right">2717</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">8.4444444</td>
+<td style="text-align:right">21.9949489</td>
+<td style="text-align:right">1.50</td>
+<td style="text-align:right">1.9148542</td>
+<td style="text-align:right">14.0</td>
+<td style="text-align:right">29.6310648</td>
+</tr>
+<tr>
+<td style="text-align:right">31019</td>
+<td style="text-align:left">CURVELO</td>
+<td style="text-align:left">316935</td>
+<td style="text-align:left">Tres Marias</td>
+<td style="text-align:right">28895</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">22.1111111</td>
+<td style="text-align:right">64.8371893</td>
+<td style="text-align:right">0.25</td>
+<td style="text-align:right">0.5000000</td>
+<td style="text-align:right">39.6</td>
+<td style="text-align:right">86.8751978</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">310020</td>
+<td style="text-align:left">Abaete</td>
+<td style="text-align:right">22675</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">4.4444444</td>
+<td style="text-align:right">9.0982294</td>
+<td style="text-align:right">0.50</td>
+<td style="text-align:right">0.5773503</td>
+<td style="text-align:right">7.6</td>
+<td style="text-align:right">11.7175083</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">310320</td>
+<td style="text-align:left">Aracai</td>
+<td style="text-align:right">2181</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">1.4444444</td>
+<td style="text-align:right">3.1269438</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">2.0000000</td>
+<td style="text-align:right">1.8</td>
+<td style="text-align:right">4.0249224</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">310500</td>
+<td style="text-align:left">Baldim</td>
+<td style="text-align:right">7492</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">5.2222222</td>
+<td style="text-align:right">14.9229503</td>
+<td style="text-align:right">0.50</td>
+<td style="text-align:right">0.5773503</td>
+<td style="text-align:right">9.0</td>
+<td style="text-align:right">20.1246118</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">310700</td>
+<td style="text-align:left">Biquinhas</td>
+<td style="text-align:right">2383</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">0.1111111</td>
+<td style="text-align:right">0.3333333</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.2</td>
+<td style="text-align:right">0.4472136</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">310960</td>
+<td style="text-align:left">Cachoeira da Prata</td>
+<td style="text-align:right">3693</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">2.2222222</td>
+<td style="text-align:right">5.9324906</td>
+<td style="text-align:right">0.25</td>
+<td style="text-align:right">0.5000000</td>
+<td style="text-align:right">3.8</td>
+<td style="text-align:right">7.9498428</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">310990</td>
+<td style="text-align:left">Caetanopolis</td>
+<td style="text-align:right">11435</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">26.7777778</td>
+<td style="text-align:right">56.4729532</td>
+<td style="text-align:right">11.75</td>
+<td style="text-align:right">14.2448821</td>
+<td style="text-align:right">38.8</td>
+<td style="text-align:right">76.2869583</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">311250</td>
+<td style="text-align:left">Capim Branco</td>
+<td style="text-align:right">10663</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">10.1111111</td>
+<td style="text-align:right">29.5907268</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">18.2</td>
+<td style="text-align:right">39.5878769</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">311560</td>
+<td style="text-align:left">Cedro do Abaete</td>
+<td style="text-align:right">1081</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.3333333</td>
+<td style="text-align:right">1.0000000</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.6</td>
+<td style="text-align:right">1.3416408</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">311890</td>
+<td style="text-align:left">Cordisburgo</td>
+<td style="text-align:right">7547</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.5555556</td>
+<td style="text-align:right">0.7264832</td>
+<td style="text-align:right">0.50</td>
+<td style="text-align:right">0.5773503</td>
+<td style="text-align:right">0.6</td>
+<td style="text-align:right">0.8944272</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">312640</td>
+<td style="text-align:left">Fortuna de Minas</td>
+<td style="text-align:right">3093</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">1.7777778</td>
+<td style="text-align:right">3.1534813</td>
+<td style="text-align:right">1.50</td>
+<td style="text-align:right">2.3804761</td>
+<td style="text-align:right">2.0</td>
+<td style="text-align:right">3.9370039</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">312720</td>
+<td style="text-align:left">Funilandia</td>
+<td style="text-align:right">4686</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">8.5555556</td>
+<td style="text-align:right">25.2938288</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">15.4</td>
+<td style="text-align:right">33.8791972</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">313100</td>
+<td style="text-align:left">Inhauma</td>
+<td style="text-align:right">6239</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">2.5555556</td>
+<td style="text-align:right">6.9302076</td>
+<td style="text-align:right">0.25</td>
+<td style="text-align:right">0.5000000</td>
+<td style="text-align:right">4.4</td>
+<td style="text-align:right">9.2897793</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">313570</td>
+<td style="text-align:left">Jequitiba</td>
+<td style="text-align:right">5883</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.0</td>
+<td style="text-align:right">0.0000000</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">313970</td>
+<td style="text-align:left">Maravilhas</td>
+<td style="text-align:right">7333</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">1.6666667</td>
+<td style="text-align:right">2.1213203</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">1.4142136</td>
+<td style="text-align:right">2.2</td>
+<td style="text-align:right">2.5884358</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">314350</td>
+<td style="text-align:left">Morada Nova de Minas</td>
+<td style="text-align:right">9067</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">2.2222222</td>
+<td style="text-align:right">5.5851987</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">4.0</td>
+<td style="text-align:right">7.3143694</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">314640</td>
+<td style="text-align:left">Paineiras</td>
+<td style="text-align:right">4224</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">0.8888889</td>
+<td style="text-align:right">1.5365907</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">1.6</td>
+<td style="text-align:right">1.8165902</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">314690</td>
+<td style="text-align:left">Papagaios</td>
+<td style="text-align:right">13920</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">8.4444444</td>
+<td style="text-align:right">16.2412370</td>
+<td style="text-align:right">0.50</td>
+<td style="text-align:right">1.0000000</td>
+<td style="text-align:right">14.8</td>
+<td style="text-align:right">20.3273215</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">314740</td>
+<td style="text-align:left">Paraopeba</td>
+<td style="text-align:right">24107</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">85.1111111</td>
+<td style="text-align:right">234.0862258</td>
+<td style="text-align:right">7.75</td>
+<td style="text-align:right">9.2870878</td>
+<td style="text-align:right">147.0</td>
+<td style="text-align:right">314.2538783</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">314960</td>
+<td style="text-align:left">Pequi</td>
+<td style="text-align:right">4155</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">0.6666667</td>
+<td style="text-align:right">1.3228757</td>
+<td style="text-align:right">0.25</td>
+<td style="text-align:right">0.5000000</td>
+<td style="text-align:right">1.0</td>
+<td style="text-align:right">1.7320508</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">315200</td>
+<td style="text-align:left">Pompeu</td>
+<td style="text-align:right">31047</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">138.8888889</td>
+<td style="text-align:right">404.3452870</td>
+<td style="text-align:right">7.25</td>
+<td style="text-align:right">9.3941471</td>
+<td style="text-align:right">244.2</td>
+<td style="text-align:right">543.8126516</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">315360</td>
+<td style="text-align:left">Prudente de Morais</td>
+<td style="text-align:right">11466</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">50.8888889</td>
+<td style="text-align:right">152.2920258</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">91.6</td>
+<td style="text-align:right">204.2652687</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">315370</td>
+<td style="text-align:left">Quartel Geral</td>
+<td style="text-align:right">3179</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.2222222</td>
+<td style="text-align:right">0.4409586</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.4</td>
+<td style="text-align:right">0.5477226</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">315850</td>
+<td style="text-align:left">Santana de Pirapama</td>
+<td style="text-align:right">7030</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.4444444</td>
+<td style="text-align:right">0.7264832</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.8</td>
+<td style="text-align:right">0.8366600</td>
+</tr>
+<tr>
+<td style="text-align:right">31024</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:left">316720</td>
+<td style="text-align:left">Sete Lagoas</td>
+<td style="text-align:right">227397</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">782.1111111</td>
+<td style="text-align:right">2268.3695931</td>
+<td style="text-align:right">44.75</td>
+<td style="text-align:right">63.4684961</td>
+<td style="text-align:right">1372.0</td>
+<td style="text-align:right">3051.1174183</td>
+</tr>
+<tr>
+<td style="text-align:right">31032</td>
+<td style="text-align:left">PARA DE MINAS/NOVA SERRANA</td>
+<td style="text-align:left">311760</td>
+<td style="text-align:left">Conceicao do Para</td>
+<td style="text-align:right">5415</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">2.6666667</td>
+<td style="text-align:right">5.8949131</td>
+<td style="text-align:right">0.75</td>
+<td style="text-align:right">1.5000000</td>
+<td style="text-align:right">4.2</td>
+<td style="text-align:right">7.8230429</td>
+</tr>
+<tr>
+<td style="text-align:right">31032</td>
+<td style="text-align:left">PARA DE MINAS/NOVA SERRANA</td>
+<td style="text-align:left">313020</td>
+<td style="text-align:left">Igaratinga</td>
+<td style="text-align:right">10830</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">5.8888889</td>
+<td style="text-align:right">17.2948290</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">10.6</td>
+<td style="text-align:right">23.1473541</td>
+</tr>
+<tr>
+<td style="text-align:right">31032</td>
+<td style="text-align:left">PARA DE MINAS/NOVA SERRANA</td>
+<td style="text-align:left">313830</td>
+<td style="text-align:left">Leandro Ferreira</td>
+<td style="text-align:right">3199</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.3333333</td>
+<td style="text-align:right">0.7071068</td>
+<td style="text-align:right">0.25</td>
+<td style="text-align:right">0.5000000</td>
+<td style="text-align:right">0.4</td>
+<td style="text-align:right">0.8944272</td>
+</tr>
+<tr>
+<td style="text-align:right">31032</td>
+<td style="text-align:left">PARA DE MINAS/NOVA SERRANA</td>
+<td style="text-align:left">314520</td>
+<td style="text-align:left">Nova Serrana</td>
+<td style="text-align:right">105552</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">124.2222222</td>
+<td style="text-align:right">356.5774032</td>
+<td style="text-align:right">3.75</td>
+<td style="text-align:right">2.5000000</td>
+<td style="text-align:right">220.6</td>
+<td style="text-align:right">477.6670388</td>
+</tr>
+<tr>
+<td style="text-align:right">31032</td>
+<td style="text-align:left">PARA DE MINAS/NOVA SERRANA</td>
+<td style="text-align:left">314580</td>
+<td style="text-align:left">Onca de Pitangui</td>
+<td style="text-align:right">2969</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.0</td>
+<td style="text-align:right">0.0000000</td>
+</tr>
+<tr>
+<td style="text-align:right">31032</td>
+<td style="text-align:left">PARA DE MINAS/NOVA SERRANA</td>
+<td style="text-align:left">314710</td>
+<td style="text-align:left">Para de Minas</td>
+<td style="text-align:right">97139</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">44.8888889</td>
+<td style="text-align:right">107.7908211</td>
+<td style="text-align:right">6.25</td>
+<td style="text-align:right">4.5000000</td>
+<td style="text-align:right">75.8</td>
+<td style="text-align:right">143.3010816</td>
+</tr>
+<tr>
+<td style="text-align:right">31032</td>
+<td style="text-align:left">PARA DE MINAS/NOVA SERRANA</td>
+<td style="text-align:left">315140</td>
+<td style="text-align:left">Pitangui</td>
+<td style="text-align:right">26685</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">24.0000000</td>
+<td style="text-align:right">64.6084360</td>
+<td style="text-align:right">4.50</td>
+<td style="text-align:right">5.0662281</td>
+<td style="text-align:right">39.6</td>
+<td style="text-align:right">87.4345469</td>
+</tr>
+<tr>
+<td style="text-align:right">31032</td>
+<td style="text-align:left">PARA DE MINAS/NOVA SERRANA</td>
+<td style="text-align:left">316310</td>
+<td style="text-align:left">Sao Jose da Varginha</td>
+<td style="text-align:right">4536</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">0.7777778</td>
+<td style="text-align:right">1.6414763</td>
+<td style="text-align:right">0.25</td>
+<td style="text-align:right">0.5000000</td>
+<td style="text-align:right">1.2</td>
+<td style="text-align:right">2.1679483</td>
+</tr>
+<tr>
+<td style="text-align:right">31057</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:left">312070</td>
+<td style="text-align:left">Cruzeiro da Fortaleza</td>
+<td style="text-align:right">3521</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.3333333</td>
+<td style="text-align:right">0.7071068</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.6</td>
+<td style="text-align:right">0.8944272</td>
+</tr>
+<tr>
+<td style="text-align:right">31057</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:left">312860</td>
+<td style="text-align:left">Guarda-Mor</td>
+<td style="text-align:right">6539</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">1.1111111</td>
+<td style="text-align:right">2.0883273</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">2.0</td>
+<td style="text-align:right">2.5495098</td>
+</tr>
+<tr>
+<td style="text-align:right">31057</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:left">312890</td>
+<td style="text-align:left">Guimarania</td>
+<td style="text-align:right">8478</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.4444444</td>
+<td style="text-align:right">0.7264832</td>
+<td style="text-align:right">0.75</td>
+<td style="text-align:right">0.9574271</td>
+<td style="text-align:right">0.2</td>
+<td style="text-align:right">0.4472136</td>
+</tr>
+<tr>
+<td style="text-align:right">31057</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:left">313710</td>
+<td style="text-align:left">Lagamar</td>
+<td style="text-align:right">6631</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.6666667</td>
+<td style="text-align:right">1.0000000</td>
+<td style="text-align:right">0.50</td>
+<td style="text-align:right">1.0000000</td>
+<td style="text-align:right">0.8</td>
+<td style="text-align:right">1.0954451</td>
+</tr>
+<tr>
+<td style="text-align:right">31057</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:left">313750</td>
+<td style="text-align:left">Lagoa Formosa</td>
+<td style="text-align:right">18904</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.3333333</td>
+<td style="text-align:right">1.0000000</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.6</td>
+<td style="text-align:right">1.3416408</td>
+</tr>
+<tr>
+<td style="text-align:right">31057</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:left">314800</td>
+<td style="text-align:left">Patos de Minas</td>
+<td style="text-align:right">159235</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">20.2222222</td>
+<td style="text-align:right">23.4881767</td>
+<td style="text-align:right">8.75</td>
+<td style="text-align:right">10.6887792</td>
+<td style="text-align:right">29.4</td>
+<td style="text-align:right">27.9427987</td>
+</tr>
+<tr>
+<td style="text-align:right">31057</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:left">315340</td>
+<td style="text-align:left">Presidente Olegario</td>
+<td style="text-align:right">18765</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">1.2222222</td>
+<td style="text-align:right">2.2791324</td>
+<td style="text-align:right">0.75</td>
+<td style="text-align:right">0.9574271</td>
+<td style="text-align:right">1.6</td>
+<td style="text-align:right">3.0495901</td>
+</tr>
+<tr>
+<td style="text-align:right">31057</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:left">316170</td>
+<td style="text-align:left">Sao Goncalo do Abaete</td>
+<td style="text-align:right">7375</td>
+<td style="text-align:left">SIM</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.0</td>
+<td style="text-align:right">0.0000000</td>
+</tr>
+<tr>
+<td style="text-align:right">31057</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:left">316680</td>
+<td style="text-align:left">Serra do Salitre</td>
+<td style="text-align:right">11801</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">1.0000000</td>
+<td style="text-align:right">1.9364917</td>
+<td style="text-align:right">0.50</td>
+<td style="text-align:right">0.5773503</td>
+<td style="text-align:right">1.4</td>
+<td style="text-align:right">2.6076810</td>
+</tr>
+<tr>
+<td style="text-align:right">31057</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:left">317075</td>
+<td style="text-align:left">Varjao de Minas</td>
+<td style="text-align:right">6969</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.2222222</td>
+<td style="text-align:right">0.4409586</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.4</td>
+<td style="text-align:right">0.5477226</td>
+</tr>
+<tr>
+<td style="text-align:right">31057</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:left">317100</td>
+<td style="text-align:left">Vazante</td>
+<td style="text-align:right">19975</td>
+<td style="text-align:left">NAO</td>
+<td style="text-align:right">0.1111111</td>
+<td style="text-align:right">0.3333333</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.0000000</td>
+<td style="text-align:right">0.2</td>
+<td style="text-align:right">0.4472136</td>
+</tr>
+</tbody>
+</table>
+<h5 id="preparação-dos-dados">Preparação dos dados</h5>
+<p>O seguinte script cria o conjunto de variáveis a ser utilizada para a exploração, e os salva em um arquivo <code>.Rdata</code> que pode ser posteriormente carregado com a função <code>load()</code>.</p>
+<pre><code class="language-R"><span class="hljs-comment">#install.packages(&quot;devtools&quot;)</span>
+<span class="hljs-comment">#library(devtools)</span>
+<span class="hljs-comment">#install_github(&quot;danicat/read.dbc&quot;)</span>
+library<span class="hljs-punctuation">(</span>read.dbc<span class="hljs-punctuation">)</span> <span class="hljs-comment"># ler dbc</span>
+library<span class="hljs-punctuation">(</span>tidyverse<span class="hljs-punctuation">)</span> <span class="hljs-comment">#contem vários pacotes para diversas funções</span>
+library<span class="hljs-punctuation">(</span>foreign<span class="hljs-punctuation">)</span> <span class="hljs-comment">#ler DBF</span>
+
+
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+setwd<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;/data/gabriel/Trabalhos/Vale/DENG/&quot;</span><span class="hljs-punctuation">)</span>                                                <span class="hljs-comment">#############</span>
+metadata <span class="hljs-operator">=</span> read.table<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;/data/gabriel/Trabalhos/Vale/metadata.txt&quot;</span><span class="hljs-punctuation">,</span> header <span class="hljs-operator">=</span> <span class="hljs-built_in">T</span><span class="hljs-punctuation">,</span> sep <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\t&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-comment">#############</span>
+city_codes <span class="hljs-operator">&lt;-</span> metadata<span class="hljs-operator">$</span>CODMUN6                                                             <span class="hljs-comment">#############</span>
+disease_prefix <span class="hljs-operator">=</span> <span class="hljs-string">&quot;CHIKBR&quot;</span>                                                                  <span class="hljs-comment">#############</span>
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+
+<span class="hljs-comment"># Define folder path and initialize the list</span>
+folder_path <span class="hljs-operator">&lt;-</span> getwd<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+years <span class="hljs-operator">&lt;-</span> 14<span class="hljs-operator">:</span><span class="hljs-number">23</span>
+
+<span class="hljs-comment"># Create a table with disease incidence per 10k population for each year</span>
+year_range <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">as.character</span><span class="hljs-punctuation">(</span><span class="hljs-number">2014</span><span class="hljs-operator">:</span><span class="hljs-number">2023</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Find existing year columns in the dataset</span>
+existing_years <span class="hljs-operator">&lt;-</span> intersect<span class="hljs-punctuation">(</span>year_range<span class="hljs-punctuation">,</span> colnames<span class="hljs-punctuation">(</span>final_table<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Dynamically create the incidence table</span>
+incidence_table <span class="hljs-operator">&lt;-</span> final_table <span class="hljs-operator">%&gt;%</span>
+  <span class="hljs-comment"># Select necessary columns along with the existing years</span>
+  select<span class="hljs-punctuation">(</span>NMMUNICIPIO<span class="hljs-punctuation">,</span> NMREG<span class="hljs-punctuation">,</span> AFETADO<span class="hljs-punctuation">,</span> CENSO2022<span class="hljs-punctuation">,</span> all_of<span class="hljs-punctuation">(</span>existing_years<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">%&gt;%</span>
+  <span class="hljs-comment"># Calculate incidence per 10k population for each available year</span>
+  mutate<span class="hljs-punctuation">(</span>across<span class="hljs-punctuation">(</span>all_of<span class="hljs-punctuation">(</span>existing_years<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-operator">~</span> <span class="hljs-punctuation">(</span>.x <span class="hljs-operator">/</span> CENSO2022<span class="hljs-punctuation">)</span> <span class="hljs-operator">*</span> <span class="hljs-number">10000</span><span class="hljs-punctuation">,</span> .names <span class="hljs-operator">=</span> <span class="hljs-string">&quot;inc_{col}&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">%&gt;%</span>
+  <span class="hljs-comment"># Select relevant columns for the final table</span>
+  select<span class="hljs-punctuation">(</span>NMMUNICIPIO<span class="hljs-punctuation">,</span> NMREG<span class="hljs-punctuation">,</span> AFETADO<span class="hljs-punctuation">,</span> starts_with<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;inc_&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Rename columns for readability</span>
+incidence_table <span class="hljs-operator">&lt;-</span> incidence_table <span class="hljs-operator">%&gt;%</span>
+  rename_with<span class="hljs-punctuation">(</span><span class="hljs-operator">~</span> sub<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;inc_&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span> .<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> starts_with<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;inc_&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># View the resulting table and scale</span>
+matrix <span class="hljs-operator">=</span> incidence_table<span class="hljs-punctuation">[</span><span class="hljs-punctuation">,</span><span class="hljs-number">4</span><span class="hljs-operator">:</span>ncol<span class="hljs-punctuation">(</span>incidence_table<span class="hljs-punctuation">)</span><span class="hljs-punctuation">]</span>
+matrix_scaled_by_row <span class="hljs-operator">&lt;-</span> t<span class="hljs-punctuation">(</span>scale<span class="hljs-punctuation">(</span>t<span class="hljs-punctuation">(</span>matrix<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>  <span class="hljs-comment"># Transpose, scale rows, then transpose back</span>
+
+incidence_table <span class="hljs-operator">=</span> cbind<span class="hljs-punctuation">(</span>incidence_table<span class="hljs-punctuation">[</span><span class="hljs-punctuation">,</span><span class="hljs-number">1</span><span class="hljs-operator">:</span><span class="hljs-number">3</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> matrix_scaled_by_row<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Assuming incidence_table is your data frame from previous steps</span>
+
+<span class="hljs-comment"># Reshape the data from wide to long format for plotting</span>
+incidence_long <span class="hljs-operator">&lt;-</span> incidence_table <span class="hljs-operator">%&gt;%</span>
+  pivot_longer<span class="hljs-punctuation">(</span>
+    cols <span class="hljs-operator">=</span> all_of<span class="hljs-punctuation">(</span>existing_years<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-comment"># Use only the columns that exist</span>
+    names_to <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Year&quot;</span><span class="hljs-punctuation">,</span>             <span class="hljs-comment"># Name of the new column for years</span>
+    values_to <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Incidence&quot;</span>        <span class="hljs-comment"># Name of the new column for incidence values</span>
+  <span class="hljs-punctuation">)</span>
+
+save<span class="hljs-punctuation">(</span>incidence_long<span class="hljs-punctuation">,</span> incidence_table<span class="hljs-punctuation">,</span> final_table<span class="hljs-punctuation">,</span> file <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span><span class="hljs-string">&quot;_variables.Rdata&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+</code></pre>
+<h5 id="análises-descritivas">Análises descritivas</h5>
+<h6 id="boxplots-de-dispersão">Boxplots de dispersão</h6>
+<p>Criar boxplots que mostrem a dispersão do Z-score ao longos dos anos, e separando o períodos em antes e depois do rompimento da barragem.</p>
+<pre><code class="language-R"><span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">######################### Exploratory figures ##########################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+
+library<span class="hljs-punctuation">(</span>tidyverse<span class="hljs-punctuation">)</span>
+library<span class="hljs-punctuation">(</span>ggplot2<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+setwd<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;/data/gabriel/Trabalhos/Vale/CHIK/&quot;</span><span class="hljs-punctuation">)</span>                                                <span class="hljs-comment">#############</span>
+metadata <span class="hljs-operator">=</span> read.table<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;/data/gabriel/Trabalhos/Vale/metadata.txt&quot;</span><span class="hljs-punctuation">,</span> header <span class="hljs-operator">=</span> <span class="hljs-built_in">T</span><span class="hljs-punctuation">,</span> sep <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\t&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-comment">#############</span>
+city_codes <span class="hljs-operator">&lt;-</span> metadata<span class="hljs-operator">$</span>CODMUN6                                                             <span class="hljs-comment">#############</span>
+disease_prefix <span class="hljs-operator">=</span> <span class="hljs-string">&quot;CHIKBR&quot;</span>                                                                  <span class="hljs-comment">#############</span>
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+
+<span class="hljs-comment"># Load previously processed data</span>
+load<span class="hljs-punctuation">(</span>paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span><span class="hljs-string">&quot;_variables.Rdata&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+
+<span class="hljs-comment"># Create boxplot with incidence per year</span>
+pdf<span class="hljs-punctuation">(</span>file <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;_ScaledbyYear.pdf&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> width <span class="hljs-operator">=</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span> height <span class="hljs-operator">=</span> <span class="hljs-number">10</span><span class="hljs-punctuation">)</span>
+
+ggplot<span class="hljs-punctuation">(</span>incidence_long<span class="hljs-punctuation">,</span> aes<span class="hljs-punctuation">(</span>x <span class="hljs-operator">=</span> Year<span class="hljs-punctuation">,</span> y <span class="hljs-operator">=</span> Incidence<span class="hljs-punctuation">,</span> fill <span class="hljs-operator">=</span> AFETADO<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  geom_boxplot<span class="hljs-punctuation">(</span>outlier.shape <span class="hljs-operator">=</span> <span class="hljs-literal">NA</span><span class="hljs-punctuation">,</span> width <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>  <span class="hljs-comment"># Adjust box width</span>
+  geom_point<span class="hljs-punctuation">(</span>position <span class="hljs-operator">=</span> position_jitterdodge<span class="hljs-punctuation">(</span>jitter.width <span class="hljs-operator">=</span> <span class="hljs-number">0.15</span><span class="hljs-punctuation">,</span> dodge.width <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> shape <span class="hljs-operator">=</span> <span class="hljs-number">21</span><span class="hljs-punctuation">,</span> size <span class="hljs-operator">=</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span> stroke <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">,</span> alpha <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>  <span class="hljs-comment"># Add points with jitter dodge</span>
+  facet_wrap<span class="hljs-punctuation">(</span><span class="hljs-operator">~</span> NMREG<span class="hljs-punctuation">,</span> ncol <span class="hljs-operator">=</span> <span class="hljs-number">2</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  scale_fill_manual<span class="hljs-punctuation">(</span>values <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;SIM&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#1b9e77&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;NAO&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#d95f02&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  labs<span class="hljs-punctuation">(</span>
+    title <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Distribuição da Incidência de Doença por Região de Saúde&quot;</span><span class="hljs-punctuation">,</span>
+    x <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Ano&quot;</span><span class="hljs-punctuation">,</span>
+    y <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Incidência por 10000 Habitates&quot;</span><span class="hljs-punctuation">,</span>
+    fill <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Município Afetado&quot;</span>
+  <span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  theme_bw<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  theme<span class="hljs-punctuation">(</span>axis.text.x <span class="hljs-operator">=</span> element_text<span class="hljs-punctuation">(</span>angle <span class="hljs-operator">=</span> <span class="hljs-number">45</span><span class="hljs-punctuation">,</span> hjust <span class="hljs-operator">=</span> <span class="hljs-number">1</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+dev.off<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+
+
+<span class="hljs-comment"># Categorize the years as &quot;Before&quot; and &quot;After&quot;</span>
+incidence_long <span class="hljs-operator">&lt;-</span> incidence_long <span class="hljs-operator">%&gt;%</span>
+  mutate<span class="hljs-punctuation">(</span>
+    Period <span class="hljs-operator">=</span> case_when<span class="hljs-punctuation">(</span>
+      Year <span class="hljs-operator">%in%</span> <span class="hljs-number">2014</span><span class="hljs-operator">:</span><span class="hljs-number">2018</span> <span class="hljs-operator">~</span> <span class="hljs-string">&quot;Antes&quot;</span><span class="hljs-punctuation">,</span>
+      Year <span class="hljs-operator">%in%</span> <span class="hljs-number">2019</span><span class="hljs-operator">:</span><span class="hljs-number">2023</span> <span class="hljs-operator">~</span> <span class="hljs-string">&quot;Depois&quot;</span>
+    <span class="hljs-punctuation">)</span>
+  <span class="hljs-punctuation">)</span> <span class="hljs-operator">%&gt;%</span>
+  filter<span class="hljs-punctuation">(</span><span class="hljs-operator">!</span><span class="hljs-built_in">is.na</span><span class="hljs-punctuation">(</span>Period<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>  <span class="hljs-comment"># Remove rows outside of the specified range</span>
+
+<span class="hljs-comment"># Create the plot showing distribution per city before and after</span>
+
+pdf<span class="hljs-punctuation">(</span>file <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;_ScaledAntesDepois.pdf&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> width <span class="hljs-operator">=</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span> height <span class="hljs-operator">=</span> <span class="hljs-number">10</span><span class="hljs-punctuation">)</span>
+
+ggplot<span class="hljs-punctuation">(</span>incidence_long<span class="hljs-punctuation">,</span> aes<span class="hljs-punctuation">(</span>x <span class="hljs-operator">=</span> NMMUNICIPIO<span class="hljs-punctuation">,</span> y <span class="hljs-operator">=</span> Incidence<span class="hljs-punctuation">,</span> fill <span class="hljs-operator">=</span> AFETADO<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  geom_boxplot<span class="hljs-punctuation">(</span>aes<span class="hljs-punctuation">(</span>group <span class="hljs-operator">=</span> interaction<span class="hljs-punctuation">(</span>NMMUNICIPIO<span class="hljs-punctuation">,</span> Period<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> fill <span class="hljs-operator">=</span> AFETADO<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> 
+               position <span class="hljs-operator">=</span> position_dodge<span class="hljs-punctuation">(</span>width <span class="hljs-operator">=</span> <span class="hljs-number">0.8</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> width <span class="hljs-operator">=</span> <span class="hljs-number">0.45</span><span class="hljs-punctuation">,</span> outlier.shape <span class="hljs-operator">=</span> <span class="hljs-literal">NA</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>  <span class="hljs-comment"># Adjust box width and dodge</span>
+  geom_point<span class="hljs-punctuation">(</span>aes<span class="hljs-punctuation">(</span>shape <span class="hljs-operator">=</span> Period<span class="hljs-punctuation">,</span> fill <span class="hljs-operator">=</span> AFETADO<span class="hljs-punctuation">,</span> group <span class="hljs-operator">=</span> Period<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> 
+             position <span class="hljs-operator">=</span> position_dodge<span class="hljs-punctuation">(</span>width <span class="hljs-operator">=</span> <span class="hljs-number">0.8</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> 
+             size <span class="hljs-operator">=</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span> stroke <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">,</span> alpha <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>  <span class="hljs-comment"># Map Period to shape for distinction</span>
+  facet_wrap<span class="hljs-punctuation">(</span><span class="hljs-operator">~</span> NMREG<span class="hljs-punctuation">,</span> ncol <span class="hljs-operator">=</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span> scales <span class="hljs-operator">=</span> <span class="hljs-string">&quot;free_x&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  scale_fill_manual<span class="hljs-punctuation">(</span>values <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;SIM&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#1b9e77&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;NAO&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#d95f02&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  scale_shape_manual<span class="hljs-punctuation">(</span>values <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;Antes&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-number">21</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Depois&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-number">22</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>  <span class="hljs-comment"># Set shapes for periods</span>
+  labs<span class="hljs-punctuation">(</span>
+    title <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Comparação da Incidência de Doenças antes e depois do evento&quot;</span><span class="hljs-punctuation">,</span>
+    x <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Minucípio&quot;</span><span class="hljs-punctuation">,</span>
+    y <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Incidência por 10000 Habitantes&quot;</span><span class="hljs-punctuation">,</span>
+    fill <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Município Afetado&quot;</span><span class="hljs-punctuation">,</span>
+    shape <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Período&quot;</span>
+  <span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  theme_bw<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  theme<span class="hljs-punctuation">(</span>axis.text.x <span class="hljs-operator">=</span> element_text<span class="hljs-punctuation">(</span>angle <span class="hljs-operator">=</span> <span class="hljs-number">45</span><span class="hljs-punctuation">,</span> hjust <span class="hljs-operator">=</span> <span class="hljs-number">1</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+dev.off<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+</code></pre>
+<p><img src="file:////Users/gabrielfernandes/Library/CloudStorage/GoogleDrive-fernandes.docs@gmail.com/My Drive/Vale/CHIK/Figuras/CHIKBR_ScaledbyYear.jpg" alt="By Year">
+<img src="file:////Users/gabrielfernandes/Library/CloudStorage/GoogleDrive-fernandes.docs@gmail.com/My Drive/Vale/CHIK/Figuras/CHIKBR_ScaledAntesDepois.jpg" alt="By Moment"></p>
+<h6 id="busca-por-padrões">Busca por padrões</h6>
+<p>A busca por padrões envolve o cálculo de distâncias para criar agrupamentos. A distância utilizada foi a correlação de Pearson, uma vez que o objetivo é identificar cidades que seguem o mesmo padrão da incidência ao longo dos anos.
+O índice de Calinski-Harabasz foi utilizado para definir o número ótimo de cluster. Quando o número era maior que 10 (indicando falta de padrão), optamos para escolher visualmente. |
+Neste caso, o número de agrupamentos foi 5.</p>
+<pre><code class="language-R">library<span class="hljs-punctuation">(</span>tidyverse<span class="hljs-punctuation">)</span>
+library<span class="hljs-punctuation">(</span>ggplot2<span class="hljs-punctuation">)</span>
+library<span class="hljs-punctuation">(</span>pheatmap<span class="hljs-punctuation">)</span>
+library<span class="hljs-punctuation">(</span>vegan<span class="hljs-punctuation">)</span>
+library<span class="hljs-punctuation">(</span>ComplexHeatmap<span class="hljs-punctuation">)</span>
+library<span class="hljs-punctuation">(</span>ggrepel<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+setwd<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;/data/gabriel/Trabalhos/Vale/DENG/&quot;</span><span class="hljs-punctuation">)</span>                                                <span class="hljs-comment">#############</span>
+metadata <span class="hljs-operator">=</span> read.table<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;/data/gabriel/Trabalhos/Vale/metadata.txt&quot;</span><span class="hljs-punctuation">,</span> header <span class="hljs-operator">=</span> <span class="hljs-built_in">T</span><span class="hljs-punctuation">,</span> sep <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\t&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-comment">#############</span>
+city_codes <span class="hljs-operator">&lt;-</span> metadata<span class="hljs-operator">$</span>CODMUN6                                                             <span class="hljs-comment">#############</span>
+disease_prefix <span class="hljs-operator">=</span> <span class="hljs-string">&quot;CHIKBR&quot;</span>                                                                  <span class="hljs-comment">#############</span>
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+
+<span class="hljs-comment"># Load previously processed data</span>
+load<span class="hljs-punctuation">(</span>paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span><span class="hljs-string">&quot;_variables.Rdata&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+matrix <span class="hljs-operator">=</span> data.frame<span class="hljs-punctuation">(</span>incidence_table<span class="hljs-punctuation">[</span><span class="hljs-punctuation">,</span><span class="hljs-number">4</span><span class="hljs-operator">:</span>ncol<span class="hljs-punctuation">(</span>incidence_table<span class="hljs-punctuation">)</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> row.names <span class="hljs-operator">=</span> incidence_table<span class="hljs-operator">$</span>NMMUNICIPIO<span class="hljs-punctuation">)</span>
+row_anot <span class="hljs-operator">=</span> data.frame<span class="hljs-punctuation">(</span>incidence_table<span class="hljs-punctuation">[</span><span class="hljs-punctuation">,</span><span class="hljs-number">2</span><span class="hljs-operator">:</span><span class="hljs-number">3</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> row.names <span class="hljs-operator">=</span> incidence_table<span class="hljs-operator">$</span>NMMUNICIPIO<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Calculate the distance matrix</span>
+data.dist <span class="hljs-operator">&lt;-</span> as.dist<span class="hljs-punctuation">(</span><span class="hljs-number">1</span> <span class="hljs-operator">-</span> cor<span class="hljs-punctuation">(</span>t<span class="hljs-punctuation">(</span>matrix<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Perform hierarchical clustering</span>
+hc <span class="hljs-operator">&lt;-</span> hclust<span class="hljs-punctuation">(</span>data.dist<span class="hljs-punctuation">,</span> method <span class="hljs-operator">=</span> <span class="hljs-string">&quot;complete&quot;</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Calculate the CH Index for different numbers of clusters</span>
+ch_index <span class="hljs-operator">&lt;-</span> numeric<span class="hljs-punctuation">(</span><span class="hljs-number">10</span><span class="hljs-punctuation">)</span>
+<span class="hljs-keyword">for</span> <span class="hljs-punctuation">(</span>k <span class="hljs-keyword">in</span> <span class="hljs-number">2</span><span class="hljs-operator">:</span><span class="hljs-number">10</span><span class="hljs-punctuation">)</span> <span class="hljs-punctuation">{</span>
+  clustering <span class="hljs-operator">&lt;-</span> cutree<span class="hljs-punctuation">(</span>hc<span class="hljs-punctuation">,</span> k <span class="hljs-operator">=</span> k<span class="hljs-punctuation">)</span>
+  ch_index<span class="hljs-punctuation">[</span>k<span class="hljs-punctuation">]</span> <span class="hljs-operator">&lt;-</span> cluster.stats<span class="hljs-punctuation">(</span>d <span class="hljs-operator">=</span> as.dist<span class="hljs-punctuation">(</span>data.dist<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> clustering<span class="hljs-punctuation">)</span><span class="hljs-operator">$</span>ch
+<span class="hljs-punctuation">}</span>
+
+<span class="hljs-comment"># Find the optimal number of clusters</span>
+optimal_clusters <span class="hljs-operator">&lt;-</span> which.max<span class="hljs-punctuation">(</span>ch_index<span class="hljs-punctuation">)</span>
+optimal_clusters <span class="hljs-operator">&lt;-</span> 5
+
+<span class="hljs-comment"># Plot the CH Index</span>
+plot<span class="hljs-punctuation">(</span><span class="hljs-number">2</span><span class="hljs-operator">:</span><span class="hljs-number">10</span><span class="hljs-punctuation">,</span> ch_index<span class="hljs-punctuation">[</span><span class="hljs-number">2</span><span class="hljs-operator">:</span><span class="hljs-number">10</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> type <span class="hljs-operator">=</span> <span class="hljs-string">&quot;b&quot;</span><span class="hljs-punctuation">,</span> xlab <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Number of Clusters&quot;</span><span class="hljs-punctuation">,</span> ylab <span class="hljs-operator">=</span> <span class="hljs-string">&quot;CH Index&quot;</span><span class="hljs-punctuation">,</span>
+     main <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Optimal Number of Clusters using CH Index&quot;</span><span class="hljs-punctuation">)</span>
+abline<span class="hljs-punctuation">(</span>v <span class="hljs-operator">=</span> optimal_clusters<span class="hljs-punctuation">,</span> col <span class="hljs-operator">=</span> <span class="hljs-string">&quot;red&quot;</span><span class="hljs-punctuation">,</span> lty <span class="hljs-operator">=</span> <span class="hljs-number">2</span><span class="hljs-punctuation">)</span>
+
+annotation_colors <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">list</span><span class="hljs-punctuation">(</span>
+  AFETADO <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;SIM&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#1b9e77&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;NAO&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#d95f02&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment"># Colors for AFETADO</span>
+  NMREG <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;BETIM&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#66c2a5&quot;</span><span class="hljs-punctuation">,</span>           <span class="hljs-comment"># Greenish</span>
+            <span class="hljs-string">&quot;CURVELO&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#fc8d62&quot;</span><span class="hljs-punctuation">,</span>         <span class="hljs-comment"># Orange</span>
+            <span class="hljs-string">&quot;PARA DE MINAS/NOVA SERRANA&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#8da0cb&quot;</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment"># Blue</span>
+            <span class="hljs-string">&quot;PATOS DE MINAS&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#e78ac3&quot;</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment"># Pink</span>
+            <span class="hljs-string">&quot;SETE LAGOAS&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#a6d854&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>     <span class="hljs-comment"># Light green</span>
+  Cluster <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;1&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#FFDB6D&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;2&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#C4961A&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;3&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#D16103&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;4&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#52854C&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;5&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#293352&quot;</span><span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">)</span>
+
+row_anot <span class="hljs-operator">=</span> data.frame<span class="hljs-punctuation">(</span>row_anot<span class="hljs-punctuation">,</span> Cluster <span class="hljs-operator">=</span> as.factor<span class="hljs-punctuation">(</span>cutree<span class="hljs-punctuation">(</span>hc<span class="hljs-punctuation">,</span> k <span class="hljs-operator">=</span> optimal_clusters<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+</code></pre>
+<p>A partir dos padrões, geramos 2 heatmaps:</p>
+<ul>
+<li>Um mostrando a distribuição das incidências ao longo dos anos.</li>
+<li>Um mostrando os municípios que mais correlacionam entre si.</li>
+</ul>
+<pre><code class="language-R"><span class="hljs-comment"># Plot the heatmap</span>
+pdf<span class="hljs-punctuation">(</span>file <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;_ScaledHeatmap.pdf&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> width <span class="hljs-operator">=</span> <span class="hljs-number">12</span><span class="hljs-punctuation">,</span> height <span class="hljs-operator">=</span> <span class="hljs-number">10</span><span class="hljs-punctuation">)</span>
+pheatmap<span class="hljs-punctuation">(</span>
+  mat <span class="hljs-operator">=</span> as.matrix<span class="hljs-punctuation">(</span>matrix<span class="hljs-punctuation">[</span>rowSums<span class="hljs-punctuation">(</span>matrix <span class="hljs-operator">!=</span> <span class="hljs-number">0</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">&gt;</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">]</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+  scale <span class="hljs-operator">=</span> <span class="hljs-string">&quot;row&quot;</span><span class="hljs-punctuation">,</span>
+  annotation_row <span class="hljs-operator">=</span> row_anot<span class="hljs-punctuation">[</span>rowSums<span class="hljs-punctuation">(</span>matrix <span class="hljs-operator">!=</span> <span class="hljs-number">0</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">&gt;</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  annotation_colors <span class="hljs-operator">=</span> annotation_colors<span class="hljs-punctuation">,</span>
+  clustering_distance_rows <span class="hljs-operator">=</span> <span class="hljs-string">&quot;correlation&quot;</span><span class="hljs-punctuation">,</span>
+  cluster_cols <span class="hljs-operator">=</span> <span class="hljs-built_in">F</span><span class="hljs-punctuation">,</span>
+  cutree_rows <span class="hljs-operator">=</span> optimal_clusters<span class="hljs-punctuation">,</span>
+  clustering_method <span class="hljs-operator">=</span> <span class="hljs-string">&quot;complete&quot;</span><span class="hljs-punctuation">,</span>
+  show_rownames <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">,</span>
+  show_colnames <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">,</span>
+  main <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Heatmap of Disease Incidence&quot;</span>
+<span class="hljs-punctuation">)</span>
+dev.off<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Create a color mapping for annotations</span>
+annotation_colors <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">list</span><span class="hljs-punctuation">(</span>
+  AFETADO <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;SIM&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#1b9e77&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;NAO&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#d95f02&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+  NMREG <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;BETIM&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#66c2a5&quot;</span><span class="hljs-punctuation">,</span> 
+            <span class="hljs-string">&quot;CURVELO&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#fc8d62&quot;</span><span class="hljs-punctuation">,</span> 
+            <span class="hljs-string">&quot;PARA DE MINAS/NOVA SERRANA&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#8da0cb&quot;</span><span class="hljs-punctuation">,</span> 
+            <span class="hljs-string">&quot;PATOS DE MINAS&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#e78ac3&quot;</span><span class="hljs-punctuation">,</span> 
+            <span class="hljs-string">&quot;SETE LAGOAS&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#a6d854&quot;</span><span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Define row annotations</span>
+row_annotation <span class="hljs-operator">&lt;-</span> rowAnnotation<span class="hljs-punctuation">(</span>
+  AFETADO <span class="hljs-operator">=</span> row_anot<span class="hljs-operator">$</span>AFETADO<span class="hljs-punctuation">,</span>
+  NMREG <span class="hljs-operator">=</span> row_anot<span class="hljs-operator">$</span>NMREG<span class="hljs-punctuation">,</span>
+  col <span class="hljs-operator">=</span> annotation_colors
+<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Create the heatmap object with row annotations</span>
+ht <span class="hljs-operator">&lt;-</span> Heatmap<span class="hljs-punctuation">(</span>
+  as.matrix<span class="hljs-punctuation">(</span>data.dist<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+  name <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Distance&quot;</span><span class="hljs-punctuation">,</span>
+  row_title <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Cities&quot;</span><span class="hljs-punctuation">,</span>
+  column_title <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Cities&quot;</span><span class="hljs-punctuation">,</span>
+  row_split <span class="hljs-operator">=</span> <span class="hljs-number">5</span><span class="hljs-punctuation">,</span>
+  column_split <span class="hljs-operator">=</span> <span class="hljs-number">5</span><span class="hljs-punctuation">,</span>
+  right_annotation <span class="hljs-operator">=</span> row_annotation
+<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Draw the heatmap with legends at the bottom</span>
+pdf<span class="hljs-punctuation">(</span>file <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;_ScaledDistance.pdf&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> width <span class="hljs-operator">=</span> <span class="hljs-number">13</span><span class="hljs-punctuation">,</span> height <span class="hljs-operator">=</span> <span class="hljs-number">14</span><span class="hljs-punctuation">)</span>
+draw<span class="hljs-punctuation">(</span>ht<span class="hljs-punctuation">,</span> heatmap_legend_side <span class="hljs-operator">=</span> <span class="hljs-string">&quot;bottom&quot;</span><span class="hljs-punctuation">,</span> annotation_legend_side <span class="hljs-operator">=</span> <span class="hljs-string">&quot;bottom&quot;</span><span class="hljs-punctuation">)</span>
+dev.off<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+</code></pre>
+<p><img src="file:////Users/gabrielfernandes/Library/CloudStorage/GoogleDrive-fernandes.docs@gmail.com/My Drive/Vale/CHIK/Figuras/CHIKBR_ScaledHeatmap.jpg" alt="Heatmap">
+<img src="file:////Users/gabrielfernandes/Library/CloudStorage/GoogleDrive-fernandes.docs@gmail.com/My Drive/Vale/CHIK/Figuras/CHIKBR_ScaledDistance.jpg" alt="Distance"></p>
+<p>Um teste exato de Fisher foi usado para avaliar se havia maior prevalência de municípios afetados, ou de uma determinada região em um cluster. Isso poderia explicar se os municípios se agrupam mais por suas propriedades regionais, ou pelo fato de terem sido afetados.</p>
+<pre><code class="language-R"><span class="hljs-comment"># Initialize results for affected prevalence</span>
+affected_results <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">list</span><span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-keyword">for</span> <span class="hljs-punctuation">(</span>cluster_id <span class="hljs-keyword">in</span> unique<span class="hljs-punctuation">(</span>row_anot_clean<span class="hljs-operator">$</span>Cluster<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-punctuation">{</span>
+  <span class="hljs-comment"># Cities inside the cluster</span>
+  inside_cluster <span class="hljs-operator">&lt;-</span> row_anot_clean<span class="hljs-punctuation">[</span>row_anot_clean<span class="hljs-operator">$</span>Cluster <span class="hljs-operator">==</span> cluster_id<span class="hljs-punctuation">,</span> <span class="hljs-punctuation">]</span>
+  <span class="hljs-comment"># Cities outside the cluster</span>
+  outside_cluster <span class="hljs-operator">&lt;-</span> row_anot_clean<span class="hljs-punctuation">[</span>row_anot_clean<span class="hljs-operator">$</span>Cluster <span class="hljs-operator">!=</span> cluster_id<span class="hljs-punctuation">,</span> <span class="hljs-punctuation">]</span>
+  
+  <span class="hljs-comment"># Contingency table for AFETADO</span>
+  affected_table <span class="hljs-operator">&lt;-</span> matrix<span class="hljs-punctuation">(</span>
+    <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span>
+      <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span>inside_cluster<span class="hljs-operator">$</span>AFETADO <span class="hljs-operator">==</span> <span class="hljs-string">&quot;SIM&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span>inside_cluster<span class="hljs-operator">$</span>AFETADO <span class="hljs-operator">==</span> <span class="hljs-string">&quot;NAO&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span>outside_cluster<span class="hljs-operator">$</span>AFETADO <span class="hljs-operator">==</span> <span class="hljs-string">&quot;SIM&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span>outside_cluster<span class="hljs-operator">$</span>AFETADO <span class="hljs-operator">==</span> <span class="hljs-string">&quot;NAO&quot;</span><span class="hljs-punctuation">)</span>
+    <span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+    nrow <span class="hljs-operator">=</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-built_in">dimnames</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">list</span><span class="hljs-punctuation">(</span>
+      <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;Inside Cluster&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Outside Cluster&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;Affected&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Not Affected&quot;</span><span class="hljs-punctuation">)</span>
+    <span class="hljs-punctuation">)</span>
+  <span class="hljs-punctuation">)</span>
+  
+  <span class="hljs-comment"># Run Fisher&#x27;s test</span>
+  fisher_affected <span class="hljs-operator">&lt;-</span> fisher.test<span class="hljs-punctuation">(</span>affected_table<span class="hljs-punctuation">)</span>
+  
+  <span class="hljs-comment"># Save results</span>
+  affected_results<span class="hljs-punctuation">[[</span>paste0<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;Cluster_&quot;</span><span class="hljs-punctuation">,</span> cluster_id<span class="hljs-punctuation">)</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">list</span><span class="hljs-punctuation">(</span>
+    pval <span class="hljs-operator">=</span> fisher_affected<span class="hljs-operator">$</span>p.value<span class="hljs-punctuation">,</span>
+    affected_ratio_inside <span class="hljs-operator">=</span> affected_table<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">/</span> <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span>affected_table<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">]</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+    affected_ratio_outside <span class="hljs-operator">=</span> affected_table<span class="hljs-punctuation">[</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">/</span> <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span>affected_table<span class="hljs-punctuation">[</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">]</span><span class="hljs-punctuation">)</span>
+  <span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">}</span>
+
+<span class="hljs-comment"># Initialize results for regional prevalence</span>
+region_results <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">list</span><span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-keyword">for</span> <span class="hljs-punctuation">(</span>cluster_id <span class="hljs-keyword">in</span> unique<span class="hljs-punctuation">(</span>row_anot_clean<span class="hljs-operator">$</span>Cluster<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-punctuation">{</span>
+  <span class="hljs-keyword">for</span> <span class="hljs-punctuation">(</span>region <span class="hljs-keyword">in</span> unique<span class="hljs-punctuation">(</span>row_anot_clean<span class="hljs-operator">$</span>NMREG<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-comment"># Cities inside the cluster</span>
+    inside_cluster <span class="hljs-operator">&lt;-</span> row_anot_clean<span class="hljs-punctuation">[</span>row_anot_clean<span class="hljs-operator">$</span>Cluster <span class="hljs-operator">==</span> cluster_id<span class="hljs-punctuation">,</span> <span class="hljs-punctuation">]</span>
+    <span class="hljs-comment"># Cities outside the cluster</span>
+    outside_cluster <span class="hljs-operator">&lt;-</span> row_anot_clean<span class="hljs-punctuation">[</span>row_anot_clean<span class="hljs-operator">$</span>Cluster <span class="hljs-operator">!=</span> cluster_id<span class="hljs-punctuation">,</span> <span class="hljs-punctuation">]</span>
+    
+    <span class="hljs-comment"># Contingency table for NMREG</span>
+    region_table <span class="hljs-operator">&lt;-</span> matrix<span class="hljs-punctuation">(</span>
+      <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span>
+        <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span>inside_cluster<span class="hljs-operator">$</span>NMREG <span class="hljs-operator">==</span> region<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+        nrow<span class="hljs-punctuation">(</span>inside_cluster<span class="hljs-punctuation">)</span> <span class="hljs-operator">-</span> <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span>inside_cluster<span class="hljs-operator">$</span>NMREG <span class="hljs-operator">==</span> region<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span>outside_cluster<span class="hljs-operator">$</span>NMREG <span class="hljs-operator">==</span> region<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+        nrow<span class="hljs-punctuation">(</span>outside_cluster<span class="hljs-punctuation">)</span> <span class="hljs-operator">-</span> <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span>outside_cluster<span class="hljs-operator">$</span>NMREG <span class="hljs-operator">==</span> region<span class="hljs-punctuation">)</span>
+      <span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+      nrow <span class="hljs-operator">=</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-built_in">dimnames</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">list</span><span class="hljs-punctuation">(</span>
+        <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;Inside Cluster&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Outside Cluster&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;In Region&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Not In Region&quot;</span><span class="hljs-punctuation">)</span>
+      <span class="hljs-punctuation">)</span>
+    <span class="hljs-punctuation">)</span>
+    
+    <span class="hljs-comment"># Run Fisher&#x27;s test</span>
+    fisher_region <span class="hljs-operator">&lt;-</span> fisher.test<span class="hljs-punctuation">(</span>region_table<span class="hljs-punctuation">)</span>
+    
+    <span class="hljs-comment"># Save results</span>
+    region_results<span class="hljs-punctuation">[[</span>paste0<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;Cluster_&quot;</span><span class="hljs-punctuation">,</span> cluster_id<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;_Region_&quot;</span><span class="hljs-punctuation">,</span> region<span class="hljs-punctuation">)</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">list</span><span class="hljs-punctuation">(</span>
+      pval <span class="hljs-operator">=</span> fisher_region<span class="hljs-operator">$</span>p.value<span class="hljs-punctuation">,</span>
+      region_ratio_inside <span class="hljs-operator">=</span> region_table<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">/</span> <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span>region_table<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">]</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+      region_ratio_outside <span class="hljs-operator">=</span> region_table<span class="hljs-punctuation">[</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">/</span> <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span>region_table<span class="hljs-punctuation">[</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">]</span><span class="hljs-punctuation">)</span>
+    <span class="hljs-punctuation">)</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+
+
+<span class="hljs-comment">#Compile</span>
+affected_results_df <span class="hljs-operator">&lt;-</span> do.call<span class="hljs-punctuation">(</span>rbind<span class="hljs-punctuation">,</span> lapply<span class="hljs-punctuation">(</span><span class="hljs-built_in">names</span><span class="hljs-punctuation">(</span>affected_results<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-keyword">function</span><span class="hljs-punctuation">(</span>name<span class="hljs-punctuation">)</span> <span class="hljs-punctuation">{</span>
+  data.frame<span class="hljs-punctuation">(</span>
+    Cluster <span class="hljs-operator">=</span> name<span class="hljs-punctuation">,</span>
+    pval <span class="hljs-operator">=</span> affected_results<span class="hljs-punctuation">[[</span>name<span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span><span class="hljs-operator">$</span>pval<span class="hljs-punctuation">,</span>
+    ratio_inside <span class="hljs-operator">=</span> affected_results<span class="hljs-punctuation">[[</span>name<span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span><span class="hljs-operator">$</span>affected_ratio_inside<span class="hljs-punctuation">,</span>
+    ratio_outside <span class="hljs-operator">=</span> affected_results<span class="hljs-punctuation">[[</span>name<span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span><span class="hljs-operator">$</span>affected_ratio_outside
+  <span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+region_results_df <span class="hljs-operator">&lt;-</span> do.call<span class="hljs-punctuation">(</span>rbind<span class="hljs-punctuation">,</span> lapply<span class="hljs-punctuation">(</span><span class="hljs-built_in">names</span><span class="hljs-punctuation">(</span>region_results<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-keyword">function</span><span class="hljs-punctuation">(</span>name<span class="hljs-punctuation">)</span> <span class="hljs-punctuation">{</span>
+  parts <span class="hljs-operator">&lt;-</span> strsplit<span class="hljs-punctuation">(</span>name<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;_&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">[[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span>  <span class="hljs-comment"># Split name into cluster and region</span>
+  data.frame<span class="hljs-punctuation">(</span>
+    Cluster <span class="hljs-operator">=</span> parts<span class="hljs-punctuation">[</span><span class="hljs-number">2</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    Region <span class="hljs-operator">=</span> parts<span class="hljs-punctuation">[</span><span class="hljs-number">4</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    pval <span class="hljs-operator">=</span> region_results<span class="hljs-punctuation">[[</span>name<span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span><span class="hljs-operator">$</span>pval<span class="hljs-punctuation">,</span>
+    ratio_inside <span class="hljs-operator">=</span> region_results<span class="hljs-punctuation">[[</span>name<span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span><span class="hljs-operator">$</span>region_ratio_inside<span class="hljs-punctuation">,</span>
+    ratio_outside <span class="hljs-operator">=</span> region_results<span class="hljs-punctuation">[[</span>name<span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span><span class="hljs-operator">$</span>region_ratio_outside
+  <span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+kable<span class="hljs-punctuation">(</span>subset<span class="hljs-punctuation">(</span>affected_results_df<span class="hljs-punctuation">,</span> subset <span class="hljs-operator">=</span> pval <span class="hljs-operator">&lt;</span> <span class="hljs-number">0.05</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> format <span class="hljs-operator">=</span> <span class="hljs-string">&quot;markdown&quot;</span><span class="hljs-punctuation">)</span>
+kable<span class="hljs-punctuation">(</span>subset<span class="hljs-punctuation">(</span>region_results_df<span class="hljs-punctuation">,</span> subset <span class="hljs-operator">=</span> pval <span class="hljs-operator">&lt;</span> <span class="hljs-number">0.05</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> format <span class="hljs-operator">=</span> <span class="hljs-string">&quot;markdown&quot;</span><span class="hljs-punctuation">)</span>
+</code></pre>
+<p>Os clusters 1 e 2 estão superrepresentados por municípios das regiões de Sete Lagoas e Patos de Minas, respectivamente.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Cluster</th>
+<th style="text-align:left">Region</th>
+<th style="text-align:right">pval</th>
+<th style="text-align:right">ratio_inside</th>
+<th style="text-align:right">ratio_outside</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:right">0.0000126</td>
+<td style="text-align:right">0.2000000</td>
+<td style="text-align:right">0.9056604</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:right">0.0217441</td>
+<td style="text-align:right">0.9565217</td>
+<td style="text-align:right">0.7000000</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">PATOS DE MINAS</td>
+<td style="text-align:right">0.0010374</td>
+<td style="text-align:right">0.6000000</td>
+<td style="text-align:right">0.0943396</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">SETE LAGOAS</td>
+<td style="text-align:right">0.0443931</td>
+<td style="text-align:right">0.0434783</td>
+<td style="text-align:right">0.2500000</td>
+</tr>
+</tbody>
+</table>
+<p>A importância de cada variável em explicar a variância entre os municípios foi medida através de um teste de <code>PERMANOVA</code> e foi visualizado em uma análise de Escalonamento Multidimensional não métrico (NMDS).</p>
+<pre><code class="language-R"><span class="hljs-comment">### PERMANOVA</span>
+
+<span class="hljs-comment"># Ensure the annotation variables are factors</span>
+row_anot_clean<span class="hljs-operator">$</span>AFETADO <span class="hljs-operator">&lt;-</span> factor<span class="hljs-punctuation">(</span>row_anot_clean<span class="hljs-operator">$</span>AFETADO<span class="hljs-punctuation">)</span>
+row_anot_clean<span class="hljs-operator">$</span>NMREG <span class="hljs-operator">&lt;-</span> factor<span class="hljs-punctuation">(</span>row_anot_clean<span class="hljs-operator">$</span>NMREG<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Perform the PERMANOVA test</span>
+permanova_result <span class="hljs-operator">&lt;-</span> adonis2<span class="hljs-punctuation">(</span>
+  as.dist<span class="hljs-punctuation">(</span>data.dist<span class="hljs-punctuation">)</span> <span class="hljs-operator">~</span> AFETADO <span class="hljs-operator">+</span> NMREG <span class="hljs-operator">+</span> AFETADO<span class="hljs-operator">:</span>NMREG<span class="hljs-punctuation">,</span>
+  data <span class="hljs-operator">=</span> row_anot_clean<span class="hljs-punctuation">,</span>
+  permutations <span class="hljs-operator">=</span> <span class="hljs-number">199</span><span class="hljs-punctuation">,</span>
+  method <span class="hljs-operator">=</span> <span class="hljs-string">&quot;euclidean&quot;</span><span class="hljs-punctuation">,</span> by <span class="hljs-operator">=</span> <span class="hljs-string">&quot;terms&quot;</span>
+<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Display the results</span>
+kable<span class="hljs-punctuation">(</span>permanova_result<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Extract PERMANOVA results using rownames</span>
+permanova_text <span class="hljs-operator">&lt;-</span> paste0<span class="hljs-punctuation">(</span>
+  <span class="hljs-string">&quot;PERMANOVA Results:\n&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;AFETADO: R² = &quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">round</span><span class="hljs-punctuation">(</span>permanova_result<span class="hljs-punctuation">[</span><span class="hljs-string">&quot;AFETADO&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;R2&quot;</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">*</span> <span class="hljs-number">100</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;%, p = &quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">signif</span><span class="hljs-punctuation">(</span>permanova_result<span class="hljs-punctuation">[</span><span class="hljs-string">&quot;AFETADO&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Pr(&gt;F)&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> <span class="hljs-number">3</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;\n&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;NMREG: R² = &quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">round</span><span class="hljs-punctuation">(</span>permanova_result<span class="hljs-punctuation">[</span><span class="hljs-string">&quot;NMREG&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;R2&quot;</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">*</span> <span class="hljs-number">100</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;%, p = &quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">signif</span><span class="hljs-punctuation">(</span>permanova_result<span class="hljs-punctuation">[</span><span class="hljs-string">&quot;NMREG&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Pr(&gt;F)&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> <span class="hljs-number">3</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;\n&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;Interaction (AFETADO:NMREG): R² = &quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">round</span><span class="hljs-punctuation">(</span>permanova_result<span class="hljs-punctuation">[</span><span class="hljs-string">&quot;AFETADO:NMREG&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;R2&quot;</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">*</span> <span class="hljs-number">100</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;%, p = &quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">signif</span><span class="hljs-punctuation">(</span>permanova_result<span class="hljs-punctuation">[</span><span class="hljs-string">&quot;AFETADO:NMREG&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Pr(&gt;F)&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> <span class="hljs-number">3</span><span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Perform NMDS</span>
+nmds_result <span class="hljs-operator">&lt;-</span> metaMDS<span class="hljs-punctuation">(</span>as.dist<span class="hljs-punctuation">(</span>data.dist<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> k <span class="hljs-operator">=</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span> trymax <span class="hljs-operator">=</span> <span class="hljs-number">100</span><span class="hljs-punctuation">)</span>
+<span class="hljs-comment"># Calculate variance explained by each NMDS axis</span>
+distance_matrix <span class="hljs-operator">&lt;-</span> as.matrix<span class="hljs-punctuation">(</span>data.dist<span class="hljs-punctuation">)</span>
+eigenvalues <span class="hljs-operator">&lt;-</span> cmdscale<span class="hljs-punctuation">(</span>distance_matrix<span class="hljs-punctuation">,</span> k <span class="hljs-operator">=</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span> eig <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span><span class="hljs-operator">$</span>eig
+variance_explained_axis1 <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">round</span><span class="hljs-punctuation">(</span><span class="hljs-number">100</span> <span class="hljs-operator">*</span> eigenvalues<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">/</span> <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">abs</span><span class="hljs-punctuation">(</span>eigenvalues<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">)</span>
+variance_explained_axis2 <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">round</span><span class="hljs-punctuation">(</span><span class="hljs-number">100</span> <span class="hljs-operator">*</span> eigenvalues<span class="hljs-punctuation">[</span><span class="hljs-number">2</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">/</span> <span class="hljs-built_in">sum</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">abs</span><span class="hljs-punctuation">(</span>eigenvalues<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">)</span>
+<span class="hljs-comment"># Extract coordinates and add annotations</span>
+nmds_data <span class="hljs-operator">&lt;-</span> data.frame<span class="hljs-punctuation">(</span>
+  NMDS1 <span class="hljs-operator">=</span> nmds_result<span class="hljs-operator">$</span>points<span class="hljs-punctuation">[</span><span class="hljs-punctuation">,</span> <span class="hljs-number">1</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  NMDS2 <span class="hljs-operator">=</span> nmds_result<span class="hljs-operator">$</span>points<span class="hljs-punctuation">[</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  NMREG <span class="hljs-operator">=</span> row_anot_clean<span class="hljs-operator">$</span>NMREG<span class="hljs-punctuation">,</span>
+  AFETADO <span class="hljs-operator">=</span> row_anot_clean<span class="hljs-operator">$</span>AFETADO
+<span class="hljs-punctuation">)</span>
+<span class="hljs-comment"># Define region colors</span>
+region_colors <span class="hljs-operator">&lt;-</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span>
+  <span class="hljs-string">&quot;BETIM&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#66c2a5&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;CURVELO&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#fc8d62&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;PARA DE MINAS/NOVA SERRANA&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#8da0cb&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;PATOS DE MINAS&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#e78ac3&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;SETE LAGOAS&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#a6d854&quot;</span>
+<span class="hljs-punctuation">)</span>
+
+
+<span class="hljs-comment"># Plot with ggplot2</span>
+pdf<span class="hljs-punctuation">(</span>file <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;_ScaledNMDS.pdf&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> width <span class="hljs-operator">=</span> <span class="hljs-number">12</span><span class="hljs-punctuation">,</span> height <span class="hljs-operator">=</span> <span class="hljs-number">10</span><span class="hljs-punctuation">)</span>
+
+ggplot<span class="hljs-punctuation">(</span>nmds_data<span class="hljs-punctuation">,</span> aes<span class="hljs-punctuation">(</span>x <span class="hljs-operator">=</span> NMDS1<span class="hljs-punctuation">,</span> y <span class="hljs-operator">=</span> NMDS2<span class="hljs-punctuation">,</span> fill <span class="hljs-operator">=</span> AFETADO<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  geom_point<span class="hljs-punctuation">(</span>size <span class="hljs-operator">=</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span> alpha <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">,</span> shape <span class="hljs-operator">=</span> <span class="hljs-number">21</span><span class="hljs-punctuation">,</span> stroke <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">,</span> color <span class="hljs-operator">=</span> <span class="hljs-string">&quot;black&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  stat_ellipse<span class="hljs-punctuation">(</span>aes<span class="hljs-punctuation">(</span>group <span class="hljs-operator">=</span> NMREG<span class="hljs-punctuation">,</span> color <span class="hljs-operator">=</span> NMREG<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> size <span class="hljs-operator">=</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span> alpha <span class="hljs-operator">=</span> <span class="hljs-number">0.8</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>  <span class="hljs-comment"># Explicit group aesthetic for ellipses</span>
+  scale_fill_manual<span class="hljs-punctuation">(</span>values <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;SIM&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#1b9e77&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;NAO&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#d95f02&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  scale_color_manual<span class="hljs-punctuation">(</span>values <span class="hljs-operator">=</span> region_colors<span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  labs<span class="hljs-punctuation">(</span>
+    title <span class="hljs-operator">=</span> <span class="hljs-string">&quot;NMDS of Disease Incidence&quot;</span><span class="hljs-punctuation">,</span>
+    x <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;NMDS 1 (&quot;</span><span class="hljs-punctuation">,</span> variance_explained_axis1<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;% explained)&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+    y <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;NMDS 2 (&quot;</span><span class="hljs-punctuation">,</span> variance_explained_axis2<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;% explained)&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+    fill <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Affected (AFETADO)&quot;</span><span class="hljs-punctuation">,</span>
+    color <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Region (NMREG)&quot;</span>
+  <span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  annotate<span class="hljs-punctuation">(</span>
+    <span class="hljs-string">&quot;text&quot;</span><span class="hljs-punctuation">,</span> x <span class="hljs-operator">=</span> <span class="hljs-literal">Inf</span><span class="hljs-punctuation">,</span> y <span class="hljs-operator">=</span> <span class="hljs-literal">Inf</span><span class="hljs-punctuation">,</span> label <span class="hljs-operator">=</span> permanova_text<span class="hljs-punctuation">,</span> hjust <span class="hljs-operator">=</span> <span class="hljs-number">1.1</span><span class="hljs-punctuation">,</span> vjust <span class="hljs-operator">=</span> <span class="hljs-number">1.2</span><span class="hljs-punctuation">,</span>
+    size <span class="hljs-operator">=</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span> color <span class="hljs-operator">=</span> <span class="hljs-string">&quot;black&quot;</span><span class="hljs-punctuation">,</span> fontface <span class="hljs-operator">=</span> <span class="hljs-string">&quot;italic&quot;</span>
+  <span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  theme_minimal<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  theme<span class="hljs-punctuation">(</span>
+    legend.position <span class="hljs-operator">=</span> <span class="hljs-string">&quot;right&quot;</span><span class="hljs-punctuation">,</span>
+    legend.box <span class="hljs-operator">=</span> <span class="hljs-string">&quot;vertical&quot;</span>
+  <span class="hljs-punctuation">)</span>
+
+dev.off<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+</code></pre>
+<p>O PERMANOVA aponta que a variável <code>AFETADO</code> explica 2,3%% da variabilidade observada entre as amostras. Por outro lado, a variável <code>NMREG</code>, que representa a região, responde por 36,06% da variabilidade (coluna <code>R2</code>), com um valor de p de 0,005 (coluna <code>Pr(&gt;F)</code>)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:right">Df</th>
+<th style="text-align:right">SumOfSqs</th>
+<th style="text-align:right">R2</th>
+<th style="text-align:right">F</th>
+<th style="text-align:right">Pr(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AFETADO</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0.1642682</td>
+<td style="text-align:right">0.0239516</td>
+<td style="text-align:right">2.2146702</td>
+<td style="text-align:right">0.155</td>
+</tr>
+<tr>
+<td style="text-align:left">NMREG</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">2.4737615</td>
+<td style="text-align:right">0.3606938</td>
+<td style="text-align:right">8.3378350</td>
+<td style="text-align:right">0.005</td>
+</tr>
+<tr>
+<td style="text-align:left">AFETADO:NMREG</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">0.2149831</td>
+<td style="text-align:right">0.0313462</td>
+<td style="text-align:right">0.9661366</td>
+<td style="text-align:right">0.490</td>
+</tr>
+<tr>
+<td style="text-align:left">Residual</td>
+<td style="text-align:right">54</td>
+<td style="text-align:right">4.0053300</td>
+<td style="text-align:right">0.5840084</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:right">62</td>
+<td style="text-align:right">6.8583429</td>
+<td style="text-align:right">1.0000000</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+</tbody>
+</table>
+<p><img src="file:////Users/gabrielfernandes/Library/CloudStorage/GoogleDrive-fernandes.docs@gmail.com/My Drive/Vale/CHIK/Figuras/CHIKBR_ScaledNMDS.jpg" alt="NMDS"></p>
+<h6 id="análise-de-componentes-principais-pca">Análise de componentes principais (PCA)</h6>
+<p>A análise de componentes principais avalia qual o ano tem mais influência sobre o a distribuição dos municípios ao longo dos eixos X e Y.</p>
+<pre><code class="language-R"><span class="hljs-comment">### Visualize biplot PCA</span>
+
+<span class="hljs-comment"># Perform PCA</span>
+pca_result_row_scaled <span class="hljs-operator">&lt;-</span> prcomp<span class="hljs-punctuation">(</span>matrix_clean<span class="hljs-punctuation">,</span> scale. <span class="hljs-operator">=</span> <span class="hljs-built_in">F</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Extract PCA scores for cities</span>
+pca_scores_row_scaled <span class="hljs-operator">&lt;-</span> data.frame<span class="hljs-punctuation">(</span>
+  pca_result_row_scaled<span class="hljs-operator">$</span>x<span class="hljs-punctuation">,</span> 
+  AFETADO <span class="hljs-operator">=</span> row_anot_clean<span class="hljs-operator">$</span>AFETADO<span class="hljs-punctuation">,</span> 
+  NMREG <span class="hljs-operator">=</span> row_anot_clean<span class="hljs-operator">$</span>NMREG<span class="hljs-punctuation">,</span> 
+  CityName <span class="hljs-operator">=</span> rownames<span class="hljs-punctuation">(</span>matrix_clean<span class="hljs-punctuation">)</span>  <span class="hljs-comment"># Add city names for labeling</span>
+<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Extract PCA loadings for years</span>
+pca_loadings_row_scaled <span class="hljs-operator">&lt;-</span> data.frame<span class="hljs-punctuation">(</span>
+  pca_result_row_scaled<span class="hljs-operator">$</span>rotation<span class="hljs-punctuation">,</span> 
+  Variable <span class="hljs-operator">=</span> colnames<span class="hljs-punctuation">(</span>matrix_clean<span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># PCA Biplot with ellipses for NMREG</span>
+
+pdf<span class="hljs-punctuation">(</span>file <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;_Scaledbiplot.pdf&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> width <span class="hljs-operator">=</span> <span class="hljs-number">12</span><span class="hljs-punctuation">,</span> height <span class="hljs-operator">=</span> <span class="hljs-number">10</span><span class="hljs-punctuation">)</span>
+
+ggplot<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  <span class="hljs-comment"># Plot cities as points, styled by AFETADO</span>
+  geom_point<span class="hljs-punctuation">(</span>data <span class="hljs-operator">=</span> pca_scores_row_scaled<span class="hljs-punctuation">,</span> aes<span class="hljs-punctuation">(</span>x <span class="hljs-operator">=</span> PC1<span class="hljs-punctuation">,</span> y <span class="hljs-operator">=</span> PC2<span class="hljs-punctuation">,</span> fill <span class="hljs-operator">=</span> AFETADO<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> 
+             size <span class="hljs-operator">=</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span> alpha <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">,</span> shape <span class="hljs-operator">=</span> <span class="hljs-number">21</span><span class="hljs-punctuation">,</span> stroke <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">,</span> color <span class="hljs-operator">=</span> <span class="hljs-string">&quot;black&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  <span class="hljs-comment"># Add city names with ggrepel</span>
+  geom_text_repel<span class="hljs-punctuation">(</span>data <span class="hljs-operator">=</span> pca_scores_row_scaled<span class="hljs-punctuation">,</span> aes<span class="hljs-punctuation">(</span>x <span class="hljs-operator">=</span> PC1<span class="hljs-punctuation">,</span> y <span class="hljs-operator">=</span> PC2<span class="hljs-punctuation">,</span> label <span class="hljs-operator">=</span> CityName<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+                  size <span class="hljs-operator">=</span> <span class="hljs-number">3</span><span class="hljs-punctuation">,</span> box.padding <span class="hljs-operator">=</span> <span class="hljs-number">0.3</span><span class="hljs-punctuation">,</span> point.padding <span class="hljs-operator">=</span> <span class="hljs-number">0.2</span><span class="hljs-punctuation">,</span> segment.color <span class="hljs-operator">=</span> <span class="hljs-string">&quot;grey50&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  <span class="hljs-comment"># Add ellipses for NMREG</span>
+  stat_ellipse<span class="hljs-punctuation">(</span>data <span class="hljs-operator">=</span> pca_scores_row_scaled<span class="hljs-punctuation">,</span> aes<span class="hljs-punctuation">(</span>x <span class="hljs-operator">=</span> PC1<span class="hljs-punctuation">,</span> y <span class="hljs-operator">=</span> PC2<span class="hljs-punctuation">,</span> group <span class="hljs-operator">=</span> NMREG<span class="hljs-punctuation">,</span> color <span class="hljs-operator">=</span> NMREG<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> 
+               size <span class="hljs-operator">=</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span> alpha <span class="hljs-operator">=</span> <span class="hljs-number">0.8</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  <span class="hljs-comment"># Add arrows for years</span>
+  geom_segment<span class="hljs-punctuation">(</span>data <span class="hljs-operator">=</span> pca_loadings_row_scaled<span class="hljs-punctuation">,</span> aes<span class="hljs-punctuation">(</span>x <span class="hljs-operator">=</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span> y <span class="hljs-operator">=</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span> xend <span class="hljs-operator">=</span> PC1 <span class="hljs-operator">*</span> <span class="hljs-number">5</span><span class="hljs-punctuation">,</span> yend <span class="hljs-operator">=</span> PC2 <span class="hljs-operator">*</span> <span class="hljs-number">5</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> 
+               arrow <span class="hljs-operator">=</span> arrow<span class="hljs-punctuation">(</span><span class="hljs-built_in">length</span> <span class="hljs-operator">=</span> unit<span class="hljs-punctuation">(</span><span class="hljs-number">0.2</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;cm&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> color <span class="hljs-operator">=</span> <span class="hljs-string">&quot;blue&quot;</span><span class="hljs-punctuation">,</span> size <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  <span class="hljs-comment"># Label arrows with year names</span>
+  geom_text<span class="hljs-punctuation">(</span>data <span class="hljs-operator">=</span> pca_loadings_row_scaled<span class="hljs-punctuation">,</span> aes<span class="hljs-punctuation">(</span>x <span class="hljs-operator">=</span> PC1 <span class="hljs-operator">*</span> <span class="hljs-number">5</span><span class="hljs-punctuation">,</span> y <span class="hljs-operator">=</span> PC2 <span class="hljs-operator">*</span> <span class="hljs-number">5</span><span class="hljs-punctuation">,</span> label <span class="hljs-operator">=</span> Variable<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> 
+            color <span class="hljs-operator">=</span> <span class="hljs-string">&quot;blue&quot;</span><span class="hljs-punctuation">,</span> size <span class="hljs-operator">=</span> <span class="hljs-number">3</span><span class="hljs-punctuation">,</span> vjust <span class="hljs-operator">=</span> <span class="hljs-operator">-</span><span class="hljs-number">0.5</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  <span class="hljs-comment"># Define color scales</span>
+  scale_fill_manual<span class="hljs-punctuation">(</span>values <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;SIM&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#1b9e77&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;NAO&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#d95f02&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  scale_color_manual<span class="hljs-punctuation">(</span>values <span class="hljs-operator">=</span> region_colors<span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  <span class="hljs-comment"># Add labels and themes</span>
+  labs<span class="hljs-punctuation">(</span>
+    title <span class="hljs-operator">=</span> <span class="hljs-string">&quot;PCA Biplot of Disease Incidence (Row-Scaled, 2014-2023)&quot;</span><span class="hljs-punctuation">,</span>
+    x <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;PC1 (&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">round</span><span class="hljs-punctuation">(</span>summary<span class="hljs-punctuation">(</span>pca_result_row_scaled<span class="hljs-punctuation">)</span><span class="hljs-operator">$</span>importance<span class="hljs-punctuation">[</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-number">1</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">*</span> <span class="hljs-number">100</span><span class="hljs-punctuation">,</span> <span class="hljs-number">1</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;%)&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+    y <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;PC2 (&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">round</span><span class="hljs-punctuation">(</span>summary<span class="hljs-punctuation">(</span>pca_result_row_scaled<span class="hljs-punctuation">)</span><span class="hljs-operator">$</span>importance<span class="hljs-punctuation">[</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2</span><span class="hljs-punctuation">]</span> <span class="hljs-operator">*</span> <span class="hljs-number">100</span><span class="hljs-punctuation">,</span> <span class="hljs-number">1</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;%)&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+    fill <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Affected (AFETADO)&quot;</span><span class="hljs-punctuation">,</span>
+    color <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Region (NMREG)&quot;</span>
+  <span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  theme_minimal<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  theme<span class="hljs-punctuation">(</span>
+    legend.position <span class="hljs-operator">=</span> <span class="hljs-string">&quot;right&quot;</span><span class="hljs-punctuation">,</span>
+    legend.box <span class="hljs-operator">=</span> <span class="hljs-string">&quot;vertical&quot;</span>
+  <span class="hljs-punctuation">)</span>
+
+dev.off<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+</code></pre>
+<p><img src="file:////Users/gabrielfernandes/Library/CloudStorage/GoogleDrive-fernandes.docs@gmail.com/My Drive/Vale/CHIK/Figuras/CHIKBR_Scaledbiplot.jpg" alt="PCA"></p>
+<h5 id="construção-dos-modelos">Construção dos modelos</h5>
+<p>A proposta foi de construir um modelo que explique a dinâmica da incidência 5 antes do rompimento da barragem (2014-2018) e comparar com um modelo que explique a dinâmica após o rompimento (2019-2023).
+Avaliamos então a importância de cada variável ou combinação de variáveis com um teste anova.</p>
+<pre><code class="language-R"><span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">###################################### Modeling ########################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+library<span class="hljs-punctuation">(</span>tidyverse<span class="hljs-punctuation">)</span>
+library<span class="hljs-punctuation">(</span>ggplot2<span class="hljs-punctuation">)</span>
+library<span class="hljs-punctuation">(</span>knitr<span class="hljs-punctuation">)</span>
+library<span class="hljs-punctuation">(</span>car<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+setwd<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;/data/gabriel/Trabalhos/Vale/CHIK/&quot;</span><span class="hljs-punctuation">)</span>                                                <span class="hljs-comment">#############</span>
+metadata <span class="hljs-operator">=</span> read.table<span class="hljs-punctuation">(</span><span class="hljs-string">&quot;/data/gabriel/Trabalhos/Vale/metadata.txt&quot;</span><span class="hljs-punctuation">,</span> header <span class="hljs-operator">=</span> <span class="hljs-built_in">T</span><span class="hljs-punctuation">,</span> sep <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\t&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-comment">#############</span>
+city_codes <span class="hljs-operator">&lt;-</span> metadata<span class="hljs-operator">$</span>CODMUN6                                                             <span class="hljs-comment">#############</span>
+disease_prefix <span class="hljs-operator">=</span> <span class="hljs-string">&quot;CHIKBR&quot;</span>                                                                  <span class="hljs-comment">#############</span>
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+
+<span class="hljs-comment"># Load previously processed data</span>
+load<span class="hljs-punctuation">(</span>paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span><span class="hljs-string">&quot;_variables.Rdata&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+
+cities_to_keep <span class="hljs-operator">&lt;-</span> rownames<span class="hljs-punctuation">(</span>row_anot_clean<span class="hljs-punctuation">)</span>
+incidence_long <span class="hljs-operator">&lt;-</span> incidence_long <span class="hljs-operator">%&gt;%</span>
+  filter<span class="hljs-punctuation">(</span>NMMUNICIPIO <span class="hljs-operator">%in%</span> cities_to_keep<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment">############################## Compare slopes ##########################################################</span>
+<span class="hljs-comment">########################################################################################################</span>
+<span class="hljs-comment"># Create a period variable</span>
+incidence_long<span class="hljs-operator">$</span>Period <span class="hljs-operator">&lt;-</span> ifelse<span class="hljs-punctuation">(</span>incidence_long<span class="hljs-operator">$</span>Year <span class="hljs-operator">&lt;</span> <span class="hljs-number">2019</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Before&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;After&quot;</span><span class="hljs-punctuation">)</span>
+incidence_long<span class="hljs-operator">$</span>Period <span class="hljs-operator">&lt;-</span> as.factor<span class="hljs-punctuation">(</span>incidence_long<span class="hljs-operator">$</span>Period<span class="hljs-punctuation">)</span>
+
+
+<span class="hljs-comment">#################### #################### #################### #################### #################### </span>
+<span class="hljs-comment">#################### Regional Model.      #################### #################### #################### </span>
+<span class="hljs-comment">#################### #################### #################### #################### #################### </span>
+model_before_regional <span class="hljs-operator">&lt;-</span> glm<span class="hljs-punctuation">(</span>
+  Incidence <span class="hljs-operator">~</span> Year <span class="hljs-operator">+</span> AFETADO <span class="hljs-operator">+</span> NMREG <span class="hljs-operator">+</span> Year<span class="hljs-operator">:</span>AFETADO <span class="hljs-operator">+</span> Year<span class="hljs-operator">:</span>NMREG <span class="hljs-operator">+</span> AFETADO<span class="hljs-operator">:</span>NMREG<span class="hljs-punctuation">,</span>
+  data <span class="hljs-operator">=</span> data_before<span class="hljs-punctuation">,</span>
+  family <span class="hljs-operator">=</span> gaussian
+<span class="hljs-punctuation">)</span>
+
+alias<span class="hljs-punctuation">(</span>model_before_regional<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Summary and ANOVA for &quot;Before&quot;</span>
+kable<span class="hljs-punctuation">(</span>summary<span class="hljs-punctuation">(</span>model_before_regional<span class="hljs-punctuation">)</span><span class="hljs-operator">$</span>coefficients<span class="hljs-punctuation">)</span>
+kable<span class="hljs-punctuation">(</span>subset<span class="hljs-punctuation">(</span>summary<span class="hljs-punctuation">(</span>model_before_regional<span class="hljs-punctuation">)</span><span class="hljs-operator">$</span>coefficients<span class="hljs-punctuation">,</span> subset <span class="hljs-operator">=</span> summary<span class="hljs-punctuation">(</span>model_before_regional<span class="hljs-punctuation">)</span><span class="hljs-operator">$</span>coefficients<span class="hljs-punctuation">[</span><span class="hljs-punctuation">,</span><span class="hljs-number">4</span><span class="hljs-punctuation">]</span><span class="hljs-operator">&lt;</span><span class="hljs-number">0.05</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+anova_before_regional <span class="hljs-operator">&lt;-</span> Anova<span class="hljs-punctuation">(</span>model_before_regional<span class="hljs-punctuation">,</span> type <span class="hljs-operator">=</span> <span class="hljs-string">&quot;III&quot;</span><span class="hljs-punctuation">,</span> singular.ok <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span>
+kable<span class="hljs-punctuation">(</span>anova_before_regional<span class="hljs-punctuation">)</span>
+write.table<span class="hljs-punctuation">(</span>anova_before_regional<span class="hljs-punctuation">,</span> file <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;before_regional_anova.txt&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> sep <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\t&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">quote</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">F</span><span class="hljs-punctuation">)</span>
+
+
+data_after <span class="hljs-operator">&lt;-</span> subset<span class="hljs-punctuation">(</span>incidence_long<span class="hljs-punctuation">,</span> Period <span class="hljs-operator">==</span> <span class="hljs-string">&quot;After&quot;</span><span class="hljs-punctuation">)</span>
+
+model_after_regional <span class="hljs-operator">&lt;-</span> glm<span class="hljs-punctuation">(</span>
+  Incidence <span class="hljs-operator">~</span> Year <span class="hljs-operator">+</span> AFETADO <span class="hljs-operator">+</span> NMREG <span class="hljs-operator">+</span> Year<span class="hljs-operator">:</span>AFETADO <span class="hljs-operator">+</span> Year<span class="hljs-operator">:</span>NMREG <span class="hljs-operator">+</span> AFETADO<span class="hljs-operator">:</span>NMREG<span class="hljs-punctuation">,</span>
+  data <span class="hljs-operator">=</span> data_after<span class="hljs-punctuation">,</span>
+  family <span class="hljs-operator">=</span> gaussian
+<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Summary and ANOVA for &quot;After&quot;</span>
+kable<span class="hljs-punctuation">(</span>summary<span class="hljs-punctuation">(</span>model_after_regional<span class="hljs-punctuation">)</span><span class="hljs-operator">$</span>coefficients<span class="hljs-punctuation">)</span>
+kable<span class="hljs-punctuation">(</span>subset<span class="hljs-punctuation">(</span>summary<span class="hljs-punctuation">(</span>model_after_regional<span class="hljs-punctuation">)</span><span class="hljs-operator">$</span>coefficients<span class="hljs-punctuation">,</span> subset <span class="hljs-operator">=</span> summary<span class="hljs-punctuation">(</span>model_after_regional<span class="hljs-punctuation">)</span><span class="hljs-operator">$</span>coefficients<span class="hljs-punctuation">[</span><span class="hljs-punctuation">,</span><span class="hljs-number">4</span><span class="hljs-punctuation">]</span><span class="hljs-operator">&lt;</span><span class="hljs-number">0.05</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span>
+anova_after_regional <span class="hljs-operator">&lt;-</span> Anova<span class="hljs-punctuation">(</span>model_after_regional<span class="hljs-punctuation">,</span> type <span class="hljs-operator">=</span> <span class="hljs-string">&quot;III&quot;</span><span class="hljs-punctuation">,</span> singular.ok <span class="hljs-operator">=</span> <span class="hljs-literal">TRUE</span><span class="hljs-punctuation">)</span>
+kable<span class="hljs-punctuation">(</span>anova_after_regional<span class="hljs-punctuation">)</span>
+write.table<span class="hljs-punctuation">(</span>anova_after_regional<span class="hljs-punctuation">,</span> file <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;after_regional_anova.txt&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> sep <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\t&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">quote</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">F</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># Predictions for &quot;Before&quot;</span>
+before_predictions_regional <span class="hljs-operator">&lt;-</span> expand.grid<span class="hljs-punctuation">(</span>
+  Year <span class="hljs-operator">=</span> as.factor<span class="hljs-punctuation">(</span>seq<span class="hljs-punctuation">(</span><span class="hljs-built_in">min</span><span class="hljs-punctuation">(</span>subset<span class="hljs-punctuation">(</span>incidence_long<span class="hljs-punctuation">,</span> Period <span class="hljs-operator">==</span> <span class="hljs-string">&quot;Before&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-operator">$</span>Year<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> <span class="hljs-number">2018</span><span class="hljs-punctuation">,</span> by <span class="hljs-operator">=</span> <span class="hljs-number">1</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+  AFETADO <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;SIM&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;NAO&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+  NMREG <span class="hljs-operator">=</span> unique<span class="hljs-punctuation">(</span>incidence_long<span class="hljs-operator">$</span>NMREG<span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">)</span>
+before_predictions_regional<span class="hljs-operator">$</span>Predicted_Incidence <span class="hljs-operator">&lt;-</span> predict<span class="hljs-punctuation">(</span>model_before_regional<span class="hljs-punctuation">,</span> newdata <span class="hljs-operator">=</span> before_predictions_regional<span class="hljs-punctuation">)</span>
+before_predictions_regional<span class="hljs-operator">$</span>Period <span class="hljs-operator">&lt;-</span> <span class="hljs-string">&quot;Before&quot;</span>
+
+<span class="hljs-comment"># Predictions for &quot;After&quot;</span>
+after_predictions_regional <span class="hljs-operator">&lt;-</span> expand.grid<span class="hljs-punctuation">(</span>
+  Year <span class="hljs-operator">=</span> as.factor<span class="hljs-punctuation">(</span>seq<span class="hljs-punctuation">(</span><span class="hljs-number">2019</span><span class="hljs-punctuation">,</span> <span class="hljs-built_in">max</span><span class="hljs-punctuation">(</span>subset<span class="hljs-punctuation">(</span>incidence_long<span class="hljs-punctuation">,</span> Period <span class="hljs-operator">==</span> <span class="hljs-string">&quot;After&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-operator">$</span>Year<span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> by <span class="hljs-operator">=</span> <span class="hljs-number">1</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+  AFETADO <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;SIM&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;NAO&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+  NMREG <span class="hljs-operator">=</span> unique<span class="hljs-punctuation">(</span>incidence_long<span class="hljs-operator">$</span>NMREG<span class="hljs-punctuation">)</span>
+<span class="hljs-punctuation">)</span>
+after_predictions_regional<span class="hljs-operator">$</span>Predicted_Incidence <span class="hljs-operator">&lt;-</span> predict<span class="hljs-punctuation">(</span>model_after_regional<span class="hljs-punctuation">,</span> newdata <span class="hljs-operator">=</span> after_predictions_regional<span class="hljs-punctuation">)</span>
+after_predictions_regional<span class="hljs-operator">$</span>Period <span class="hljs-operator">&lt;-</span> <span class="hljs-string">&quot;After&quot;</span>
+
+<span class="hljs-comment"># Combine predictions</span>
+combined_predictions_regional <span class="hljs-operator">&lt;-</span> rbind<span class="hljs-punctuation">(</span>before_predictions_regional<span class="hljs-punctuation">,</span> after_predictions_regional<span class="hljs-punctuation">)</span>
+
+pdf<span class="hljs-punctuation">(</span>file <span class="hljs-operator">=</span> paste0<span class="hljs-punctuation">(</span>disease_prefix<span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;_ScaledBeforeVsAfter_regionaltrend.pdf&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span> width <span class="hljs-operator">=</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span> height <span class="hljs-operator">=</span> <span class="hljs-number">8</span><span class="hljs-punctuation">)</span>
+
+ggplot<span class="hljs-punctuation">(</span>combined_predictions_regional<span class="hljs-punctuation">,</span> aes<span class="hljs-punctuation">(</span>x <span class="hljs-operator">=</span> Year<span class="hljs-punctuation">,</span> y <span class="hljs-operator">=</span> Predicted_Incidence<span class="hljs-punctuation">,</span> fill <span class="hljs-operator">=</span> AFETADO<span class="hljs-punctuation">,</span> color <span class="hljs-operator">=</span> AFETADO<span class="hljs-punctuation">,</span> linetype <span class="hljs-operator">=</span> Period<span class="hljs-punctuation">,</span> group <span class="hljs-operator">=</span> interaction<span class="hljs-punctuation">(</span>AFETADO<span class="hljs-punctuation">,</span> Period<span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  geom_line<span class="hljs-punctuation">(</span>size <span class="hljs-operator">=</span> <span class="hljs-number">1.2</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  geom_point<span class="hljs-punctuation">(</span>size <span class="hljs-operator">=</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span> shape <span class="hljs-operator">=</span> <span class="hljs-number">21</span><span class="hljs-punctuation">,</span> stroke <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">,</span> color <span class="hljs-operator">=</span> <span class="hljs-string">&quot;black&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  scale_color_manual<span class="hljs-punctuation">(</span>values <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;SIM&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#1b9e77&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;NAO&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#d95f02&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  scale_fill_manual<span class="hljs-punctuation">(</span>values <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;SIM&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#1b9e77&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;NAO&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;#d95f02&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  scale_linetype_manual<span class="hljs-punctuation">(</span>values <span class="hljs-operator">=</span> <span class="hljs-built_in">c</span><span class="hljs-punctuation">(</span><span class="hljs-string">&quot;Before&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;dotted&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;After&quot;</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;solid&quot;</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  facet_wrap<span class="hljs-punctuation">(</span><span class="hljs-operator">~</span> NMREG<span class="hljs-punctuation">,</span> scales <span class="hljs-operator">=</span> <span class="hljs-string">&quot;free_y&quot;</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>  <span class="hljs-comment"># Separate plots by region</span>
+  labs<span class="hljs-punctuation">(</span>
+    title <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Regional Trends in Disease Incidence Before and After 2019&quot;</span><span class="hljs-punctuation">,</span>
+    x <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Year&quot;</span><span class="hljs-punctuation">,</span>
+    y <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Predicted Incidence&quot;</span><span class="hljs-punctuation">,</span>
+    color <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Affected (AFETADO)&quot;</span><span class="hljs-punctuation">,</span>
+    linetype <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Period&quot;</span>
+  <span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  theme_minimal<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span> <span class="hljs-operator">+</span>
+  theme<span class="hljs-punctuation">(</span>
+    axis.text.x <span class="hljs-operator">=</span> element_text<span class="hljs-punctuation">(</span>angle <span class="hljs-operator">=</span> <span class="hljs-number">45</span><span class="hljs-punctuation">,</span> hjust <span class="hljs-operator">=</span> <span class="hljs-number">1</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">,</span>
+    legend.position <span class="hljs-operator">=</span> <span class="hljs-string">&quot;bottom&quot;</span>
+  <span class="hljs-punctuation">)</span>
+
+dev.off<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+
+</code></pre>
+<p>Para o modelo antes do rompimento, temos uma grande importância da variável Ano.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:right">LR Chisq</th>
+<th style="text-align:right">Df</th>
+<th style="text-align:right">Pr(&gt;Chisq)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Year</td>
+<td style="text-align:right">11.6828602</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">0.0085524</td>
+</tr>
+<tr>
+<td style="text-align:left">AFETADO</td>
+<td style="text-align:right">0.2704164</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0.6030526</td>
+</tr>
+<tr>
+<td style="text-align:left">NMREG</td>
+<td style="text-align:right">1.9382243</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.7471200</td>
+</tr>
+<tr>
+<td style="text-align:left">Year:AFETADO</td>
+<td style="text-align:right">2.7122683</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">0.4381464</td>
+</tr>
+<tr>
+<td style="text-align:left">Year:NMREG</td>
+<td style="text-align:right">18.1262616</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">0.1119102</td>
+</tr>
+<tr>
+<td style="text-align:left">AFETADO:NMREG</td>
+<td style="text-align:right">1.0138914</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">0.7978907</td>
+</tr>
+</tbody>
+</table>
+<p>Detalhadamente, vemos que o ano de 2017 teve mais impacto na região de Sete Lagoas.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:right">Estimate</th>
+<th style="text-align:right">Std. Error</th>
+<th style="text-align:right">t value</th>
+<th style="text-align:right">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">(Intercept)</td>
+<td style="text-align:right">-0.5485953</td>
+<td style="text-align:right">0.1564717</td>
+<td style="text-align:right">-3.506035</td>
+<td style="text-align:right">0.0005489</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2017</td>
+<td style="text-align:right">0.4357065</td>
+<td style="text-align:right">0.1882237</td>
+<td style="text-align:right">2.314833</td>
+<td style="text-align:right">0.0215234</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2017:NMREGSETE LAGOAS</td>
+<td style="text-align:right">-0.3742497</td>
+<td style="text-align:right">0.1891856</td>
+<td style="text-align:right">-1.978214</td>
+<td style="text-align:right">0.0491246</td>
+</tr>
+</tbody>
+</table>
+<p>No modelo após o rompimento, observamos importância das variáveis tempo, região, e suas interações com os municípios afetados.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:right">LR Chisq</th>
+<th style="text-align:right">Df</th>
+<th style="text-align:right">Pr(&gt;Chisq)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Year</td>
+<td style="text-align:right">137.3409835</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.0000000</td>
+</tr>
+<tr>
+<td style="text-align:left">AFETADO</td>
+<td style="text-align:right">0.0459971</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0.8301810</td>
+</tr>
+<tr>
+<td style="text-align:left">NMREG</td>
+<td style="text-align:right">59.0663346</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.0000000</td>
+</tr>
+<tr>
+<td style="text-align:left">Year:AFETADO</td>
+<td style="text-align:right">1.5220265</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.8227327</td>
+</tr>
+<tr>
+<td style="text-align:left">Year:NMREG</td>
+<td style="text-align:right">133.7890822</td>
+<td style="text-align:right">16</td>
+<td style="text-align:right">0.0000000</td>
+</tr>
+<tr>
+<td style="text-align:left">AFETADO:NMREG</td>
+<td style="text-align:right">0.4111883</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">0.9379217</td>
+</tr>
+</tbody>
+</table>
+<p>Detalhadamente temos diversas combinações com potencial preditivo.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:right">Estimate</th>
+<th style="text-align:right">Std. Error</th>
+<th style="text-align:right">t value</th>
+<th style="text-align:right">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Year2020</td>
+<td style="text-align:right">-0.5835631</td>
+<td style="text-align:right">0.2643594</td>
+<td style="text-align:right">-2.207461</td>
+<td style="text-align:right">0.0280871</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2021</td>
+<td style="text-align:right">-0.7655125</td>
+<td style="text-align:right">0.2643594</td>
+<td style="text-align:right">-2.895727</td>
+<td style="text-align:right">0.0040788</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2022</td>
+<td style="text-align:right">-0.7139350</td>
+<td style="text-align:right">0.2643594</td>
+<td style="text-align:right">-2.700623</td>
+<td style="text-align:right">0.0073396</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2023</td>
+<td style="text-align:right">1.8365979</td>
+<td style="text-align:right">0.2643594</td>
+<td style="text-align:right">6.947353</td>
+<td style="text-align:right">0.0000000</td>
+</tr>
+<tr>
+<td style="text-align:left">NMREGCURVELO</td>
+<td style="text-align:right">-0.7051314</td>
+<td style="text-align:right">0.2557555</td>
+<td style="text-align:right">-2.757053</td>
+<td style="text-align:right">0.0062131</td>
+</tr>
+<tr>
+<td style="text-align:left">NMREGPARA DE MINAS/NOVA SERRANA</td>
+<td style="text-align:right">-0.5976299</td>
+<td style="text-align:right">0.2831592</td>
+<td style="text-align:right">-2.110580</td>
+<td style="text-align:right">0.0356889</td>
+</tr>
+<tr>
+<td style="text-align:left">NMREGPATOS DE MINAS</td>
+<td style="text-align:right">0.7690427</td>
+<td style="text-align:right">0.2685744</td>
+<td style="text-align:right">2.863425</td>
+<td style="text-align:right">0.0045054</td>
+</tr>
+<tr>
+<td style="text-align:left">NMREGSETE LAGOAS</td>
+<td style="text-align:right">-0.6124771</td>
+<td style="text-align:right">0.2243429</td>
+<td style="text-align:right">-2.730094</td>
+<td style="text-align:right">0.0067302</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2020:NMREGCURVELO</td>
+<td style="text-align:right">0.6578952</td>
+<td style="text-align:right">0.3205972</td>
+<td style="text-align:right">2.052093</td>
+<td style="text-align:right">0.0410838</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2021:NMREGCURVELO</td>
+<td style="text-align:right">0.7133901</td>
+<td style="text-align:right">0.3205972</td>
+<td style="text-align:right">2.225191</td>
+<td style="text-align:right">0.0268594</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2022:NMREGCURVELO</td>
+<td style="text-align:right">0.7702392</td>
+<td style="text-align:right">0.3205972</td>
+<td style="text-align:right">2.402514</td>
+<td style="text-align:right">0.0169293</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2023:NMREGCURVELO</td>
+<td style="text-align:right">1.0924933</td>
+<td style="text-align:right">0.3205972</td>
+<td style="text-align:right">3.407682</td>
+<td style="text-align:right">0.0007506</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2023:NMREGPARA DE MINAS/NOVA SERRANA</td>
+<td style="text-align:right">0.9601038</td>
+<td style="text-align:right">0.3602266</td>
+<td style="text-align:right">2.665278</td>
+<td style="text-align:right">0.0081359</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2021:NMREGPATOS DE MINAS</td>
+<td style="text-align:right">-0.8284195</td>
+<td style="text-align:right">0.3505700</td>
+<td style="text-align:right">-2.363065</td>
+<td style="text-align:right">0.0188032</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2022:NMREGPATOS DE MINAS</td>
+<td style="text-align:right">-0.7311138</td>
+<td style="text-align:right">0.3505700</td>
+<td style="text-align:right">-2.085500</td>
+<td style="text-align:right">0.0379229</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2023:NMREGPATOS DE MINAS</td>
+<td style="text-align:right">-2.0384370</td>
+<td style="text-align:right">0.3505700</td>
+<td style="text-align:right">-5.814636</td>
+<td style="text-align:right">0.0000000</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2020:NMREGSETE LAGOAS</td>
+<td style="text-align:right">0.6292623</td>
+<td style="text-align:right">0.2657104</td>
+<td style="text-align:right">2.368226</td>
+<td style="text-align:right">0.0185481</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2021:NMREGSETE LAGOAS</td>
+<td style="text-align:right">0.5817648</td>
+<td style="text-align:right">0.2657104</td>
+<td style="text-align:right">2.189470</td>
+<td style="text-align:right">0.0293822</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2022:NMREGSETE LAGOAS</td>
+<td style="text-align:right">0.8036037</td>
+<td style="text-align:right">0.2657104</td>
+<td style="text-align:right">3.024359</td>
+<td style="text-align:right">0.0027211</td>
+</tr>
+<tr>
+<td style="text-align:left">Year2023:NMREGSETE LAGOAS</td>
+<td style="text-align:right">0.8163940</td>
+<td style="text-align:right">0.2657104</td>
+<td style="text-align:right">3.072496</td>
+<td style="text-align:right">0.0023303</td>
+</tr>
+</tbody>
+</table>
+<p>Visualmente observamos que o padrão está mais associado à característica regional e o momento em que foi atingido pela epidemia de dengue: anos 2016, 2019 ou 2023, o que corrobora o PCA mostrado.
+<img src="file:////Users/gabrielfernandes/Library/CloudStorage/GoogleDrive-fernandes.docs@gmail.com/My Drive/Vale/CHIK/Figuras/CHIKBR_ScaledBeforeVsAfter_regionaltrend.jpg" alt="Modelo"></p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
